@@ -104,6 +104,8 @@
                         <li><button onclick="nav('cbskks')" id="nav-cbskks" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">📖</span> CBS-KKS Case</button></li>
                         <li><button onclick="nav('journal')" id="nav-journal" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧾</span> Journal Entries</button></li>
                         <li><button onclick="nav('financials')" id="nav-financials" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">📊</span> Financial Impact</button></li>
+                        <li><button onclick="nav('merch_explanation')" id="nav-merch_explanation" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧮</span> Calc-Focused Intuition</button></li>
+                        <li><button onclick="nav('merch_intuitive')" id="nav-merch_intuitive" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧠</span> Full Intuitive</button></li>
                     </ul>
                 </details>
 
@@ -3775,6 +3777,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white mt-8">
+                    <h3 class="font-bold text-indigo-400 mb-4">🚫 9 Common Examination Errors</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">1.</strong> Recording only one entry for a perpetual sale — a sale needs BOTH the revenue entry AND the COGS/Inventory entry.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">2.</strong> Using the selling price in the COGS entry — COGS always uses original cost.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">3.</strong> Calculating discounts before deducting returns — always (Invoice − Returns) × Rate.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">4.</strong> Discounting freight automatically — the discount generally applies to merchandise only.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">5.</strong> Confusing a purchase return with a sales return — check whose books you're preparing.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">6.</strong> Restoring inventory during an allowance — an allowance never moves goods.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">7.</strong> Using Merchandise Inventory under periodic purchases — periodic uses Purchases.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">8.</strong> Treating gross profit as net income — operating expenses aren't deducted yet.</div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700"><strong class="text-indigo-300">9.</strong> Crediting Sales Discounts — it's a contra-revenue account with a normal debit balance.</div>
+                    </div>
+                </div>
             </section>
 
             <section id="sec-cbskks" class="fade-in hidden">
@@ -3783,6 +3800,12 @@
                     <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">CBS-KKS Case Study</h2>
                     <button onclick="document.getElementById('periodic-view').classList.toggle('hidden')" class="mt-4 px-4 py-2 bg-indigo-100 text-indigo-800 rounded font-bold text-sm">Toggle Periodic Comparison</button>
                 </header>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
+                    <h3 class="font-bold text-amber-900 mb-2">🚨 Two Traps This Case Tests (Already Corrected Below)</h3>
+                    <p class="text-xs text-amber-800 mb-1"><strong>1. Return inventory goes back at cost, not selling price.</strong> April 8's return restores KKS's inventory at RM300 (KKS's cost), not RM400 (the selling price) — inventory can't gain value just because a computer took a round trip.</p>
+                    <p class="text-xs text-amber-800">2. <strong>No seller-side freight entry under FOB shipping point.</strong> April 7's RM400 freight is paid and owned entirely by CBS (the buyer); KKS records no freight entry at all for it.</p>
+                </div>
 
                 <div class="space-y-6">
                     <div class="hidden md:grid grid-cols-2 gap-6">
@@ -4081,6 +4104,319 @@
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section id="sec-merch_explanation" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-indigo-600 font-bold tracking-wider text-sm uppercase">Chapter 5</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">Calculation-Focused Explanation</h2>
+                </header>
+
+                <details class="group bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden [&::-webkit-details-marker]:hidden">
+                    <summary class="px-6 py-5 cursor-pointer flex items-start justify-between gap-4 outline-none list-none hover:bg-slate-50 transition-colors">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">🧮</span>
+                            <div>
+                                <p class="font-bold text-slate-900">Open the complete calculation-focused explanation</p>
+                                <p class="text-sm text-slate-500 mt-1">All content from the notes is preserved here, but collapsed so quick revision stays quick.</p>
+                            </div>
+                        </div>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-white rounded-full p-1 border border-slate-300 shadow-sm text-sm mt-1 flex-shrink-0">▼</span>
+                    </summary>
+                    <div class="border-t border-slate-200 p-6 md:p-8 text-sm text-slate-700 leading-relaxed">
+
+                        <p class="mb-2">For a subjective calculation question, Chapter 5 is mainly testing whether you can follow the <strong>full journey of inventory</strong>:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3 text-center">Purchase inventory → Adjust its cost → Sell inventory → Record returns/discounts → Calculate profit</div>
+                        <p class="mb-2">The chapter covers both perpetual and periodic systems, but the main sections focus on the <strong>perpetual inventory system</strong>. Master that first before worrying about the appendices.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">1. The five questions to ask before every entry</h3>
+                        <p class="mb-2">Before touching Debit or Credit, identify:</p>
+                        <p class="mb-1"><strong>1. Whose accounting records are these?</strong> Buyer's records or seller's records? A purchase return for the buyer is a sales return for the seller. Memorising entries without checking whose books you are preparing is a reliable method of donating marks.</p>
+                        <p class="mb-1"><strong>2. Which inventory system?</strong> Perpetual or periodic.</p>
+                        <p class="mb-1"><strong>3. Was it cash or credit?</strong> Cash transaction → Cash. Credit purchase → Accounts Payable. Credit sale → Accounts Receivable.</p>
+                        <p class="mb-1"><strong>4. Did the physical goods move?</strong> Return → goods physically move. Allowance → goods remain, but price changes. Discount → payment amount changes.</p>
+                        <p class="mb-2"><strong>5. Which amount is being used?</strong> Selling price → Sales Revenue, Cash, Accounts Receivable. Original cost → Merchandise Inventory and COGS.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">2. The accounts you must recognise instantly</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Account</th><th class="px-3 py-2 border-b">Type</th><th class="px-3 py-2 border-b">Normal balance</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Merchandise Inventory</td><td class="px-3 py-2">Current asset</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Accounts Payable</td><td class="px-3 py-2">Liability</td><td class="px-3 py-2">Credit</td></tr><tr><td class="px-3 py-2">Accounts Receivable</td><td class="px-3 py-2">Asset</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Sales Revenue</td><td class="px-3 py-2">Revenue</td><td class="px-3 py-2">Credit</td></tr><tr><td class="px-3 py-2">Cost of Goods Sold</td><td class="px-3 py-2">Expense</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Sales Returns and Allowances</td><td class="px-3 py-2">Contra-revenue</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Sales Discounts</td><td class="px-3 py-2">Contra-revenue</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Delivery Expense</td><td class="px-3 py-2">Expense</td><td class="px-3 py-2">Debit</td></tr></tbody></table></div>
+                        <p class="mb-2">Under a <strong>periodic system</strong>, additional accounts appear:</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Account</th><th class="px-3 py-2 border-b">Normal balance</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Purchases</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Freight In</td><td class="px-3 py-2">Debit</td></tr><tr><td class="px-3 py-2">Purchase Returns and Allowances</td><td class="px-3 py-2">Credit</td></tr><tr><td class="px-3 py-2">Purchase Discounts</td><td class="px-3 py-2">Credit</td></tr></tbody></table></div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">3. Perpetual versus periodic: what changes?</h3>
+                        <p class="mb-1"><strong>Perpetual system</strong> — inventory is updated after every transaction: purchases use Merchandise Inventory, returns reduce it, purchase discounts reduce it, freight in increases it, and every sale has <strong>two entries</strong>.</p>
+                        <p class="mb-2"><strong>Periodic system</strong> — inventory is not continuously updated: purchases use Purchases, returns use Purchase Returns and Allowances, discounts use Purchase Discounts, freight uses Freight In, and no COGS entry is made when a sale occurs. Perpetual is a running inventory record; periodic requires a physical count to determine inventory on hand.</p>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part A: Buyer's Accounting</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">4. Basic purchase of inventory</h3>
+                        <p class="mb-2">Suppose a business buys RM20,000 of inventory on account. <strong>Perpetual:</strong></p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Merchandise Inventory&nbsp;&nbsp;&nbsp;&nbsp;20,000<br>&nbsp;&nbsp;&nbsp;Cr Accounts Payable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20,000</div>
+                        <p class="mb-2">Inventory increases → debit. Amount owed to supplier increases → credit. If paid immediately, credit Cash instead of Accounts Payable. Only goods intended for resale are Merchandise Inventory — a laptop bought for employees is Equipment, not merchandise inventory.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">5. Purchase return</h3>
+                        <p class="mb-2">Suppose RM2,000 of goods are returned to the supplier. The business no longer owns the goods and owes the supplier RM2,000 less.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Perpetual: Dr Accounts Payable 2,000 / Cr Merchandise Inventory 2,000<br>Periodic: Dr Accounts Payable 2,000 / Cr Purchase Returns and Allowances 2,000</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">6. Purchase allowance</h3>
+                        <p class="mb-2">A purchase allowance occurs when the buyer keeps damaged or unsuitable goods but receives a reduction in price. Suppose the supplier grants RM500 allowance.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Perpetual: Dr Accounts Payable 500 / Cr Merchandise Inventory 500<br>Periodic: Dr Accounts Payable 500 / Cr Purchase Returns and Allowances 500</div>
+                        <p class="mb-2">The accounting amount changes, but the goods do not physically leave.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">7. Credit terms and purchase discounts</h3>
+                        <p class="mb-2">Terms such as 3/15, n/30 mean: 3% discount if paid within 15 days; full amount due within 30 days otherwise. It does <strong>not</strong> mean 3% interest, 15 instalments, or any other creative interpretation.</p>
+                        <p class="mb-2">Always calculate in this order:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Amount subject to discount = Invoice − Returns and allowances<br>Discount = Amount subject to discount × Discount rate<br>Cash paid = Accounts Payable − Discount</div>
+                        <p class="mb-2">Example — original purchase RM35,000, purchase return RM7,000: remaining owed RM35,000−RM7,000=RM28,000. Discount RM28,000×3%=RM840. Cash paid RM28,000−RM840=RM27,160.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Perpetual: Dr Accounts Payable 28,000 / Cr Merchandise Inventory 840 / Cr Cash 27,160<br>Periodic: Dr Accounts Payable 28,000 / Cr Purchase Discounts 840 / Cr Cash 27,160</div>
+                        <p class="mb-2">Why credit Inventory? Because the discount reduces the actual cost paid for the inventory — after the entry, inventory reflects RM27,160 rather than the original RM28,000. If payment is late, no discount is recorded: Dr Accounts Payable 28,000 / Cr Cash 28,000.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">8. How to count the discount period</h3>
+                        <p class="mb-2">The discount period normally starts after the invoice date. For an invoice dated 1 June with terms 3/15, n/30, payment by 16 June is normally within 15 days; after that, the full amount is due. In a subjective question, write down the dates rather than trusting vague mental counting under exam pressure.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">9. Transportation costs and FOB terms</h3>
+                        <p class="mb-2">FOB determines when ownership changes.</p>
+                        <p class="mb-1"><strong>FOB shipping point:</strong> ownership passes when goods leave the seller. Normally the buyer owns the goods during transportation and bears the freight cost. Perpetual: Dr Merchandise Inventory / Cr Cash or Accounts Payable. Periodic: Dr Freight In / Cr Cash or Accounts Payable.</p>
+                        <p class="mb-2"><strong>FOB destination:</strong> ownership passes when goods arrive at the buyer. Normally the seller owns the goods during transportation and bears the delivery cost. Seller records: Dr Delivery Expense / Cr Cash.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Freight in</th><th class="px-3 py-2 border-b">Freight out</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Cost to bring purchased goods to buyer</td><td class="px-3 py-2">Cost to deliver sold goods to customer</td></tr><tr><td class="px-3 py-2">Part of inventory cost</td><td class="px-3 py-2">Selling expense</td></tr><tr><td class="px-3 py-2">Buyer's books</td><td class="px-3 py-2">Seller's books</td></tr><tr><td class="px-3 py-2">Inventory under perpetual</td><td class="px-3 py-2">Delivery Expense</td></tr></tbody></table></div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">10. Freight and discount trap</h3>
+                        <p class="mb-2">Suppose: merchandise RM5,000, freight charged on invoice RM400, terms 3/5, n/30, FOB shipping point. Initial entry: Dr Merchandise Inventory 5,400 / Cr Accounts Payable 5,400. The discount normally applies only to the merchandise: RM5,000×3%=RM150. Cash paid RM5,400−RM150=RM5,250.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Accounts Payable 5,400 / Cr Merchandise Inventory 150 / Cr Cash 5,250</div>
+                        <p class="mb-2 italic text-slate-500">Do not automatically give yourself a discount on freight. The delivery company is unlikely to be emotionally moved by the supplier's credit terms.</p>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part B: Seller's Accounting</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">11. Every sale under perpetual needs two entries</h3>
+                        <p class="mb-2">Suppose goods sell for RM10,000 and originally cost RM6,000. Two separate events occur: revenue is earned, and inventory leaves the business.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Entry 1 (selling price): Dr Cash / Accounts Receivable 10,000 / Cr Sales Revenue 10,000<br>Entry 2 (cost price): Dr Cost of Goods Sold 6,000 / Cr Merchandise Inventory 6,000</div>
+                        <p class="mb-2">The selling price answers "how much did the customer agree to pay?" The cost price answers "how much did the merchandise cost the seller?" The difference contributes to gross profit: RM10,000−RM6,000=RM4,000.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">12. Cash sale versus credit sale</h3>
+                        <p class="mb-2">Cash sale: Dr Cash / Cr Sales Revenue. Credit sale: Dr Accounts Receivable / Cr Sales Revenue. The second entry remains Dr Cost of Goods Sold / Cr Merchandise Inventory either way — only the first debit changes.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">13. Sales return</h3>
+                        <p class="mb-2">Suppose the customer returns goods that sold for RM1,000 and originally cost RM600. Because the goods physically return, two entries are needed.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Reverse selling side: Dr Sales Returns and Allowances 1,000 / Cr Accounts Receivable or Cash 1,000<br>Restore inventory at cost: Dr Merchandise Inventory 600 / Cr Cost of Goods Sold 600</div>
+                        <p class="mb-2">Do not restore inventory at RM1,000. Inventory returns at its <strong>cost</strong>, not the amount charged to the customer.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">14. Sales allowance</h3>
+                        <p class="mb-2">Suppose the customer keeps the goods but receives a RM300 reduction: Dr Sales Returns and Allowances 300 / Cr Accounts Receivable or Cash 300. No inventory entry is made, because the goods never returned to the seller.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">15. Sales discounts under the gross method</h3>
+                        <p class="mb-2">Suppose: credit sale RM8,000, terms 2/10, n/30. Initial sale: Dr Accounts Receivable 8,000 / Cr Sales Revenue 8,000. If the customer pays within the discount period: RM8,000×2%=RM160. Cash received RM8,000−RM160=RM7,840.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Cash 7,840 / Dr Sales Discounts 160 / Cr Accounts Receivable 8,000</div>
+                        <p class="mb-2">Sales Discounts is debited because it is a contra-revenue account.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">16. Discount after a sales return</h3>
+                        <p class="mb-2">Suppose: original credit sale RM8,000, customer returns RM1,000, terms 2/10, n/30. Remaining receivable RM8,000−RM1,000=RM7,000. Discount RM7,000×2%=RM140. Cash received RM7,000−RM140=RM6,860.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Cash 6,860 / Dr Sales Discounts 140 / Cr Accounts Receivable 7,000</div>
+                        <p class="mb-2">The discount is calculated after returns and allowances.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">17. Purchase versus sale: mirror relationship</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Buyer records</th><th class="px-3 py-2 border-b">Seller records</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Merchandise Inventory</td><td class="px-3 py-2">Sales Revenue</td></tr><tr><td class="px-3 py-2">Accounts Payable</td><td class="px-3 py-2">Accounts Receivable</td></tr><tr><td class="px-3 py-2">Purchase return</td><td class="px-3 py-2">Sales return</td></tr><tr><td class="px-3 py-2">Purchase allowance</td><td class="px-3 py-2">Sales allowance</td></tr><tr><td class="px-3 py-2">Purchase discount</td><td class="px-3 py-2">Sales discount</td></tr></tbody></table></div>
+                        <p class="mb-2">One company's Accounts Payable is the other company's Accounts Receivable.</p>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part C: Full Worked Subjective Question</h3>
+                        <p class="mb-2"><strong>Question:</strong> Smart Trading uses a perpetual inventory system. (1) 1 June — purchased inventory RM20,000 on account, terms 2/10, n/30, FOB shipping point. (2) 2 June — paid RM600 freight in cash. (3) 4 June — returned RM2,000 of inventory. (4) 8 June — paid the supplier. (5) 12 June — sold goods on account for RM12,000, terms 3/10, n/30; goods cost RM7,200. (6) 14 June — customer returned goods with selling price RM1,000 and cost RM600. (7) 18 June — customer paid the remaining balance. (8) 30 June — the Inventory account showed RM10,650, but a physical count found RM10,500. Required: journal entries, net sales, adjusted COGS, gross profit, gross profit percentage.</p>
+                        <p class="mb-1"><strong>Step 1 — Purchase inventory (Jun 1):</strong> Dr Merchandise Inventory 20,000 / Cr Accounts Payable 20,000.</p>
+                        <p class="mb-1"><strong>Step 2 — Freight, FOB shipping point (Jun 2):</strong> Dr Merchandise Inventory 600 / Cr Cash 600. Freight increases the cost of inventory.</p>
+                        <p class="mb-1"><strong>Step 3 — Purchase return (Jun 4):</strong> Dr Accounts Payable 2,000 / Cr Merchandise Inventory 2,000. Remaining payable: RM20,000−RM2,000=RM18,000.</p>
+                        <p class="mb-2"><strong>Step 4 — Payment within discount period (Jun 8):</strong> Discount RM18,000×2%=RM360. Cash paid RM18,000−RM360=RM17,640.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Accounts Payable 18,000 / Cr Merchandise Inventory 360 / Cr Cash 17,640</div>
+                        <p class="mb-2">Net inventory cost from this purchase: RM20,000+RM600−RM2,000−RM360 = <strong>RM18,240</strong>.</p>
+                        <p class="mb-1"><strong>Step 5 — Credit sale (Jun 12):</strong> Selling price: Dr Accounts Receivable 12,000 / Cr Sales Revenue 12,000. Cost: Dr Cost of Goods Sold 7,200 / Cr Merchandise Inventory 7,200.</p>
+                        <p class="mb-2"><strong>Step 6 — Customer return (Jun 14):</strong> Reverse revenue: Dr Sales Returns and Allowances 1,000 / Cr Accounts Receivable 1,000. Restore inventory: Dr Merchandise Inventory 600 / Cr Cost of Goods Sold 600. Remaining Accounts Receivable: RM12,000−RM1,000=RM11,000.</p>
+                        <p class="mb-2"><strong>Step 7 — Customer pays within discount period (Jun 18):</strong> Discount RM11,000×3%=RM330. Cash received RM11,000−RM330=RM10,670.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Cash 10,670 / Dr Sales Discounts 330 / Cr Accounts Receivable 11,000</div>
+                        <p class="mb-2"><strong>Step 8 — Inventory shrinkage (Jun 30):</strong> Book inventory RM10,650, physical inventory RM10,500. Shrinkage RM10,650−RM10,500=RM150. Dr Cost of Goods Sold 150 / Cr Merchandise Inventory 150.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">18. Calculate net sales</h3>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">Net Sales = Sales Revenue − Sales Returns and Allowances − Sales Discounts<br>= RM12,000 − RM1,000 − RM330 = RM10,670</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">19. Calculate adjusted COGS</h3>
+                        <p class="mb-2">Initial COGS RM7,200, less cost of returned goods RM600, add shrinkage RM150.</p>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">RM7,200 − RM600 + RM150 = Adjusted COGS RM6,750</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">20. Calculate gross profit</h3>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">Gross Profit = Net Sales − COGS = RM10,670 − RM6,750 = RM3,920</div>
+                        <p class="mb-2 italic text-slate-500">Gross profit is not net income. Operating expenses still need to be deducted.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">21. Calculate gross profit percentage</h3>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">Gross Profit % = (Gross Profit ÷ Net Sales) × 100% = (RM3,920 ÷ RM10,670) × 100% = 36.74%</div>
+                        <p class="mb-2">Interpretation: for every RM1 of net sales, approximately RM0.367 remains after paying for the merchandise sold.</p>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part D: Financial Statement Calculations</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">22–23. Net sales and gross profit</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Item</th><th class="px-3 py-2 border-b text-right">RM</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Sales Revenue</td><td class="px-3 py-2 text-right">150,000</td></tr><tr><td class="px-3 py-2">Less: Sales Returns and Allowances</td><td class="px-3 py-2 text-right">(6,000)</td></tr><tr><td class="px-3 py-2">Less: Sales Discounts</td><td class="px-3 py-2 text-right">(2,000)</td></tr><tr class="font-bold"><td class="px-3 py-2">Net Sales</td><td class="px-3 py-2 text-right">142,000</td></tr></tbody></table></div>
+                        <p class="mb-2">If COGS is RM90,000: Gross Profit = RM142,000 − RM90,000 = <strong>RM52,000</strong>.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">24. Operating income and net income</h3>
+                        <p class="mb-2">Suppose: gross profit RM52,000; selling expenses RM12,000; administrative expenses RM15,000; interest revenue RM1,000; interest expense RM2,000. Operating expenses RM12,000+RM15,000=RM27,000. Operating income RM52,000−RM27,000=RM25,000. Net income RM25,000+RM1,000−RM2,000=<strong>RM24,000</strong>.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Sales Revenue<br>Less: Sales Returns and Allowances<br>Less: Sales Discounts<br>= Net Sales Revenue<br><br>Less: Cost of Goods Sold<br>= Gross Profit<br><br>Less: Operating Expenses<br>= Operating Income<br><br>Add/Less: Other Revenues and Expenses<br>= Net Income</div>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part E: Periodic Inventory System</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">25–26. Buyer and seller entries under periodic</h3>
+                        <p class="mb-2">Buyer — Purchase: Dr Purchases / Cr Cash or Accounts Payable. Return/allowance: Dr Accounts Payable / Cr Purchase Returns and Allowances. Discount: Dr Accounts Payable / Cr Purchase Discounts / Cr Cash. Freight: Dr Freight In / Cr Cash.</p>
+                        <p class="mb-2">Seller — When a sale happens: Dr Cash or Accounts Receivable / Cr Sales Revenue. There is <strong>no</strong> immediate entry for Dr Cost of Goods Sold / Cr Merchandise Inventory. COGS is determined at period-end.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">27. Periodic COGS calculation</h3>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Net Purchases = Purchases − Purchase Returns and Allowances − Purchase Discounts</div>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">COGS = Beginning Inventory + Net Purchases + Freight In − Ending Inventory</div>
+                        <p class="mb-2">Example — Beginning Inventory 20,000; Purchases 80,000; Purchase Returns (5,000); Purchase Discounts (2,000); Freight In 3,000; Ending Inventory (25,000). Net purchases: RM80,000−RM5,000−RM2,000=RM73,000. COGS: RM20,000+RM73,000+RM3,000−RM25,000=<strong>RM71,000</strong>.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Start with everything available for sale, then remove what remains unsold. What disappeared must have been sold.</blockquote>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part F: Adjusting and Closing</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">28. Inventory shrinkage adjustment</h3>
+                        <p class="mb-2">Under perpetual: Shrinkage = Book Inventory − Physical Inventory. Entry: Dr Cost of Goods Sold / Cr Merchandise Inventory. Only record the difference.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">29. Closing entries</h3>
+                        <p class="mb-2">Temporary accounts include Sales Revenue, Sales Returns and Allowances, Sales Discounts, Cost of Goods Sold, operating expenses, and Withdrawals. Merchandise Inventory is a permanent asset account under perpetual and is <strong>not</strong> closed.</p>
+                        <p class="mb-1">Close revenue: Dr Sales Revenue / Cr Income Summary.</p>
+                        <p class="mb-2">Close contra-revenue and expenses: Dr Income Summary / Cr Sales Returns and Allowances / Cr Sales Discounts / Cr Cost of Goods Sold / Cr Other Expenses. Then close Income Summary to Capital and close Withdrawals to Capital.</p>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Part G: Most Common Subjective-Exam Errors</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">30. Errors that cost marks</h3>
+                        <p class="mb-1"><strong>Recording only one entry for a perpetual sale</strong> — a sale requires both Dr Cash/AR → Cr Sales Revenue AND Dr COGS → Cr Inventory.</p>
+                        <p class="mb-1"><strong>Using the selling price in the COGS entry</strong> — COGS uses original cost, not selling price.</p>
+                        <p class="mb-1"><strong>Calculating discounts before returns</strong> — correct order is (Invoice − Returns) × Discount rate.</p>
+                        <p class="mb-1"><strong>Discounting freight automatically</strong> — the discount generally applies to merchandise, not freight.</p>
+                        <p class="mb-1"><strong>Confusing purchase return with sales return</strong> — check whose records are being prepared.</p>
+                        <p class="mb-1"><strong>Restoring inventory during an allowance</strong> — an allowance does not return goods.</p>
+                        <p class="mb-1"><strong>Using Merchandise Inventory under periodic purchases</strong> — periodic uses Purchases.</p>
+                        <p class="mb-1"><strong>Treating gross profit as net income</strong> — operating expenses have not yet been deducted.</p>
+                        <p class="mb-2"><strong>Crediting Sales Discounts</strong> — Sales Discounts normally has a debit balance.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">31. The fastest exam workflow</h3>
+                        <p class="mb-2">For a long transaction question: (1) mark perpetual or periodic; (2) identify buyer or seller; (3) write calculations beside the transaction; (4) record entries chronologically; (5) maintain Accounts Payable or Accounts Receivable balances; (6) calculate discounts only after returns and allowances; (7) adjust inventory shrinkage; (8) calculate Net Sales; (9) calculate COGS; (10) calculate Gross Profit and Net Income; (11) check every journal entry balances.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">32. Minimum formulas to memorise</h3>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3 leading-6">Discount = (Invoice − Returns and Allowances) × Rate<br>Net Sales = Sales − Sales Returns and Allowances − Sales Discounts<br>Gross Profit = Net Sales − COGS<br>Gross Profit % = (Gross Profit ÷ Net Sales) × 100%<br>Periodic COGS = Beginning Inventory + Net Purchases + Freight In − Ending Inventory</div>
+                        <p class="mb-2 italic text-slate-500">The most important exam habit is to separate <strong>selling price</strong> from <strong>inventory cost</strong>. Almost every major Chapter 5 calculation depends on that distinction.</p>
+
+                    </div>
+                </details>
+            </section>
+
+            <section id="sec-merch_intuitive" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-indigo-600 font-bold tracking-wider text-sm uppercase">Chapter 5</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">Full Intuitive Explanation</h2>
+                </header>
+
+                <details class="group bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden [&::-webkit-details-marker]:hidden">
+                    <summary class="px-6 py-5 cursor-pointer flex items-start justify-between gap-4 outline-none list-none hover:bg-slate-50 transition-colors">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">🧠</span>
+                            <div>
+                                <p class="font-bold text-slate-900">Open the complete intuitive explanation</p>
+                                <p class="text-sm text-slate-500 mt-1">The conceptual, reasoning-first companion to the Calc-Focused tab — all content from the notes is preserved here, but collapsed so quick revision stays quick.</p>
+                            </div>
+                        </div>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-white rounded-full p-1 border border-slate-300 shadow-sm text-sm mt-1 flex-shrink-0">▼</span>
+                    </summary>
+                    <div class="border-t border-slate-200 p-6 md:p-8 text-sm text-slate-700 leading-relaxed">
+
+                        <p class="mb-2">This chapter moves from a <strong>service business</strong> to a <strong>merchandising business</strong>: a business that buys physical goods and resells them. Think of a phone shop, supermarket, or clothing store. The accounting is slightly more complicated because the business must track both <strong>how much it sells the goods for</strong> and <strong>how much those goods originally cost</strong>.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">1. The entire chapter in one story</h3>
+                        <p class="mb-2">Imagine a shop buying a tablet for <strong>RM350</strong> and selling it for <strong>RM500</strong>.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Amount</th><th class="px-3 py-2 border-b">Accounting name</th><th class="px-3 py-2 border-b">Meaning</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">RM500</td><td class="px-3 py-2">Sales Revenue</td><td class="px-3 py-2">What the customer pays</td></tr><tr><td class="px-3 py-2">RM350</td><td class="px-3 py-2">Cost of Goods Sold</td><td class="px-3 py-2">What the tablet cost the shop</td></tr><tr><td class="px-3 py-2">RM150</td><td class="px-3 py-2">Gross Profit</td><td class="px-3 py-2">Amount remaining before rent, salaries, utilities, etc.</td></tr></tbody></table></div>
+                        <div class="bg-indigo-50 border-2 border-indigo-300 rounded-lg px-4 py-3 font-mono text-center text-indigo-900 font-bold my-3">Gross Profit = Net Sales Revenue − Cost of Goods Sold</div>
+                        <p class="mb-2">Gross profit is <strong>not net profit</strong>. The shop still has to pay salaries, rent, electricity and other operating expenses. Apparently selling something for more than it cost does not magically make every other bill disappear.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">2. Service business versus merchandising business</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Service business</th><th class="px-3 py-2 border-b">Merchandising business</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Service Revenue</td><td class="px-3 py-2">Sales Revenue</td></tr><tr><td class="px-3 py-2">No merchandise inventory</td><td class="px-3 py-2">Merchandise Inventory</td></tr><tr><td class="px-3 py-2">No Cost of Goods Sold</td><td class="px-3 py-2">Cost of Goods Sold</td></tr><tr><td class="px-3 py-2">Revenue − expenses</td><td class="px-3 py-2">Sales − COGS − other expenses</td></tr></tbody></table></div>
+                        <p class="mb-2">Merchandise Inventory is a <strong>current asset</strong> because it represents goods owned by the business that are expected to be sold. The operating cycle is: Cash → Inventory → Accounts Receivable → Cash. The business uses cash to purchase inventory, sells that inventory, and then collects cash from customers.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">3. Perpetual versus periodic inventory systems</h3>
+                        <p class="mb-2">This distinction controls most journal entries in the chapter.</p>
+                        <p class="mb-2"><strong>Perpetual system</strong> — "Perpetual" means continuously updated. Every purchase, sale, return and discount updates the Merchandise Inventory account immediately. A modern supermarket scanner is the obvious example — when an item is sold, the system immediately reduces the recorded inventory.</p>
+                        <p class="mb-2"><strong>Periodic system</strong> — "Periodic" means the business waits until the end of the accounting period and physically counts the inventory. During the year, purchases are placed in separate accounts such as Purchases, Purchase Returns and Allowances, Purchase Discounts, and Freight In. The Merchandise Inventory account is updated only at the end.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Perpetual</th><th class="px-3 py-2 border-b">Periodic</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Knows inventory continuously</td><td class="px-3 py-2">Finds inventory through a physical count</td></tr><tr><td class="px-3 py-2">Uses Merchandise Inventory during purchases</td><td class="px-3 py-2">Uses Purchases</td></tr><tr><td class="px-3 py-2">Records COGS whenever a sale occurs</td><td class="px-3 py-2">Calculates COGS at period-end</td></tr><tr><td class="px-3 py-2">Two entries for every sale</td><td class="px-3 py-2">Usually one entry when the sale occurs</td></tr></tbody></table></div>
+                        <p class="mb-2">Most of the main chapter uses the <strong>perpetual system</strong>. Periodic appears mainly in Appendix 5A.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">4. Purchasing inventory under the perpetual system</h3>
+                        <p class="mb-2">Suppose RM35,000 of inventory is purchased on account: Dr Merchandise Inventory 35,000 / Cr Accounts Payable 35,000. Inventory increases → asset increases → debit. The business owes the supplier → liability increases → credit. When purchased for cash, credit Cash instead. Only goods purchased for resale are Merchandise Inventory — a computer used by employees is Equipment, not inventory.</p>
+                        <p class="mb-1"><strong>Purchase return</strong> — the buyer sends the goods back. Suppose RM7,000 of damaged goods are returned: Dr Accounts Payable 7,000 / Cr Merchandise Inventory 7,000. The business now owes the supplier less, while the inventory owned by the business decreases.</p>
+                        <p class="mb-2"><strong>Purchase allowance</strong> — the buyer keeps the damaged goods, but the seller reduces the amount owed. The entry is generally similar because both reduce Accounts Payable and the effective cost of inventory. The physical difference: return → goods go back; allowance → goods stay, but the price falls.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">5. Purchase discounts</h3>
+                        <p class="mb-2">Credit terms such as 3/15, n/30 mean: receive a 3% discount when payment is made within 15 days; otherwise, the full amount is due within 30 days. Suppose the original invoice was RM35,000, but RM7,000 of goods were returned. Amount still owed: RM35,000−RM7,000=RM28,000. Discount: RM28,000×3%=RM840. Cash paid: RM28,000−RM840=RM27,160.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Accounts Payable 28,000 / Cr Cash 27,160 / Cr Merchandise Inventory 840</div>
+                        <p class="mb-2">Why credit Merchandise Inventory? Because the discount reduces the actual cost of the goods. The inventory was initially recorded at RM28,000 after the return, but the shop eventually paid only RM27,160 — inventory should reflect its actual cost.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Important trap: calculate the discount base as Invoice − Returns and allowances. Freight is normally not included in the discount calculation unless the agreement specifically says otherwise.</blockquote>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">6. Freight and FOB terms</h3>
+                        <p class="mb-2">FOB terms identify the point where ownership transfers.</p>
+                        <p class="mb-1"><strong>FOB shipping point</strong> — ownership transfers when the goods leave the seller. While the goods are travelling, the buyer owns them, normally pays the freight, and the freight is part of the inventory's cost: Dr Merchandise Inventory / Cr Cash.</p>
+                        <p class="mb-2"><strong>FOB destination</strong> — ownership transfers only when the goods reach the buyer. The seller owns the goods during transportation and normally pays the delivery cost. For the seller: Dr Delivery Expense / Cr Cash.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Useful memory rule: the location written after "FOB" is where ownership changes. FOB shipping point → ownership changes at the seller's shipping point. FOB destination → ownership changes at the buyer's destination.</blockquote>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Freight in</th><th class="px-3 py-2 border-b">Freight out</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Cost of bringing purchased goods into the business</td><td class="px-3 py-2">Cost of delivering sold goods to customers</td></tr><tr><td class="px-3 py-2">Part of inventory cost</td><td class="px-3 py-2">Selling or delivery expense</td></tr><tr><td class="px-3 py-2">Dr Merchandise Inventory under perpetual</td><td class="px-3 py-2">Dr Delivery Expense</td></tr></tbody></table></div>
+                        <p class="mb-2 italic text-slate-500">This is a favourite exam trap because both involve delivery trucks, but their accounting treatment is completely different.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">7. Selling inventory under the perpetual system</h3>
+                        <p class="mb-2">This is the most important part of the chapter. Every sale requires <strong>two journal entries</strong> because two separate events occur. Suppose a tablet costs the shop RM350 and is sold to the customer for RM500.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Entry 1 (selling price): Dr Cash 500 / Cr Sales Revenue 500<br>Entry 2 (inventory leaving): Dr Cost of Goods Sold 350 / Cr Merchandise Inventory 350</div>
+                        <p class="mb-2">Therefore RM500−RM350=RM150 gross profit. The first entry uses the <strong>selling price</strong>; the second entry uses the <strong>cost price</strong>. Mixing these two amounts is one of the easiest ways to ruin an otherwise perfectly decent journal entry.</p>
+                        <p class="mb-2">Sale on account: goods costing RM1,750 sold for RM2,500 on account — Dr Accounts Receivable 2,500 / Cr Sales Revenue 2,500, then Dr Cost of Goods Sold 1,750 / Cr Merchandise Inventory 1,750. Cash versus credit only changes the first debit (Cash vs. Accounts Receivable); the COGS entry remains the same.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">8. Sales discounts under the gross method</h3>
+                        <p class="mb-2">Suppose goods are sold for RM7,500 with terms 2/10, n/30. Under the <strong>gross method</strong>, the sale is initially recorded at the full amount: Dr Accounts Receivable 7,500 / Cr Sales Revenue 7,500. If the customer pays within the discount period: RM7,500×2%=RM150. Cash received: RM7,500−RM150=RM7,350.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Dr Cash 7,350 / Dr Sales Discounts 150 / Cr Accounts Receivable 7,500</div>
+                        <p class="mb-2">Sales Discounts has a debit balance because it is a <strong>contra-revenue account</strong>. It reduces Sales Revenue. If the customer pays late: Dr Cash 7,500 / Cr Accounts Receivable 7,500 — no discount is recorded.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">9. Sales returns and sales allowances</h3>
+                        <p class="mb-2">These are from the seller's perspective.</p>
+                        <p class="mb-1"><strong>Sales allowance</strong> — the customer keeps the goods, but the seller reduces the amount owed. RM100 allowance: Dr Sales Returns and Allowances 100 / Cr Accounts Receivable 100. There is no inventory entry because the goods remain with the customer.</p>
+                        <p class="mb-2"><strong>Sales return</strong> — the customer sends the goods back, usually requiring two entries. Item sold for RM500, originally cost RM350: reverse the revenue side — Dr Sales Returns and Allowances 500 / Cr Cash or Accounts Receivable 500; restore the inventory — Dr Merchandise Inventory 350 / Cr Cost of Goods Sold 350. Two realities: the customer no longer owes the selling price, and the goods return to inventory at their original cost.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">10. Net sales and gross profit</h3>
+                        <p class="mb-2">Sales Revenue alone may exaggerate what the business genuinely earned because customers may receive returns, allowances or discounts.</p>
+                        <div class="bg-indigo-50 border-2 border-indigo-300 rounded-lg px-4 py-3 font-mono text-center text-indigo-900 font-bold my-3">Net Sales Revenue = Sales Revenue − Sales Returns and Allowances − Sales Discounts<br>Gross Profit = Net Sales Revenue − Cost of Goods Sold</div>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Item</th><th class="px-3 py-2 border-b text-right">RM</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Sales Revenue</td><td class="px-3 py-2 text-right">100,000</td></tr><tr><td class="px-3 py-2">Less: Sales Returns</td><td class="px-3 py-2 text-right">4,000</td></tr><tr><td class="px-3 py-2">Less: Sales Discounts</td><td class="px-3 py-2 text-right">1,000</td></tr><tr><td class="px-3 py-2">Net Sales Revenue</td><td class="px-3 py-2 text-right">95,000</td></tr><tr><td class="px-3 py-2">Less: Cost of Goods Sold</td><td class="px-3 py-2 text-right">60,000</td></tr><tr class="font-bold"><td class="px-3 py-2">Gross Profit</td><td class="px-3 py-2 text-right">35,000</td></tr></tbody></table></div>
+                        <p class="mb-2">That RM35,000 still needs to cover salaries, rent, utilities and other expenses.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">11. Inventory shrinkage</h3>
+                        <p class="mb-2">Under a perpetual system, the computer might report RM31,530 of inventory, while the physical count finds only RM30,000. Difference: RM31,530−RM30,000=RM1,530. The missing inventory may result from theft, damage or recording errors: Dr Cost of Goods Sold 1,530 / Cr Merchandise Inventory 1,530. The entry forces the accounting records to match the actual inventory present.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">12. Closing entries</h3>
+                        <p class="mb-2">Closing works mainly like the earlier service-business chapters. Temporary accounts must return to zero: Sales Revenue, Sales Returns and Allowances, Sales Discounts, Cost of Goods Sold, Delivery Expense, other operating expenses, and Withdrawals. General sequence: (1) close revenue accounts to Income Summary; (2) close expenses and contra-revenue accounts to Income Summary; (3) close Income Summary to Owner, Capital; (4) close Owner, Withdrawals to Owner, Capital. Under the perpetual system, Merchandise Inventory is a permanent asset account, so it is <strong>not</strong> closed.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">13. Merchandiser financial statements</h3>
+                        <p class="mb-2"><strong>Single-step income statement</strong> — all revenues are grouped together and all expenses are grouped together: Net Income = Total Revenues − Total Expenses. Simple, but not very informative.</p>
+                        <p class="mb-2"><strong>Multi-step income statement</strong> — shows the business in layers: Net Sales − COGS = Gross Profit; Gross Profit − Operating Expenses = Operating Income; Operating Income ± Other Income and Expenses = Net Income. Operating expenses may be divided into selling expenses (advertising, delivery) and administrative expenses (office salaries, insurance). The multi-step format is more useful because it reveals whether the problem comes from weak selling margins, excessive operating expenses, or financing/other non-operating costs.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">14. Gross profit percentage</h3>
+                        <div class="bg-indigo-50 border-2 border-indigo-300 rounded-lg px-4 py-3 font-mono text-center text-indigo-900 font-bold my-3">Gross Profit Percentage = (Gross Profit ÷ Net Sales Revenue) × 100%</div>
+                        <p class="mb-2">Using the tablet example: (RM500−RM350)÷RM500×100%=30%. Interpretation: for every RM1 of sales, RM0.30 remains after paying for the merchandise itself — that RM0.30 must still cover rent, salaries, utilities and other expenses.</p>
+                        <p class="mb-2 italic text-slate-500">A higher percentage is generally desirable, but blindly declaring "higher is always better" is lazy analysis. It should be compared with previous years, competitors, the same industry, and the company's pricing strategy. A premium shop and a discount supermarket should not be expected to have identical margins.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">15. Periodic inventory system</h3>
+                        <p class="mb-2">Purchase: Dr Purchases / Cr Accounts Payable. Purchase return: Dr Accounts Payable / Cr Purchase Returns and Allowances. Purchase discount: Dr Accounts Payable / Cr Cash / Cr Purchase Discounts. Freight in: Dr Freight In / Cr Cash. Sale — only the revenue entry is recorded when the sale occurs: Dr Cash or Accounts Receivable / Cr Sales Revenue. There is no immediate COGS entry because the system does not continuously know how much inventory remains.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Net Purchases = Purchases − Purchase Returns and Allowances − Purchase Discounts<br>Net Cost of Inventory Purchased = Net Purchases + Freight In<br>Cost of Goods Available for Sale = Beginning Inventory + Net Cost of Inventory Purchased</div>
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-lg px-4 py-3 font-mono text-center text-emerald-900 font-bold my-3">COGS = Beginning Inventory + Net Purchases + Freight In − Ending Inventory</div>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Intuitively: start with everything available for sale, then remove what remains unsold. The difference must have been sold.</blockquote>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">16. Gross method versus net method</h3>
+                        <p class="mb-2">The main chapter uses the <strong>gross method</strong> for sales discounts — assume initially that the customer will not take the discount. A RM7,500 sale is recorded as RM7,500; if the customer later earns a RM150 discount, record Sales Discounts.</p>
+                        <p class="mb-2">The <strong>net method</strong> assumes initially that the customer will take the discount. For a RM7,500 sale with a 2% discount: RM7,500−RM150=RM7,350. Initial entry: Dr Accounts Receivable 7,350 / Cr Sales Revenue 7,350. If the customer pays on time: Dr Cash 7,350 / Cr Accounts Receivable 7,350. If the customer pays late: Dr Cash 7,500 / Cr Accounts Receivable 7,350 / Cr Sales Discounts Forfeited 150 — the extra RM150 is recorded because the customer lost the discount.</p>
+                        <p class="mb-2 italic text-slate-500">For exam purposes, do not guess which method to use. The question should state gross method or net method.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">Final mental map</h3>
+                        <p class="mb-1"><strong>When the business buys goods, ask:</strong> (1) Are the goods intended for resale? (2) Is the system perpetual or periodic? (3) Was the purchase cash or credit? (4) Were there returns, discounts or freight?</p>
+                        <p class="mb-2"><strong>When the business sells goods under perpetual, always think:</strong> one entry for the customer, one entry for the inventory.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Selling price: Dr Cash / Accounts Receivable → Cr Sales Revenue<br>Cost price: Dr Cost of Goods Sold → Cr Merchandise Inventory</div>
+                        <p class="mb-2">The five formulas worth memorising:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3 leading-6">Net Sales = Sales − Sales Returns − Sales Discounts<br>Gross Profit = Net Sales − COGS<br>Net Income = Gross Profit − Operating Expenses ± Other Items<br>Gross Profit Percentage = (Gross Profit ÷ Net Sales) × 100%<br>Periodic COGS = Beginning Inventory + Net Purchases + Freight In − Ending Inventory</div>
+
+                        <h3 class="text-xl font-bold text-indigo-700 mt-10 mb-3 border-b-2 border-indigo-200 pb-2">Add-on: Understanding the CBS–KKS Example</h3>
+                        <p class="mb-2">This exercise is useful because it shows the <strong>same transactions from both sides</strong>: <strong>CBS is the buyer</strong> purchasing computers for resale, and <strong>KKS is the seller</strong> selling those computers. The comparison also shows how entries change between the <strong>perpetual</strong> and <strong>periodic</strong> inventory systems. The full worked entries for every event (April 1 cash purchase/sale, April 7 credit purchase/sale and freight under FOB shipping point, April 8 return, April 9 allowance, April 14 payment within the discount period, and the periodic-system comparison) are built out interactively in the <strong>CBS-KKS Case</strong> tab, already using the corrected figures below — you do not need to redo them here.</p>
+                        <p class="mb-2">Two corrections were needed against a provided answer sheet, and both are already reflected in the CBS-KKS Case tab:</p>
+                        <p class="mb-1"><strong>1. Restoring a returned item's inventory at cost, not selling price.</strong> When CBS returned one computer (selling/invoice price RM400, cost to KKS RM300), KKS must restore inventory at RM300 — not RM400: Dr Merchandise Inventory 300 / Cr Cost of Goods Sold 300. Accounting does not allow inventory to gain RM100 of value just because it took a round trip.</p>
+                        <p class="mb-2"><strong>2. No freight expense for the seller under FOB shipping point.</strong> Since CBS (the buyer) paid the RM400 transportation cost directly and the terms were FOB shipping point, KKS should record <strong>no freight entry at all</strong> for that shipment — the buyer bears freight under FOB shipping point, so a seller-side "Dr Freight Expense / Cr Cash" entry would be a mistake.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">General lesson: buyer and seller entries always mirror each other — one company's Accounts Payable is the other's Accounts Receivable, and a purchase return for the buyer is a sales return for the seller. When checking a worked answer, always re-derive each entry from first principles (whose books, which system, cash or credit, did goods move, which amount) rather than trusting the provided answer key by default.</blockquote>
+                        <p class="mb-2 text-slate-500 italic">Note: the source material for this add-on example was cut off mid-way through a further list of "errors in the supplied" answer sheet, after the April 14 discount-period payment entries. If you paste the remainder, it can be appended here.</p>
+
+                    </div>
+                </details>
             </section>
 
             <!-- ========================================== -->
