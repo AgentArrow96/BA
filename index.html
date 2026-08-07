@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounting 101: Complete Dashboard</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <style>
         .chart-container { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 50vh; max-height: 500px; overflow: hidden; }
         @media (min-width: 768px) { .chart-container { height: 60vh; max-height: 600px; } }
@@ -21,6 +21,57 @@
         .rec-item.active { background-color: #ede9fe; border-color: #8b5cf6; color: #4c1d95; font-weight: bold; }
         .wf-tab.active { background-color: #fffbeb; border-color: #f59e0b; color: #b45309; font-weight: bold; }
         .txn-item.active { background-color: #ccfbf1; border-color: #14b8a6; color: #134e4a; font-weight: bold; }
+        #pdf-revision-notebook-content { counter-reset: revision-section; }
+        #pdf-revision-notebook-content > details { counter-increment: revision-section; overflow: clip; border-color: #e2e8f0; border-radius: 1rem; transition: border-color .2s ease, box-shadow .2s ease; }
+        #pdf-revision-notebook-content > details[open] { border-color: #f6c453; box-shadow: 0 18px 45px -32px rgba(120, 53, 15, .5); }
+        #pdf-revision-notebook-content > details > summary { display: flex; align-items: center; gap: .85rem; padding: 1rem 1.1rem; }
+        #pdf-revision-notebook-content > details > summary::before { content: counter(revision-section, decimal-leading-zero); display: grid; width: 2.2rem; height: 2.2rem; flex: 0 0 auto; place-items: center; border-radius: .7rem; background: #fff7ed; color: #c2410c; font-size: .72rem; font-weight: 900; letter-spacing: .04em; box-shadow: inset 0 0 0 1px #fed7aa; }
+        #pdf-revision-notebook-content > details[open] > summary::before { background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; box-shadow: none; }
+        #pdf-revision-notebook-content > details > summary > span { min-width: 0; width: 100%; }
+        #pdf-revision-notebook-content > details > div { padding: 1rem; background: linear-gradient(180deg, #fffdf8 0%, #f8fafc 100%); }
+        .pdf-revision-source { position: relative; margin: 0 0 1rem; overflow: hidden; border: 1px solid #e2e8f0; border-radius: .9rem; background: #fff; box-shadow: 0 12px 30px -28px rgba(15, 23, 42, .65); }
+        .pdf-revision-source:last-child { margin-bottom: 0; }
+        .pdf-revision-page { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .65rem .9rem; border-bottom: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; font-size: .68rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+        .pdf-revision-page::before { content: 'Source'; color: #f59e0b; }
+        .pdf-revision-content { padding: 1rem; }
+        .pdf-revision-heading { margin: 0 0 1rem; padding: .9rem 1rem; border-radius: .8rem; background: linear-gradient(135deg, #172554, #1e3a8a); color: white; font-size: 1.05rem; font-weight: 850; line-height: 1.4; letter-spacing: -.01em; }
+        .pdf-revision-subheading { margin: 1.15rem 0 .65rem; padding: .65rem .8rem; border-left: 4px solid #f59e0b; border-radius: 0 .55rem .55rem 0; background: #fffbeb; color: #7c2d12; font-size: .93rem; font-weight: 850; line-height: 1.45; }
+        .pdf-revision-question { margin: 1rem 0 .6rem; padding: .75rem .85rem; border: 1px solid #c7d2fe; border-radius: .7rem; background: #eef2ff; color: #312e81; font-size: .88rem; font-weight: 800; line-height: 1.5; }
+        .pdf-revision-term { margin: .85rem 0 .25rem; color: #0f172a; font-size: .82rem; font-weight: 850; letter-spacing: .015em; }
+        .pdf-revision-paragraph { margin: .55rem 0; color: #475569; font-size: .88rem; line-height: 1.72; overflow-wrap: anywhere; }
+        .pdf-revision-keyline { display: grid; grid-template-columns: minmax(9rem, .7fr) minmax(0, 1.8fr); gap: .7rem; margin: .55rem 0; padding: .7rem .8rem; border: 1px solid #e2e8f0; border-radius: .65rem; background: #f8fafc; color: #475569; font-size: .86rem; line-height: 1.55; }
+        .pdf-revision-keyline strong { color: #0f172a; }
+        .pdf-revision-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .55rem; margin: .7rem 0; padding: 0; color: #475569; font-size: .86rem; line-height: 1.62; list-style: none; }
+        .pdf-revision-list li { position: relative; min-width: 0; padding: .7rem .75rem .7rem 2rem; border: 1px solid #e2e8f0; border-radius: .65rem; background: white; overflow-wrap: anywhere; }
+        .pdf-revision-list li::before { content: '✓'; position: absolute; top: .72rem; left: .72rem; color: #059669; font-weight: 900; }
+        .pdf-revision-list--nested li { background: #f8fafc; }
+        .pdf-revision-list--nested li::before { content: '→'; color: #6366f1; }
+        .pdf-revision-list--numbered { counter-reset: revision-item; }
+        .pdf-revision-list--numbered li { counter-increment: revision-item; padding-left: 2.25rem; }
+        .pdf-revision-list--numbered li::before { content: counter(revision-item); display: grid; top: .65rem; width: 1.05rem; height: 1.05rem; place-items: center; border-radius: 999px; background: #fff7ed; color: #c2410c; font-size: .65rem; }
+        .pdf-revision-formula { display: grid; grid-template-columns: minmax(8rem, .7fr) minmax(0, 1.8fr); gap: .7rem; align-items: start; margin: .65rem 0; padding: .75rem .85rem; overflow-x: auto; border: 1px solid #bfdbfe; border-radius: .7rem; background: linear-gradient(135deg, #eff6ff, #f8fafc); color: #1e3a8a; font-size: .83rem; line-height: 1.55; }
+        .pdf-revision-formula-label { color: #1e40af; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .7rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+        .pdf-revision-formula code { color: #172554; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .pdf-revision-callout { margin: .85rem 0; padding: .8rem .9rem; border-left: 4px solid #10b981; border-radius: 0 .65rem .65rem 0; background: #ecfdf5; color: #065f46; font-size: .87rem; line-height: 1.65; }
+        .pdf-revision-callout strong { display: block; margin-bottom: .15rem; color: #064e3b; }
+        .pdf-revision-comparison { margin: .75rem 0; overflow: hidden; border: 1px solid #e2e8f0; border-radius: .75rem; }
+        .pdf-revision-compare-row { display: grid; grid-template-columns: minmax(8rem, .65fr) repeat(2, minmax(0, 1fr)); }
+        .pdf-revision-compare-row > * { min-width: 0; padding: .7rem .8rem; border-right: 1px solid #e2e8f0; border-top: 1px solid #e2e8f0; color: #475569; font-size: .8rem; line-height: 1.5; overflow-wrap: anywhere; }
+        .pdf-revision-compare-row > :last-child { border-right: 0; }
+        .pdf-revision-compare-row:first-child > * { border-top: 0; background: #172554; color: white; font-size: .72rem; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
+        .pdf-revision-compare-row:not(:first-child) > :first-child { background: #f8fafc; color: #0f172a; font-weight: 800; }
+        .pdf-revision-flow { display: flex; gap: .55rem; margin: .75rem 0; padding: .75rem; overflow-x: auto; border: 1px solid #dbeafe; border-radius: .75rem; background: #eff6ff; scroll-snap-type: x proximity; }
+        .pdf-revision-flow-step { position: relative; min-width: 10.5rem; padding: .7rem .75rem; border-radius: .6rem; background: white; color: #1e3a8a; font-size: .76rem; font-weight: 750; line-height: 1.45; box-shadow: 0 4px 15px -12px rgba(30, 58, 138, .8); scroll-snap-align: start; }
+        .pdf-revision-flow-step + .pdf-revision-flow-step::before { content: '→'; position: absolute; left: -.45rem; color: #60a5fa; }
+        @media (max-width: 639px) {
+            #pdf-revision-notebook-content > details > summary { align-items: flex-start; padding: .9rem; }
+            #pdf-revision-notebook-content > details > summary::before { width: 1.9rem; height: 1.9rem; border-radius: .55rem; }
+            #pdf-revision-notebook-content > details > div, .pdf-revision-content { padding: .75rem; }
+            .pdf-revision-keyline, .pdf-revision-formula { grid-template-columns: 1fr; gap: .3rem; }
+            .pdf-revision-compare-row { grid-template-columns: minmax(6.5rem, .65fr) repeat(2, minmax(10rem, 1fr)); }
+            .pdf-revision-comparison { overflow-x: auto; }
+            .pdf-revision-heading { font-size: .96rem; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
@@ -62,6 +113,7 @@
                         <li><button onclick="nav('prep_review')" id="nav-prep_review" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧠</span> Focused Workflows</button></li>
                         <li><button onclick="nav('prep_drills')" id="nav-prep_drills" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">✍️</span> 5 Practice Questions</button></li>
                         <li><button onclick="nav('prep_resources')" id="nav-prep_resources" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🔗</span> Practice Resources</button></li>
+                        <li><button onclick="nav('prep_pdf_revision_notebook')" id="nav-prep_pdf_revision_notebook" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">📘</span> Complete FE Revision Notebook</button></li>
                     </ul>
                 </details>
 
@@ -222,10 +274,3533 @@
 
         <!-- Main Content Area -->
         <main class="w-full flex-grow p-6 md:p-8 lg:p-10">
-            
+
             <!-- ========================================== -->
             <!-- EXAM PREP SECTIONS -->
             <!-- ========================================== -->
+            <section id="sec-prep_master_notebook" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Master Revision Notebook</h2>
+                    <p class="max-w-3xl text-base leading-relaxed text-slate-600">Complete source material from <em>Summarry of FE exam + formulas.pdf</em>. Open a topic, formula part, or master-guide chapter to review its full text.</p>
+                </header>
+
+                <div class="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-950">
+                    <p class="font-bold">How to use this notebook</p>
+                    <p class="mt-1">Start with the eight exam topics, then use the formula notebook and master guide to cross-check calculations and financial-statement layouts. Each collapsible section preserves the supplied PDF content, including its worked examples and revision checklist.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm" open>
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topic 1 · Accounting Fundamentals, Concepts &amp; the Accounting Cycle<span class="ml-2 text-xs font-medium text-slate-400">Sections 1.1–1.4</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 1
+
+茇
+茈
+
+ Master Exam Revision Compilation: Business
+Accounting (GEB2013/GFB2013) 
+
+茇
+茈
+�
+�
+�
+�
+�
+�
+�
+�
+�
+�
+� Topic 1: Accounting Fundamentals, Concepts &amp;
+The Accounting Cycle
+1.1 Key Terminology &amp; Concepts
+
+Language of Business: Accounting measures
+business activities, turns financial data into
+structured reports, and shares them with
+decision-makers. For entrepreneurs, it
+translates daily operations into clear reports to
+track profits, manage debt, and attract
+investors.
+
+
+Types of Business Organizations:
+o
+Sole Proprietorship: A cozy
+business with one single owner (the
+proprietor) who has unlimited
+personal liability for all business
+debts.
+o
+Partnership: A business shared by
+two or more partners who share
+unlimited personal liability.
+o
+Corporation: A separate legal entity
+organized under law with one or
+more stockholders who enjoy limited
+personal liability.
+
+Accounting Equations:
+
+o
+Fundamental Equation: Assets =
+Liabilities + Owner&#x27;s Equity
+o
+Extended Equation: Assets =
+Liabilities + Owner&#x27;s Capital −
+Owner&#x27;s Withdrawals + Revenues −
+Expenses
+
+1.2 Accrual Basis vs. Cash Basis Accounting 궬
+궨
+궭
+궮
+궯
+Feature
+Accrual Basis
+Accounting 芖
+芗
+芘
+芙
+芚
+芛
+Cash Basis
+Accounting 茶
+茷
+茸
+茹
+茺
+茻
+茼
+Revenue
+Recognition
+Recorded when
+earned, no matter
+when cash
+arrives.
+Recorded only
+when cash is
+physically
+collected.
+Expense
+Recognition
+Recorded when
+incurred
+Recorded only
+when cash is
+paid out.
+(Matching
+Principle).
+GAAP
+Compliance
+Required by
+GAAP and IFRS.
+Not permitted
+under GAAP.
+Long-Term
+Planning
+Gives a true,
+reliable picture
+of long-term
+profits.
+Can be distorted
+by cash timing
+delays.
+
+
+1.3 The Accounting Cycle &amp; Trial Balance Error
+Methods 蘯
+蘰
+蘱
+蘲
+蘳
+蘴
+蘵
+蘷
+蘶
+[1. Identify &amp; Analyze Transactions] ➔ [2. Journalize
+Entries] ➔ [3. Post to General Ledger]
+                                                                        │
+[6. Prepare Financial Statements] ◄─ [5. Adjusted Trial
+Balance] ◄─ [4. Unadjusted Trial Balance]
+               │
+               ▼
+[7. Journalize &amp; Post Closing Entries] ➔ [8. Post-
+Closing Trial Balance]
+Magic Methods to Detect Trial Balance Errors:
+1.
+Exact Difference Search: Find the net gap
+between debits and credits, then hunt for an
+unposted transaction equal to that exact value.
+
+2.
+Divide Discrepancy by 2: A debit posted as a
+credit creates an imbalance worth twice the
+entry value. Divide the gap by 2 to find the
+misposted account.
+
+3.
+Divide Discrepancy by 9: If the gap is
+divisible by 9, you have a transposition error
+(like writing RM54 as RM45) or a slide error
+(like writing RM500 as RM50)!
+
+1.4 Compiled Questions &amp; Solutions: Journal Entries
+&amp; Adjustments 굽
+굾
+굿
+궀
+긍
+긎
+긏
+긐
+긑
+Question (September 2025, Q1a): Adam Services
+Enterprise Journal Entries
+On May 1, 2025, Mr. Adam established Adam Services
+Enterprise. Summary of entries:
+
+SOURCE PAGE 2
+
+
+May 1 (Capital): Debit Cash RM380,000,
+Debit Office Equipment RM120,000, Credit
+Capital RM500,000.
+
+May 3 (Advertising): Debit Prepaid
+Advertising RM60,000, Credit Cash
+RM60,000.
+
+May 5 (Supplies): Debit Office Supplies
+RM25,000, Credit Cash RM25,000.
+
+May 8 (Insurance): Debit Prepaid Insurance
+RM12,000, Credit Cash RM12,000.
+
+May 12 (Service on Account): Debit Accounts
+Receivable - Lockway RM85,800, Credit
+Service Revenue RM85,800.
+
+May 18 (Rent): Debit Rent Expense RM8,500,
+Debit Prepaid Rent RM8,500, Credit Cash
+RM17,000.
+
+May 22 (Collection): Debit Cash RM25,000,
+Credit Accounts Receivable - Lockway
+RM25,000.
+
+May 28 (Expenses/Drawings): Debit Salaries
+Expense RM35,000, Debit Utilities Expense
+RM1,650, Debit Drawings RM8,500, Credit
+Cash RM45,150.
+
+Question (May 2024, Q1b.i &amp; September 2023,
+Q1c.ii): Rent/Insurance Policy Adjustments
+1.
+Insurance Adjustment (Dec 31, 2024):
+Expired insurance (8 months) is RM40,000.
+Unexpired asset (4 months) is RM20,000.
+o
+Debit Prepaid Insurance RM20,000,
+Credit Insurance Expense
+RM20,000.
+2.
+Rent Adjustment (Dec 31, 2023): Expired
+rent (9 months) is RM45,000.
+o
+Debit Rent Expense RM45,000,
+Credit Prepaid Rent RM45,000.
+
+Question (May 2023, Q3a): Rainy Days Properties
+Trial Balance Construction 般
+舭
+舮
+舯
+舰
+舱
+Rainy Days Properties — Trial Balance as at June 30
+
+Account Title
+Debit
+(RM)
+Credit
+(RM)
+Cash (RM28,600 −
+RM16,000)
+12,600
+
+Accounts Receivable
+(RM4,100 −RM3,700)
+400
+
+Supplies
+7,500
+Equipment
+22,500
+Accounts Payable
+(RM22,500 −RM2,000)
+20,500
+
+Capital
+20,000
+Withdrawals
+2,000
+Fees Earned (RM4,100 +
+RM4,900)
+9,000
+
+Operating Expense
+4,500
+Totals
+49,500
+49,500</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topic 2 · Financial Statements Preparation &amp; Year-End Adjustments<span class="ml-2 text-xs font-medium text-slate-400">Sections 2.1–2.3</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 3
+
+蔋
+蔌 Topic 2: Financial Statements Preparation &amp;
+Year-End Adjustments
+2.1 Compiled Question (September 2025, Q2):
+SmartMart Trading 뭖
+뭗
+뭘
+뭙
+뭚
+SmartMart Trading — Income Statement for the Year
+Ended 31 December 2025
+
+Net Sales Revenue: RM126,400 (Sales
+RM128,400 - Returns RM2,000)
+
+Cost of Goods Sold: (RM68,000) (Opening
+RM30k + Purchases RM70k + Freight RM3k -
+Ending RM35k)
+
+Gross Profit: RM58,400
+
+Operating Expenses: Admin RM25,400 +
+Rent RM6,000 + Expired Insurance RM2,400
++ Equipment Depreciation RM4,000 =
+(RM37,800)
+
+Operating Income: RM20,600
+
+Other Expenses (Interest): (RM1,000)
+
+Net Income: RM19,600 
+
+
+
+SmartMart Trading — Balance Sheet as at 31
+December 2025
+
+Non-Current Assets (Equipment Net):
+RM28,000 (RM40k cost - RM12k accum. dep.)
+
+Total Current Assets: RM81,600 (Inv RM35k
++ AR RM18k + Prepaid Ins RM1,200 +
+Supplies RM2,400 + Cash RM25k)
+
+Total Assets: RM109,600
+
+Owner&#x27;s Equity: RM73,600 (Capital RM60k
++ Net Income RM19.6k - Drawings RM6k)
+
+Non-Current Liabilities (Bank Loan):
+RM20,000
+
+Current Liabilities: RM16,000 (AP RM15k +
+Interest Payable RM1k)
+
+Total Liabilities &amp; Owner&#x27;s Equity:
+RM109,600 茇
+茈
+
+2.2 Compiled Question (May 2024, Q2): Wobbly Wear
+Closing Entries &amp; Income Statement �
+�
+�
+�
+�
+�
+�
+�
+�
+�
+�
+
+Closing Entries:
+1.
+Sales Revenue Dr. RM473,000, Income
+Summary Cr. RM473,000.
+2.
+Income Summary Dr. RM180,000, credit all
+individual expense accounts totaling
+RM180,000.
+3.
+Income Summary Dr. RM293,000, Dixon,
+Capital Cr. RM293,000.
+4.
+Dixon, Capital Dr. RM15,000, Dixon,
+Withdrawals Cr. RM15,000.
+
+Income Statement Summary:
+o
+Net Sales: RM473,000 | COGS:
+(RM75,000) | Gross Profit:
+RM398,000
+o
+Operating Expenses: (RM105,000) |
+Net Income: RM293,000 곆
+곇
+곈
+
+2.3 Compiled Question (September 2023, Q2): Kathi
+Enterprise 째
+짹
+짺
+짻
+짼
+짽
+짾
+
+COGS: RM110,000 (RM32k + RM153k -
+RM75k)
+
+Gross Profit: RM128,000
+
+Operating Expenses: RM118,700 (Dep.
+RM50k + Insurance RM15k + Other RM11.1k
++ Salaries RM42.6k)
+
+Net Income Before Tax: RM11,100 (Gross
+RM128k - Ops RM118.7k - Interest RM3k +
+Gain RM4.8k)
+
+Tax Expense (30%): RM3,330 | Net Income
+After Tax: RM7,770 茄
+茅
+茆</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topics 3–4 · Merchandising, Internal Controls, Cash &amp; Bank Reconciliations<span class="ml-2 text-xs font-medium text-slate-400">Sections 3.1–4.3</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 4
+
+뭃
+뭄
+뭅
+뭆 Topic 3: Merchandising Operations &amp; Inventory
+Accounting
+3.1 Key Concepts &amp; Formulations
+
+Perpetual System: Real-time updates; creates
+two entries per sale (one for Revenue, one for
+COGS).
+
+Periodic System: Updated at the end of the
+period through a physical count.
+
+Net Sales Formula: Net Sales Revenue =
+Gross Sales Revenue −
+Sales Returns &amp; Allowances −Sales Discounts
+
+3.2 Compiled Question (January 2025, Q2): Lowkey
+Company 蔍
+蔎
+蔏
+蔐
+
+May 1: Debit Merchandise Inventory
+RM6,800, Credit Accounts Payable RM6,800.
+
+
+May 10: Debit Merchandise Inventory RM250,
+Credit Cash RM250.
+
+May 12: Debit Accounts Receivable
+RM11,800, Credit Sales Revenue RM11,800;
+Debit COGS RM8,500, Credit Merchandise
+Inventory RM8,500.
+
+May 20 (Return): Debit Sales Returns &amp;
+Allowances RM1,180, Credit Accounts
+Receivable RM1,180; Debit Merchandise
+Inventory RM850, Credit COGS RM850.
+
+May 22 (Payment): Debit Accounts Payable
+RM6,800, Credit Cash RM6,800.
+
+May 25 (Collection): Debit Cash
+RM10,407.60, Debit Sales Discounts
+RM212.40, Credit Accounts Receivable
+RM10,620.00.
+
+Net Sales Revenue for May 2024:
+RM10,407.60 
+
+
+
+
+
+
+
+
+ꫮ
+ꫯ
+꫰ Topic 4: Internal Controls, Cash &amp; Bank
+Reconciliations
+4.1 Internal Controls &amp; Bank Reconciliation
+Structure 謞
+謚
+講
+謜
+謝
+
+Bank Reconciliation Balancing Equation:
+Adjusted Bank Balance
+= Bank Balance
++ Deposits in Transit
+−Outstanding Checks ± Bank Errors
+
+Adjusted Book Balance
+= Book Balance
++ Bank Collections/Interest
+−Service Fees/NSF Checks/EFTs
+± Book Errors
+
+4.2 Compiled Question (September 2025, Q3):
+Sunshine Boutique 蔋
+蔌
+
+Adjusted Bank Balance &amp; Adjusted Book
+Balance both reconcile neatly to RM12,160!
+
+Adjusting Journal Entries Summary (Dec
+31, 2025):
+
+Note collected: Debit Cash RM945, Credit
+Notes Receivable RM900, Credit Interest
+Revenue RM45.
+
+Book error correction: Debit Accounts Payable
+RM180, Credit Cash RM180.
+
+Service charges: Debit Bank Expense RM35,
+Credit Cash RM35.
+
+NSF Check: Debit Accounts Receivable
+RM300, Credit Cash RM300.
+
+EFT Utilities: Debit Utilities Expense RM250,
+Credit Cash RM250.
+
+4.3 Compiled Question (September 2022, Q1): Mann
+Company Bank Reconciliation
+
+Adjusted Bank Balance &amp; Book Balance:
+Both reconcile to RM5,750.
+
+
+Adjusting Journal Entries Summary (March
+31):
+
+SOURCE PAGE 5
+
+o
+Note collection: Debit Cash
+RM1,000, Credit Notes Receivable
+RM1,000.
+o
+Interest earned: Debit Cash RM120,
+Credit Interest Revenue RM120.
+o
+NSF check: Debit Accounts
+Receivable RM250, Credit Cash
+RM250.
+o
+EFT insurance: Debit Insurance
+Expense RM518, Credit Cash
+RM518.
+o
+Book error correction (RM319 −
+RM121 = RM198): Debit Accounts
+Receivable RM198, Credit Cash
+RM198.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+궧
+궨
+궩 Topic 5: Financial Statement Analysis &amp; Ratios
+5.1 Ratio Formulas 귐
+귑
+귔
+귕
+귖
+귒
+귓
+귗
+귘
+귙
+
+Current Ratio:
+Total Current Assets
+Total Current Liabilities
+
+Quick Ratio:
+Quick Assets
+Total Current Liabilities
+
+Debt Ratio:
+Total Liabilities
+Total Assets
+
+Profit Margin:
+Net Income
+Net Sales
+
+Inventory Turnover:
+Cost of Goods Sold
+Average Merchandise Inventory
+
+Return on Assets (ROA):
+Net Income
+Average Total Assets
+5.2 Compiled Question (September 2023, Q3): HSA
+Group of Companies 궬
+궨
+궭
+궮
+궯
+
+Current Ratios: 1.65:1 in 2022 and 1.92:1 in
+2023.
+
+Inventory Turnovers: 4.12 times/year in
+2022 and 3.88 times/year in 2023.
+
+Return on Assets (ROA): 12.29% in 2022
+and 5.98% in 2023.
+
+Profit Margins: 21.61% in 2022 and 9.53%
+in 2023.
+
+Vertical Analysis Insights: Showed a
+shrinking Gross Profit margin from 43.43%
+down to 33.10% due to rising COGS
+proportions, causing overall profitability to
+contract.
+5.3 Compiled Question (January 2022, Q3): Orchid
+Trading Ratio Analysis
+
+Gross Profit Margin: 33.78% (Industry:
+40%)
+
+Net Profit Margin: 18.92% (Industry: 15%)
+
+Average Collection Period: 64.26 days
+(Industry: 45 days)
+
+Inventory Turnover: 2.70 times (Industry:
+3 times)
+
+Current Ratio: 2.38: 1 (Industry: 2.35:1)
+
+Quick Ratio: 1.12: 1 (Industry: 1.5:1)
+
+Assessment: Orchid has strong cost control
+(higher net margin than industry), but suffers
+from slow receivables collection (64 days) and
+weak quick liquidity.</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topic 5 · Financial Statement Analysis &amp; Ratios<span class="ml-2 text-xs font-medium text-slate-400">Sections 5.1–5.3</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 5
+
+o
+Note collection: Debit Cash
+RM1,000, Credit Notes Receivable
+RM1,000.
+o
+Interest earned: Debit Cash RM120,
+Credit Interest Revenue RM120.
+o
+NSF check: Debit Accounts
+Receivable RM250, Credit Cash
+RM250.
+o
+EFT insurance: Debit Insurance
+Expense RM518, Credit Cash
+RM518.
+o
+Book error correction (RM319 −
+RM121 = RM198): Debit Accounts
+Receivable RM198, Credit Cash
+RM198.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+궧
+궨
+궩 Topic 5: Financial Statement Analysis &amp; Ratios
+5.1 Ratio Formulas 귐
+귑
+귔
+귕
+귖
+귒
+귓
+귗
+귘
+귙
+
+Current Ratio:
+Total Current Assets
+Total Current Liabilities
+
+Quick Ratio:
+Quick …9081 tokens truncated…g-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Financial Statement Architectures &amp; Interconnections<span class="ml-2 text-xs font-medium text-slate-400">Income statement, equity, balance sheet and cash flows</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 18
+
+Confidential — Revision Material
+Page 1
+Horngren&#x27;s Accounting (14th Ed.)
+BA FE: ACCOUNTING &amp; MANAGERIAL
+FORMULAS MASTER GUIDE
+Chapters 1 to 10 Formula Compilation with Financial Statement Architectures
+SECTION 1: FINANCIAL STATEMENT ARCHITECTURES &amp; INTERCONNECTIONS
+Financial statements represent the end product of the accounting process. They summarize business activities and are
+prepared sequentially to establish a logical flow of mathematical links from period profitability to the final balance sheet.
+1. Income Statement (Profitability)
+The Income Statement measures operating performance over a specific time interval. It lists revenues and expenses,
+culminating in Net Income or Net Loss.
+Statement Type &amp; Margin
+Mathematical Layout Flow
+Linking Relationships &amp; Exam Notes
+Type of Statement
+Structural Equation / Layout Flow
+Interconnection Link
+Service Company Income
+Statement
+Net Service Revenue
+- Operating Expenses (Salaries,
+Rent, Supplies, Utilities,
+Depreciation)
+= Net Income / (Net Loss)
+Net Income / Net Loss is transferred directly to the
+Statement of Owner&#x27;s Equity as an
+addition/subtraction to Capital.
+Merchandising / Manufacturing
+Multi-Step Income Statement
+Net Sales Revenue
+- Cost of Goods Sold (COGS)
+= Gross Profit
+- Operating Expenses (Selling &amp;
+Administrative)
+= Operating Income
++/- Other Revenues / Expenses
+(Interest, Gains/Losses)
+= Net Income / (Net Loss)
+Gross Profit measures the primary markup
+efficiency. Operating Income isolates core
+performance before financial/non-operating
+events.
+2. Statement of Owner&#x27;s Equity (Capital Changes)
+This statement bridges the Income Statement and the Balance Sheet. It tracks changes in the owner&#x27;s capital account
+balance over a specified operating interval.
+Roll-forward Item
+Calculation Flow
+Interconnection Link
+Component
+Formula / Layout Flow
+Interconnection Link
+Owner&#x27;s Equity Roll-forward
+Beginning Owner, Capital (Nov 1)
++ Owner Contributions / Investments
++ Net Income (or - Net Loss) [From
+Income Statement]
+- Owner Withdrawals / Drawings
+= Ending Owner, Capital (Nov 30)
+The calculated Ending Owner, Capital balance
+is placed directly into the Owner&#x27;s Equity section
+of the Balance Sheet.
+3. Classified Balance Sheet (Financial Position)
+The Balance Sheet reports assets, liabilities, and owner&#x27;s equity at a specific point in time. Assets are shown in order of
+liquidity; liabilities are grouped into current and long-term segments.
+
+SOURCE PAGE 19
+
+Confidential — Revision Material
+Page 2
+Horngren&#x27;s Accounting (14th Ed.)
+Classification
+Assets, Liabilities &amp; Equity Components
+Mathematical Balance Rules
+Classification
+Structure / Components
+Key Rules &amp; Balance Checks
+Assets Grouping
+Current Assets: Cash, Accounts
+Receivable, Supplies, Prepaid
+Expenses, Merchandise Inventory.
+Property, Plant, and Equipment (PP&amp;E):
+Land, Building, Equipment (reported
+net of Accumulated Depreciation
+contra-assets).
+Assets = Liabilities + Equity
+Check: The left side (Total Assets) must exactly
+equal the right side (Total Liabilities + Equity).
+Liabilities &amp; Equity
+Grouping
+Current Liabilities: Accounts Payable,
+Accrued Payables (Salaries, Interest,
+Utilities, Taxes Payable), Unearned
+Revenue.
+Long-Term Liabilities: Notes Payable,
+Bonds Payable (due &gt; 1 year).
+Owner&#x27;s Equity: Ending Owner Capital
+[From Statement of Owner&#x27;s Equity].
+Unearned Revenue is classified as a liability
+because it represents a deferred obligation to
+perform services or deliver goods.
+4. Statement of Cash Flows (Liquidity &amp; Cash Solvency)
+Reports on cash receipts and payments over a span of time, explaining why accrual Net Income does not equal the change in
+cash. Reconciles ending cash back to the Balance Sheet cash account.
+CF Activity Segment
+Calculation &amp; Reconciliation Layout
+Interconnection Link
+Cash Flow Segment
+Formula / Layout Flow
+Interconnection Link
+Cash Reconciliations
+Net Cash from Operating Activities
+(core revenues/expenses)
++ Net Cash from Investing Activities
+(buying/selling long-term assets)
++ Net Cash from Financing Activities
+(stock, debt, dividends, capital)
+= Net Increase / (Decrease) in Cash
++ Beginning Cash Balance
+= Ending Cash Balance
+The calculated Ending Cash Balance must be
+identical to the cash balance reported in the
+Current Assets section of the Balance Sheet.</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapters 1–4 Formula Compilation<span class="ml-2 text-xs font-medium text-slate-400">Accounting environment, transactions, adjustments and cycle</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 20
+
+Confidential — Revision Material
+Page 3
+Horngren&#x27;s Accounting (14th Ed.)
+SECTION 2: CHAPTER-BY-CHAPTER FORMULA MASTER COMPILATION
+The following tables compile every formula, ratio, inventory cost flow, and mathematical relationship across Chapters 1 to 10
+of the Financial and Managerial Accounting curriculum.
+Chapters 1 &amp; 2: Accounting in the Business Environment &amp; Recording Transactions
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Basic Accounting
+Equation
+Assets = Liabilities + Equity
+Fundamental balance rule. Resources (assets) must equal
+the claims against them (creditor liabilities + owner equity).
+Expanded Accounting
+Equation
+Assets = Liabilities + Owner&#x27;s
+Capital - Owner&#x27;s Withdrawals +
+Revenues - Expenses
+Incorporates equity components. Demonstrates how
+individual revenues, expenses, and withdrawals directly
+expand the equity portion.
+Return on Assets (ROA)
+ROA = Net Income / Average Total
+Assets
+Measures a firm&#x27;s profitability in using its assets. Expressed
+as a percentage.
+Average Total Assets
+Average Assets = (Beg. Assets +
+End. Assets) / 2
+Reconciles asset changes over the period. Used as the
+denominator in ROA calculations.
+Debt Ratio
+Debt Ratio = Total Liabilities /
+Total Assets
+Measures solvency and leverage. High ratios indicate high
+financing risk and greater dependency on creditors.
+Chapters 3 &amp; 4: The Adjusting Process &amp; Completing the Accounting Cycle
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Straight-Line
+Depreciation per Year
+Depr. = (Cost - Residual Value) /
+Useful Life
+Allocates equal expense across asset life. Salvage/residual
+value is deducted from cost first.
+Book Value of Plant
+Asset
+Book Value = Cost - Accumulated
+Depreciation
+The net asset value reported on the Balance Sheet.
+Accumulated Depreciation is a contra-asset.
+Accrued Interest
+Interest = Principal * Rate *
+Time
+Computes interest on notes payable/receivable. Time must
+be expressed in annual terms (e.g., Months / 12).
+Current Ratio
+Current Ratio = Current Assets /
+Current Liabilities
+Evaluates short-term liquidity and ability to pay immediate
+obligations. Targets are typically &gt; 1.0.</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapters 5–8 Formula Compilation<span class="ml-2 text-xs font-medium text-slate-400">Inventory, cash and cash flows</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 21
+
+Confidential — Revision Material
+Page 4
+Horngren&#x27;s Accounting (14th Ed.)
+Chapters 5 &amp; 6: Merchandising Operations &amp; Merchandise Inventory Costing
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Net Cost of Inventory
+Purchased
+Net Cost = Purchases - Purchase
+Returns &amp; Allowances - Purchase
+Discounts + Freight-In
+Aggregates net cash costs capitalized to inventory. Early
+payment discounts are deducted from purchases.
+Cost of Goods Sold
+(COGS) - Periodic
+COGS = Beginning Inventory + Net
+Cost of Purchases - Ending
+Inventory
+Computes inventory expense globally after a physical
+inventory count is conducted.
+Gross Profit Margin
+Gross Profit = Net Sales Revenue
+- COGS
+Margin left after covering product cost to pay for operating
+expenses.
+Gross Profit Percentage
+GP % = Gross Profit / Net Sales
+Revenue
+Evaluates pricing and markdown efficiency. Measures Gross
+Profit earned per dollar of Sales.
+Weighted-Average Cost
+per Unit
+WA Cost = Cost of Goods Available
+/ Total Units Available
+Calculates a uniform unit cost. Under periodic, calculated
+monthly; under perpetual, recalculated after each purchase.
+Inventory Turnover
+Inv. Turnover = COGS / Average
+Inventory
+Measures how rapidly inventory is sold and replenished.
+Average inventory = (Beg. + End.) / 2.
+Days&#x27; Sales in Inventory
+Days&#x27; Sales = 365 / Inventory
+Turnover
+Measures the average number of days inventory sits on the
+shelves before being sold.
+Chapters 7 &amp; 8: Internal Control &amp; Cash / Statement of Cash Flows
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Cash Ratio
+Cash Ratio = (Cash + Cash
+Equivalents) / Current
+Liabilities
+Most conservative liquidity measure. Explores ability to pay
+short-term debt with cash on hand.
+Statement of Cash
+Flows Net Change
+Net Change in Cash = Net
+Operating CF + Net Investing CF +
+Net Financing CF
+Reconciles all cash activities to find the net change. Matches
+Balance Sheet cash differences.
+Operating Cash Flow
+(Indirect)
+Operating Cash = Net Income +
+Depreciation - Gains + Losses -
+Increase in Current Assets +
+Increase in Current Liabilities
+Reconciles net income to actual cash from operations.
+Current asset increases drain cash; liability increases save
+cash.
+Cash Received from
+Disposal
+Cash Rec&#x27;d = Cost - Accum. Depr.
++ Gain on Sale (or - Loss on
+Sale)
+Calculates actual cash inflow from long-term asset sales
+(reported in Investing Activities).
+Cash Dividends Paid
+Dividends Paid = Beg. Retained
+Earnings + Net Income - End.
+Retained Earnings
+Roll-forward formula to isolate cash paid to stockholders
+(reported in Financing Activities).
+Free Cash Flow (FCF)
+FCF = Net Operating Cash -
+Planned CapEx - Cash Dividends
+The cash generated that is free to be used for expansion,
+debt paydowns, or dividend increases.</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapter 9 Formula Compilation<span class="ml-2 text-xs font-medium text-slate-400">Managerial accounting</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 22
+
+Confidential — Revision Material
+Page 5
+Horngren&#x27;s Accounting (14th Ed.)
+Chapter 9: Introduction to Managerial Accounting
+Formula / Cost Layer
+Name
+Mathematical Expression
+Conceptual Explanation / Application
+Prime Costs
+Prime Costs = Direct Materials
+Used + Direct Labor
+Combines the two primary direct physical costs of
+manufacturing.
+Conversion Costs
+Conversion Costs = Direct Labor +
+Manufacturing Overhead
+Combines Direct Labor with the indirect overhead costs
+required to convert raw materials into finished products.
+Direct Materials Used
+DM Used = Beginning Raw Materials
++ Raw Materials Purchased -
+Ending Raw Materials
+Step 1 of the Schedule of Cost of Goods Manufactured.
+Represents raw inventory transferred to production.
+Total Manufacturing
+Costs Incurred
+Total Mfg. Costs = DM Used +
+Direct Labor + Manufacturing
+Overhead (MOH)
+Step 2 of the Schedule of Cost of Goods Manufactured.
+Aggregates all production inputs during the period.
+Cost of Goods
+Manufactured (COGM)
+COGM = Beginning WIP + Total Mfg.
+Costs - Ending WIP
+Step 3 of the Schedule of Cost of Goods Manufactured.
+Represents inventory cost transferred to Finished Goods.
+Cost of Goods Sold
+(COGS) - Mfg.
+COGS = Beginning Finished Goods +
+COGM - Ending Finished Goods
+Calculates product expense on the manufacturer&#x27;s Income
+Statement.
+Unit Product Cost
+Unit Product Cost = COGM / Total
+Units Produced
+Determines the cost layer per product unit. Used for pricing
+and evaluating ending finished inventory values.
+Unit Cost per Service
+Unit Service Cost = Total
+Operating Costs / Total Services
+Provided
+Used by service companies to price projects and evaluate
+operating margins.</pre>
+                        </div>
+                    </details>
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapter 10 Formula Compilation &amp; Final Checklist<span class="ml-2 text-xs font-medium text-slate-400">CVP analysis and critical revision reminders</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 23
+
+Confidential — Revision Material
+Page 6
+Horngren&#x27;s Accounting (14th Ed.)
+Chapter 10: Cost-Volume-Profit (CVP) Analysis
+Formula / CVP Metric
+Mathematical Expression
+Conceptual Explanation / Application
+High-Low Variable Cost
+per Unit
+Variable Cost/Unit = (Cost at
+High Activity - Cost at Low
+Activity) / (High Volume - Low
+Volume)
+Segregates variable costs from mixed costs using extreme
+points in a dataset.
+High-Low Fixed Cost
+Base
+Fixed Cost = Total Mixed Cost -
+(Variable Cost/Unit * Volume)
+Calculated at either the high or low point. Fixed costs remain
+constant across the relevant range.
+Unit Contribution
+Margin (UCM)
+UCM = Selling Price per Unit -
+Variable Cost per Unit
+Represents the amount of each sale that goes toward
+covering fixed costs, then generating profit.
+Contribution Margin
+Ratio (CMR)
+CMR = Unit Contribution Margin /
+Selling Price per Unit
+Percentage of each sales dollar contributing to fixed costs.
+Expressed as a decimal or percentage.
+Breakeven Point (Units)
+Breakeven (Units) = Total Fixed
+Costs / Unit Contribution Margin
+Required unit volume to generate $0 in operating income.
+Breakeven Point (Sales
+Dollars)
+Breakeven (Dollars) = Total Fixed
+Costs / Contribution Margin Ratio
+Required revenue volume to generate $0 in operating
+income.
+Target Profit Volume
+(Units)
+Target Vol (Units) = (Total Fixed
+Costs + Target Profit) / Unit
+Contribution Margin
+Determines necessary units to achieve a target operating
+income.
+Target Profit Volume
+(Dollars)
+Target Vol (Dollars) = (Total
+Fixed Costs + Target Profit) /
+Contribution Margin Ratio
+Determines necessary revenue to achieve a target operating
+income.
+Margin of Safety
+Margin of Safety =
+Expected/Actual Sales - Breakeven
+Sales
+The buffer drop in sales before a firm incurs losses.
+Expressed in units, dollars, or as a percentage ratio.
+Degree of Operating
+Leverage (DOL)
+DOL = Total Contribution Margin /
+Operating Income
+Measures leverage risk. High DOL indicates that small
+percentage sales shifts trigger large operating profit shifts.
+Weighted-Average UCM
+(Multiproduct)
+WA UCM = Sum of (Product UCM_i *
+Product Sales Mix Proportion_i)
+Used for multiproduct firms. Segregates product &#x27;packages&#x27;
+to find a unified package breakeven point.
+FINAL EXAM - CRITICAL REVISION CHECKLIST
+1. Always check cash transactions: Cash flows never involve adjusting entries like Depreciation. Adjusting entries always affect one
+Income Statement account and one Balance Sheet account, but never Cash.
+2. Remember the double-entry flow of Merchandising Sales: A perpetual sale always requires two journal entries: one to record Sales
+Revenue (and A/R or Cash) at selling price, and a concurrent one to record Cost of Goods Sold and reduce Merchandise Inventory at cost.
+3. Managerial vs. Financial: Financial reports are for external stakeholders (GAAP compliant, historical, aggregate), while managerial
+reports are for internal managers (no GAAP, future-focused, divisional).</pre>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section id="sec-prep_pdf_revision_notebook" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Complete FE Revision Notebook</h2>
+                    <p class="max-w-3xl text-base leading-relaxed text-slate-600">Complete material from <em>Summarry of FE exam + formulas.pdf</em>, organised into expandable chapter and formula-guide sections.</p>
+                </header>
+
+                <div class="mb-6 overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 shadow-sm">
+                    <div class="p-5 md:p-6">
+                        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                            <div class="max-w-3xl">
+                                <p class="text-xs font-black uppercase tracking-[.16em] text-amber-700">Your complete revision route</p>
+                                <h3 class="mt-1 text-xl font-extrabold text-slate-900">Learn the concepts, practise the exam applications, then lock in the formulas.</h3>
+                                <p class="mt-2 text-sm leading-6 text-slate-600">Each chapter is broken into source pages with clear headings, study cards, worked examples, and highlighted equations. Open only the section you need or expand the full notebook for a complete review.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" onclick="setRevisionNotebookSections(true)" class="rounded-lg bg-slate-900 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-slate-700">Expand all</button>
+                                <button type="button" onclick="setRevisionNotebookSections(false)" class="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:border-amber-400 hover:text-amber-800">Collapse all</button>
+                            </div>
+                        </div>
+                        <div class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                            <div class="rounded-xl border border-white bg-white/80 p-3 shadow-sm"><p class="text-2xl font-black text-slate-900">23</p><p class="text-[11px] font-bold uppercase tracking-wide text-slate-500">Source pages</p></div>
+                            <div class="rounded-xl border border-white bg-white/80 p-3 shadow-sm"><p class="text-2xl font-black text-slate-900">8</p><p class="text-[11px] font-bold uppercase tracking-wide text-slate-500">Core topics</p></div>
+                            <div class="rounded-xl border border-white bg-white/80 p-3 shadow-sm"><p class="text-2xl font-black text-slate-900">11</p><p class="text-[11px] font-bold uppercase tracking-wide text-slate-500">Study sections</p></div>
+                            <div class="rounded-xl border border-white bg-white/80 p-3 shadow-sm"><p class="text-2xl font-black text-slate-900">1–10</p><p class="text-[11px] font-bold uppercase tracking-wide text-slate-500">Chapter coverage</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pdf-revision-notebook-content" class="space-y-4">
+                    <!-- pdf-pages-0 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm" open>
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topic 1 · Accounting Fundamentals, Concepts &amp; the Accounting Cycle<span class="ml-2 text-xs font-medium text-slate-400">Sections 1.1–1.4</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 1
+
+茇
+茈
+
+ Master Exam Revision Compilation: Business
+Accounting (GEB2013/GFB2013) 
+
+茇
+茈
+�
+�
+�
+�
+�
+�
+�
+�
+�
+�
+� Topic 1: Accounting Fundamentals, Concepts &amp;
+The Accounting Cycle
+1.1 Key Terminology &amp; Concepts
+
+Language of Business: Accounting measures
+business activities, turns financial data into
+structured reports, and shares them with
+decision-makers. For entrepreneurs, it
+translates daily operations into clear reports to
+track profits, manage debt, and attract
+investors.
+
+
+Types of Business Organizations:
+o
+Sole Proprietorship: A cozy
+business with one single owner (the
+proprietor) who has unlimited
+personal liability for all business
+debts.
+o
+Partnership: A business shared by
+two or more partners who share
+unlimited personal liability.
+o
+Corporation: A separate legal entity
+organized under law with one or
+more stockholders who enjoy limited
+personal liability.
+
+Accounting Equations:
+
+o
+Fundamental Equation: Assets =
+Liabilities + Owner&#x27;s Equity
+o
+Extended Equation: Assets =
+Liabilities + Owner&#x27;s Capital −
+Owner&#x27;s Withdrawals + Revenues −
+Expenses
+
+1.2 Accrual Basis vs. Cash Basis Accounting 궬
+궨
+궭
+궮
+궯
+Feature
+Accrual Basis
+Accounting 芖
+芗
+芘
+芙
+芚
+芛
+Cash Basis
+Accounting 茶
+茷
+茸
+茹
+茺
+茻
+茼
+Revenue
+Recognition
+Recorded when
+earned, no matter
+when cash
+arrives.
+Recorded only
+when cash is
+physically
+collected.
+Expense
+Recognition
+Recorded when
+incurred
+Recorded only
+when cash is
+paid out.
+(Matching
+Principle).
+GAAP
+Compliance
+Required by
+GAAP and IFRS.
+Not permitted
+under GAAP.
+Long-Term
+Planning
+Gives a true,
+reliable picture
+of long-term
+profits.
+Can be distorted
+by cash timing
+delays.
+
+
+1.3 The Accounting Cycle &amp; Trial Balance Error
+Methods 蘯
+蘰
+蘱
+蘲
+蘳
+蘴
+蘵
+蘷
+蘶
+[1. Identify &amp; Analyze Transactions] ➔ [2. Journalize
+Entries] ➔ [3. Post to General Ledger]
+                                                                        │
+[6. Prepare Financial Statements] ◄─ [5. Adjusted Trial
+Balance] ◄─ [4. Unadjusted Trial Balance]
+               │
+               ▼
+[7. Journalize &amp; Post Closing Entries] ➔ [8. Post-
+Closing Trial Balance]
+Magic Methods to Detect Trial Balance Errors:
+1.
+Exact Difference Search: Find the net gap
+between debits and credits, then hunt for an
+unposted transaction equal to that exact value.
+
+2.
+Divide Discrepancy by 2: A debit posted as a
+credit creates an imbalance worth twice the
+entry value. Divide the gap by 2 to find the
+misposted account.
+
+3.
+Divide Discrepancy by 9: If the gap is
+divisible by 9, you have a transposition error
+(like writing RM54 as RM45) or a slide error
+(like writing RM500 as RM50)!
+
+1.4 Compiled Questions &amp; Solutions: Journal Entries
+&amp; Adjustments 굽
+굾
+굿
+궀
+긍
+긎
+긏
+긐
+긑
+Question (September 2025, Q1a): Adam Services
+Enterprise Journal Entries
+On May 1, 2025, Mr. Adam established Adam Services
+Enterprise. Summary of entries:
+
+SOURCE PAGE 2
+
+
+May 1 (Capital): Debit Cash RM380,000,
+Debit Office Equipment RM120,000, Credit
+Capital RM500,000.
+
+May 3 (Advertising): Debit Prepaid
+Advertising RM60,000, Credit Cash
+RM60,000.
+
+May 5 (Supplies): Debit Office Supplies
+RM25,000, Credit Cash RM25,000.
+
+May 8 (Insurance): Debit Prepaid Insurance
+RM12,000, Credit Cash RM12,000.
+
+May 12 (Service on Account): Debit Accounts
+Receivable - Lockway RM85,800, Credit
+Service Revenue RM85,800.
+
+May 18 (Rent): Debit Rent Expense RM8,500,
+Debit Prepaid Rent RM8,500, Credit Cash
+RM17,000.
+
+May 22 (Collection): Debit Cash RM25,000,
+Credit Accounts Receivable - Lockway
+RM25,000.
+
+May 28 (Expenses/Drawings): Debit Salaries
+Expense RM35,000, Debit Utilities Expense
+RM1,650, Debit Drawings RM8,500, Credit
+Cash RM45,150.
+
+Question (May 2024, Q1b.i &amp; September 2023,
+Q1c.ii): Rent/Insurance Policy Adjustments
+1.
+Insurance Adjustment (Dec 31, 2024):
+Expired insurance (8 months) is RM40,000.
+Unexpired asset (4 months) is RM20,000.
+o
+Debit Prepaid Insurance RM20,000,
+Credit Insurance Expense
+RM20,000.
+2.
+Rent Adjustment (Dec 31, 2023): Expired
+rent (9 months) is RM45,000.
+o
+Debit Rent Expense RM45,000,
+Credit Prepaid Rent RM45,000.
+
+Question (May 2023, Q3a): Rainy Days Properties
+Trial Balance Construction 般
+舭
+舮
+舯
+舰
+舱
+Rainy Days Properties — Trial Balance as at June 30
+
+Account Title
+Debit
+(RM)
+Credit
+(RM)
+Cash (RM28,600 −
+RM16,000)
+12,600
+
+Accounts Receivable
+(RM4,100 −RM3,700)
+400
+
+Supplies
+7,500
+Equipment
+22,500
+Accounts Payable
+(RM22,500 −RM2,000)
+20,500
+
+Capital
+20,000
+Withdrawals
+2,000
+Fees Earned (RM4,100 +
+RM4,900)
+9,000
+
+Operating Expense
+4,500
+Totals
+49,500
+49,500</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-1 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topics 2–4 · Statements, Merchandising, Cash &amp; Bank Reconciliations<span class="ml-2 text-xs font-medium text-slate-400">Sections 2.1–4.3</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 3
+
+蔋
+蔌 Topic 2: Financial Statements Preparation &amp;
+Year-End Adjustments
+2.1 Compiled Question (September 2025, Q2):
+SmartMart Trading 뭖
+뭗
+뭘
+뭙
+뭚
+SmartMart Trading — Income Statement for the Year
+Ended 31 December 2025
+
+Net Sales Revenue: RM126,400 (Sales
+RM128,400 - Returns RM2,000)
+
+Cost of Goods Sold: (RM68,000) (Opening
+RM30k + Purchases RM70k + Freight RM3k -
+Ending RM35k)
+
+Gross Profit: RM58,400
+
+Operating Expenses: Admin RM25,400 +
+Rent RM6,000 + Expired Insurance RM2,400
++ Equipment Depreciation RM4,000 =
+(RM37,800)
+
+Operating Income: RM20,600
+
+Other Expenses (Interest): (RM1,000)
+
+Net Income: RM19,600 
+
+
+
+SmartMart Trading — Balance Sheet as at 31
+December 2025
+
+Non-Current Assets (Equipment Net):
+RM28,000 (RM40k cost - RM12k accum. dep.)
+
+Total Current Assets: RM81,600 (Inv RM35k
++ AR RM18k + Prepaid Ins RM1,200 +
+Supplies RM2,400 + Cash RM25k)
+
+Total Assets: RM109,600
+
+Owner&#x27;s Equity: RM73,600 (Capital RM60k
++ Net Income RM19.6k - Drawings RM6k)
+
+Non-Current Liabilities (Bank Loan):
+RM20,000
+
+Current Liabilities: RM16,000 (AP RM15k +
+Interest Payable RM1k)
+
+Total Liabilities &amp; Owner&#x27;s Equity:
+RM109,600 茇
+茈
+
+2.2 Compiled Question (May 2024, Q2): Wobbly Wear
+Closing Entries &amp; Income Statement �
+�
+�
+�
+�
+�
+�
+�
+�
+�
+�
+
+Closing Entries:
+1.
+Sales Revenue Dr. RM473,000, Income
+Summary Cr. RM473,000.
+2.
+Income Summary Dr. RM180,000, credit all
+individual expense accounts totaling
+RM180,000.
+3.
+Income Summary Dr. RM293,000, Dixon,
+Capital Cr. RM293,000.
+4.
+Dixon, Capital Dr. RM15,000, Dixon,
+Withdrawals Cr. RM15,000.
+
+Income Statement Summary:
+o
+Net Sales: RM473,000 | COGS:
+(RM75,000) | Gross Profit:
+RM398,000
+o
+Operating Expenses: (RM105,000) |
+Net Income: RM293,000 곆
+곇
+곈
+
+2.3 Compiled Question (September 2023, Q2): Kathi
+Enterprise 째
+짹
+짺
+짻
+짼
+짽
+짾
+
+COGS: RM110,000 (RM32k + RM153k -
+RM75k)
+
+Gross Profit: RM128,000
+
+Operating Expenses: RM118,700 (Dep.
+RM50k + Insurance RM15k + Other RM11.1k
++ Salaries RM42.6k)
+
+Net Income Before Tax: RM11,100 (Gross
+RM128k - Ops RM118.7k - Interest RM3k +
+Gain RM4.8k)
+
+Tax Expense (30%): RM3,330 | Net Income
+After Tax: RM7,770 茄
+茅
+茆
+
+SOURCE PAGE 4
+
+뭃
+뭄
+뭅
+뭆 Topic 3: Merchandising Operations &amp; Inventory
+Accounting
+3.1 Key Concepts &amp; Formulations
+
+Perpetual System: Real-time updates; creates
+two entries per sale (one for Revenue, one for
+COGS).
+
+Periodic System: Updated at the end of the
+period through a physical count.
+
+Net Sales Formula: Net Sales Revenue =
+Gross Sales Revenue −
+Sales Returns &amp; Allowances −Sales Discounts
+
+3.2 Compiled Question (January 2025, Q2): Lowkey
+Company 蔍
+蔎
+蔏
+蔐
+
+May 1: Debit Merchandise Inventory
+RM6,800, Credit Accounts Payable RM6,800.
+
+
+May 10: Debit Merchandise Inventory RM250,
+Credit Cash RM250.
+
+May 12: Debit Accounts Receivable
+RM11,800, Credit Sales Revenue RM11,800;
+Debit COGS RM8,500, Credit Merchandise
+Inventory RM8,500.
+
+May 20 (Return): Debit Sales Returns &amp;
+Allowances RM1,180, Credit Accounts
+Receivable RM1,180; Debit Merchandise
+Inventory RM850, Credit COGS RM850.
+
+May 22 (Payment): Debit Accounts Payable
+RM6,800, Credit Cash RM6,800.
+
+May 25 (Collection): Debit Cash
+RM10,407.60, Debit Sales Discounts
+RM212.40, Credit Accounts Receivable
+RM10,620.00.
+
+Net Sales Revenue for May 2024:
+RM10,407.60 
+
+
+
+
+
+
+
+
+ꫮ
+ꫯ
+꫰ Topic 4: Internal Controls, Cash &amp; Bank
+Reconciliations
+4.1 Internal Controls &amp; Bank Reconciliation
+Structure 謞
+謚
+講
+謜
+謝
+
+Bank Reconciliation Balancing Equation:
+Adjusted Bank Balance
+= Bank Balance
++ Deposits in Transit
+−Outstanding Checks ± Bank Errors
+
+Adjusted Book Balance
+= Book Balance
++ Bank Collections/Interest
+−Service Fees/NSF Checks/EFTs
+± Book Errors
+
+4.2 Compiled Question (September 2025, Q3):
+Sunshine Boutique 蔋
+蔌
+
+Adjusted Bank Balance &amp; Adjusted Book
+Balance both reconcile neatly to RM12,160!
+
+Adjusting Journal Entries Summary (Dec
+31, 2025):
+
+Note collected: Debit Cash RM945, Credit
+Notes Receivable RM900, Credit Interest
+Revenue RM45.
+
+Book error correction: Debit Accounts Payable
+RM180, Credit Cash RM180.
+
+Service charges: Debit Bank Expense RM35,
+Credit Cash RM35.
+
+NSF Check: Debit Accounts Receivable
+RM300, Credit Cash RM300.
+
+EFT Utilities: Debit Utilities Expense RM250,
+Credit Cash RM250.
+
+4.3 Compiled Question (September 2022, Q1): Mann
+Company Bank Reconciliation
+
+Adjusted Bank Balance &amp; Book Balance:
+Both reconcile to RM5,750.
+
+
+Adjusting Journal Entries Summary (March
+31):</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-2 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topics 5–6 · Ratio Analysis &amp; Statement of Cash Flows<span class="ml-2 text-xs font-medium text-slate-400">Sections 5.1–6.4</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 5
+
+o
+Note collection: Debit Cash
+RM1,000, Credit Notes Receivable
+RM1,000.
+o
+Interest earned: Debit Cash RM120,
+Credit Interest Revenue RM120.
+o
+NSF check: Debit Accounts
+Receivable RM250, Credit Cash
+RM250.
+o
+EFT insurance: Debit Insurance
+Expense RM518, Credit Cash
+RM518.
+o
+Book error correction (RM319 −
+RM121 = RM198): Debit Accounts
+Receivable RM198, Credit Cash
+RM198.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+궧
+궨
+궩 Topic 5: Financial Statement Analysis &amp; Ratios
+5.1 Ratio Formulas 귐
+귑
+귔
+귕
+귖
+귒
+귓
+귗
+귘
+귙
+
+Current Ratio:
+Total Current Assets
+Total Current Liabilities
+
+Quick Ratio:
+Quick Assets
+Total Current Liabilities
+
+Debt Ratio:
+Total Liabilities
+Total Assets
+
+Profit Margin:
+Net Income
+Net Sales
+
+Inventory Turnover:
+Cost of Goods Sold
+Average Merchandise Inventory
+
+Return on Assets (ROA):
+Net Income
+Average Total Assets
+5.2 Compiled Question (September 2023, Q3): HSA
+Group of Companies 궬
+궨
+궭
+궮
+궯
+
+Current Ratios: 1.65:1 in 2022 and 1.92:1 in
+2023.
+
+Inventory Turnovers: 4.12 times/year in
+2022 and 3.88 times/year in 2023.
+
+Return on Assets (ROA): 12.29% in 2022
+and 5.98% in 2023.
+
+Profit Margins: 21.61% in 2022 and 9.53%
+in 2023.
+
+Vertical Analysis Insights: Showed a
+shrinking Gross Profit margin from 43.43%
+down to 33.10% due to rising COGS
+proportions, causing overall profitability to
+contract.
+5.3 Compiled Question (January 2022, Q3): Orchid
+Trading Ratio Analysis
+
+Gross Profit Margin: 33.78% (Industry:
+40%)
+
+Net Profit Margin: 18.92% (Industry: 15%)
+
+Average Collection Period: 64.26 days
+(Industry: 45 days)
+
+Inventory Turnover: 2.70 times (Industry:
+3 times)
+
+Current Ratio: 2.38: 1 (Industry: 2.35:1)
+
+Quick Ratio: 1.12: 1 (Industry: 1.5:1)
+
+Assessment: Orchid has strong cost control
+(higher net margin than industry), but suffers
+from slow receivables collection (64 days) and
+weak quick liquidity.
+
+SOURCE PAGE 6
+
+굏
+교
+굑
+굒
+굓
+굗
+굘
+굔
+굕
+굖 Topic 6: Statement of Cash Flows
+6.1 Classification Matrix 궰
+궱
+궲
+궳
+궴
+궷
+궵
+궶
+Activity
+Categor
+y
+Balance
+Sheet
+Account
+Relations
+hip
+Inflow
+Examples
+Outflow
+Examples
+Operati
+ng
+Current
+Assets &amp;
+Current
+Liabilities
+
+Customer
+collections,
+interest/divide
+nd receipts.
+
+Supplier
+payments,
+employee
+salaries,
+tax/interes
+t
+payments.
+Investin
+g
+Long-
+Term
+Assets
+
+Sale of plant
+assets/equipm
+ent, collection
+of notes.
+
+Purchase
+of plant
+assets,
+equipmen
+t, long-
+term
+investmen
+ts.
+Financi
+ng
+Long-
+Term
+Liabilities
+&amp; Owner&#x27;s
+Equity
+
+Issuing
+common
+stock,
+borrowing via
+notes payable.
+
+Repaying
+notes
+payable,
+buying
+treasury
+stock,
+paying
+cash
+dividends.
+
+6.2 Compiled Question (January 2025, Q3): Mockup
+Magic Berhad (Direct Method) 꾎
+꾏
+꾐
+꾒
+꾑
+
+Operating Cash Flows: +RM34,000
+
+Investing Cash Flows: (RM144,000)
+
+Financing Cash Flows: +RM22,000
+
+Net Decrease in Cash: (RM88,000) 궪
+궨
+궫
+
+6.3 Compiled Question (May 2024, Q4): SHYEN
+TRADING (Indirect Method) 芖
+芗
+芘
+芙
+芚
+芛
+
+Net Income: RM225,000
+
+Adjustments: Depreciation +RM60,000 +
+Inventory Decrease +RM6,000 + AP Increase
++RM120,000 + Prepaid Rent Decrease
++RM45,000 - AR Increase (RM51,000) -
+Unearned Revenue Decrease (RM15,000) =
++RM165,000
+
+Net Cash Provided by Operating Activities:
+RM390,000 茇
+茈
+6.4 Compiled Question (May 2023, Q1): Rosey
+Company Cash Flows 薆
+薇
+薊
+薈
+薉
+
+Operating Cash Flows: RM140,000 +
+RM55,000 −RM200,000 −RM17,000 =
+(RM22,000)
+
+Investing Cash Flows: RM3,000 −
+RM220,000 = (RM217,000)
+
+Financing Cash Flows: RM250,000 +
+RM13,000 −RM5,000 −RM100,000 −
+RM70,000 = +RM88,000
+
+Net Decrease in Cash: (RM151,000)</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-3 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Topics 7–8 · Managerial Accounting, Manufacturing, CVP &amp; Cost Behaviour<span class="ml-2 text-xs font-medium text-slate-400">Sections 7.1–8.3 and in-class activities</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 7
+
+譞
+譟
+譠
+譣
+譤
+譥
+警
+譧
+譨
+譩
+譪
+譡
+譢 Topic 7: Managerial Accounting &amp;
+Manufacturing Operations
+7.1 Key Formulas &amp; Concepts
+
+Product Costs: Direct Materials (DM) +
+Direct Labor (DL) + Manufacturing Overhead
+(MOH). Capitalized into inventory asset
+accounts on the balance sheet until sold.
+
+Period Costs: Non-manufacturing costs
+(Selling &amp; Administrative) expensed
+immediately.
+
+Schedule of Cost of Goods Manufactured
+(COGM):
+COGM = Direct Materials Used + Direct Labor + MOH
++ Opening WIP −Ending WIP
+7.2 Compiled Question (September 2025, Q4): Alpha
+Manufacturing �
+�
+�
+�
+�
+�
+�
+�
+
+Direct Materials Used: RM75,050.00
+
+Total Manufacturing Costs: RM158,250.00
+
+Cost of Goods Manufactured (COGM):
+RM160,450.00
+
+Cost of Goods Sold (COGS): RM162,950.00
+虞
+號
+虠
+虡
+虢
+7.3 Compiled Question (January 2025, Q4): My Tech
+Audio (Absorption Costing) 虙
+虚
+虛
+虜
+虝
+
+Fixed MOH per unit:
+RM60,000
+ଶ,଼଴଴ units = RM21.43
+
+Product Cost per unit: RM60 + RM40 +
+RM15 + RM21.43 = RM136.43
+
+Operating Income: RM137,854.00 
+
+
+
+蚘
+蚓
+蚔
+蚕
+蚖
+蚗 Topic 8: Cost-Volume-Profit (CVP) Analysis &amp;
+Cost Behavior
+8.1 Core CVP Equations 굽
+굾
+굿
+궀
+긍
+긎
+긏
+긐
+긑
+
+Unit Contribution Margin (𝑈𝐶𝑀):
+Selling Price per Unit −Variable Cost per Unit
+
+Contribution Margin Ratio (𝐶𝑀𝑅):
+௎஼ெ
+Selling Price per Unit
+
+Breakeven Point (Units):
+Fixed Costs
+௎஼ெ
+
+
+Target Operating Income Units:
+Fixed CostsାTarget Profit
+௎஼ெ
+
+In class activities
+Financial Statement:
+
+Refers specifically to the core, formal structured
+financial documents used to communicate a
+business&#x27;s financial position and performance.
+
+Includes strictly: Income Statement, Balance Sheet,
+Statement of Changes in Equity, and Statement of
+Cash Flows.
+
+Designed
+to
+present
+standardized,
+historical
+accounting numbers following specific accounting
+frameworks like IFRS or GAAP.
+Financial Report:
+
+A much broader term that includes financial
+statements
+along with additional disclosures,
+management
+commentary,
+auditor
+reports,
+governance notes, and other analysis.
+
+Includes financial statements plus annual reports,
+prospectuses, regulatory filings, press releases, and
+internal financial dashboards.
+
+Designed to give a comprehensive, holistic overview
+of an organization&#x27;s overall business health, strategic
+outlook, and financial standing to stakeholders.
+Management Accounting &amp; Final Chapters (1
+Question)
+
+Cost Classification: Costs are classified as fixed,
+variable, or mixed. Use the high-low activity method
+to split mixed costs into fixed and variable
+components.
+
+Manufacturing Company Financial Statements:
+The arrangement of the income statement is different.
+Items like inventory ready for use and inventory
+ready for sale/production are included directly in the
+income statement.
+
+Break-Even Analysis: Focuses on fixed costs and
+the contribution margin.
+
+SOURCE PAGE 8
+
+8.2 Summary Matrix of Compiled CVP Exam Questions 蒄
+蒅
+蒆
+蒇
+Exam
+Paper
+Product /
+Context
+Selling
+Price (P)
+Variable
+Cost (V)
+Unit CM
+(UCM)
+Fixed Costs
+(FC)
+Breakeven
+Units
+Target Profit
+Scenario &amp;
+Required Units
+Sept
+2025
+(Q5)
+
+Exhausted
+Sdn. Bhd.
+RM40.00
+
+RM25.00
+
+RM15.00
+
+RM120,000
+
+8,000 units
+
+
+Target Profit =
+RM87,300.
+𝟏𝟑, 𝟖𝟐𝟎 units
+
+Jan
+2025
+(Q5)
+
+ProWatch
+X4
+RM160.00
+
+RM104.00
+
+RM56.00
+
+RM51,800
+
+925 units
+
+
+Target Income =
+RM50,400.
+𝟏, 𝟖𝟐𝟓 units
+
+May
+2024
+(Q5)
+
+KKS
+Company /
+KKS04
+RM200.00
+
+RM120.00
+
+RM80.00
+
+RM60,000
+
+750 units
+
+
+Target Income =
+RM150,000.
+𝟐, 𝟔𝟐𝟓 units
+Sept
+2023
+(Q5)
+
+Rowland /
+Product R1
+RM120.00
+
+RM0.01
+
+RM119.99
+
+RM0.00
+
+0 units
+
+
+Target Net Income
+= RM55,000.
+𝟒𝟓𝟗 units
+
+May
+2023
+(Q5)
+
+Reverse
+Forward
+RM70.00
+
+RM35.00
+
+RM35.00
+
+RM4,500
+
+129 units
+
+
+CM Income
+Statement Op.
+Income =
+RM30,500
+
+Jan
+2022
+(Q4)
+
+
+Husna&#x27;s
+Alya Cakes
+RM12.00
+
+RM9.00
+
+RM3.00
+
+RM250
+
+84 units
+
+
+New Option (Price
+RM15, Vol 300,
+Helper RM500):
+New Profit =
+RM1,050 / month
+
+8.3 Financial Accounting vs. Managerial Accounting (4 Key Differences) 째
+짹
+짺
+짻
+짼
+짽
+짾
+Feature
+Financial Accounting 급
+긊
+긋
+긌
+Managerial Accounting 골
+곩
+곪
+곫
+곬
+1. Primary Users
+External users: Investors, creditors, tax
+authorities.
+Internal users: Company managers and
+executives.
+2. Purpose
+Evaluates historical performance and
+compliance.
+Supports internal planning, directing, and
+control.
+3. Rules &amp;
+Standards
+Mandated compliance with GAAP or IFRS.
+
+No GAAP/IFRS restrictions; built for internal
+use.
+4. Time Focus
+Focuses on historical data (past
+performance).
+Focuses on future projections, budgets, and
+forecasts.</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-4 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Formula Notebook · Financial Accounting, Merchandising &amp; Inventory<span class="ml-2 text-xs font-medium text-slate-400">Chapters 1–7</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 9
+
+CONFIDENTIAL — COMPILATION OF ALL CORE FORMULAS
+Page 1
+ISSUED AUGUST 2026
+BA FE: MASTER FINANCIAL FORMULA
+NOTEBOOK
+Unified Guide of Quantitative Formulas, Cost Flows, and Income Statement variations (Chapters
+1–10)
+Exam Preparation Notice: This Master Formula Guide compiles every quantitative calculation, reconciliation sequence,
+cost flow, and financial statement architecture from Chapters 1 to 10. It provides a side-by-side comparison of all Income
+Statement variations (Service, Merchandising Single-Step, Merchandising Multi-Step, Manufacturing with detailed
+Inventory Schedules, and Behavioral CVP Contribution statements) as requested, leaving no formulas omitted. Balance
+sheet and cash flow links are highlighted.
+PART I: FINANCIAL ACCOUNTING CORE FOUNDATIONS (CHAPTERS 1–4)
+Financial accounting is structured around the recording of measured transaction entries and compiling them into statements
+to describe profitability, capital updates, and financial status.
+Core Concept / Metric
+Mathematical Formula / Relationship
+Syllabus Context / Application
+Basic Accounting Equation
+Assets = Liabilities + Owner&#x27;s Equity
+The underlying foundation of
+double-entry accounting. Must always
+remain in balance.
+Expanded Accounting
+Equation
+Assets = Liabilities + Owner&#x27;s Capital - Owner&#x27;s
+Withdrawals + Revenues - Expenses
+Integrates the detailed components of
+Equity. Highlights that revenues
+increase and expenses/drawings
+decrease equity.
+Return on Assets (ROA)
+ROA = Net Income / Average Total Assets
+where:
+Average Assets = (Beg. Assets + End. Assets) / 2
+Measures how profitably a company
+uses its economic assets to generate
+earnings. Evaluated against PepsiCo&#x27;s
+2021 ROA.
+Debt Ratio
+Debt Ratio = Total Liabilities / Total Assets
+Measures the proportion of assets
+financed by creditors. High ratios
+represent solvency risk.
+Straight-Line Depreciation
+Depreciation per Year = (Historical Cost - Residual
+Value) / Useful Life in Years
+Allocates the depreciable cost of
+property, plant, and equipment (PP&amp;E;)
+evenly over its estimated operational
+life.
+Book Value of Plant Asset
+Book Value = Historical Cost - Accumulated
+Depreciation
+The net asset amount reported on the
+Balance Sheet. Accumulated
+Depreciation is a contra-asset account.
+Accrued Interest
+Interest = Principal x Interest Rate x Time
+where:
+Time = Fraction of year (e.g. Months / 12)
+Computes accrued interest
+expense/payable on Notes Payable or
+interest revenue/receivable on Notes
+Receivable.
+
+SOURCE PAGE 10
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 2
+GENERATED BY GEMINI NOTEBOOK
+Core Concept / Metric
+Mathematical Formula / Relationship
+Syllabus Context / Application
+Current Ratio
+Current Ratio = Total Current Assets / Total Current
+Liabilities
+Measures short-term liquidity and the
+capacity of the operating cycle to
+satisfy maturing current liabilities
+(debts due within 1 year).
+PART II: MERCHANDISING OPERATIONS &amp; INVENTORY METRICS (CHAPTERS
+5–7)
+Merchandising operations require detailed inventory control systems (Perpetual or Periodic) to track the purchase cost
+layer, returns, discounts, shrinkage, and days of holding.
+Merchandising Cost Layer /
+Ratio
+Mathematical Formula / Relationship
+Syllabus Context / Application
+Net Cost of Inventory
+Purchased
+Net Cost = Purchases - Purchase Returns &amp;
+Allowances - Purchase Discounts + Freight-In
+Capitalizes inward transit freight-in
+costs directly to the inventory asset
+and deducts early payment cash
+discounts (e.g., 2/10, n/30).
+Cost of Goods Sold
+(Periodic)
+COGS = Beginning Inventory + Net Cost of Inventory
+Purchased - Ending Inventory
+Determined at period-end strictly by a
+physical hand-count of ending
+inventory, rather than real-time
+perpetual updates.
+Gross Profit Percentage
+Gross Profit % = Gross Profit / Net Sales Revenue
+where:
+Gross Profit = Net Sales Revenue - COGS
+Measures how much gross margin is
+earned on each dollar of sales revenue
+before operating expenses. PepsiCo
+baseline: ~53-54%.
+Weighted-Average Unit Cost
+Weighted-Average Cost per Unit = Total Cost of
+Goods Available for Sale / Total Units Available for
+Sale
+Calculates a single blended unit cost.
+Used under periodic (once-at-end) and
+perpetual (moving-average
+recalculated on each buy).
+Inventory Turnover Ratio
+Inventory Turnover = COGS / Average Merchandise
+Inventory
+Evaluates how many times per year a
+company purchases and sells out its
+average inventory. Higher rates mean
+faster sales cycle.
+Days&#x27; Sales in Inventory
+Days&#x27; Sales in Inventory = 365 Days / Inventory
+Turnover Ratio
+Measures the average number of days
+inventory sits in stock before being sold
+to customers. Optimizing this reduces
+holding costs.
+Cash Ratio
+Cash Ratio = (Cash + Cash Equivalents) / Total
+Current Liabilities
+Measures the extreme conservative
+liquid coverage of current debt, using
+only cash and short-term equivalents
+(maturing in &lt;= 90 days).</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-5 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Formula Notebook · Cash Flows, Managerial Cost Flows &amp; CVP<span class="ml-2 text-xs font-medium text-slate-400">Chapter 8, Appendix B, Chapters 9–10</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 11
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 3
+GENERATED BY GEMINI NOTEBOOK
+PART III: THE STATEMENT OF CASH FLOWS (CHAPTER 8 / APPENDIX B)
+The Statement of Cash Flows reconciles the change in the cash balance from beginning to end, grouping flows into
+Operating, Investing, and Financing activities.
+Cash Flow Concept /
+Segment
+Mathematical Reconciliation / Formulation
+Key Adjustments &amp; Notes
+Net Cash from Operating
+Activities (Indirect Method)
+Net Operating Cash = Net Income
++ Depreciation, Depletion, &amp; Amortization Expense
+- Gains on Non-operating Activities (Disposals)
++ Losses on Non-operating Activities (Disposals)
+- Increase in Current Assets (other than Cash)
++ Decrease in Current Assets (other than Cash)
++ Increase in Current Liabilities
+- Decrease in Current Liabilities
+Starts with accrual Net Income and
+converts it to Cash basis. Reconciles
+non-cash expenditures and working
+capital changes. Based on ShopMart
+Exhibit B-5.
+Operating Activities Receipts
+&amp; Payments (Direct Method)
+Cash Collections from Customers = Sales Revenue -
+Increase in Accounts Receivable (or + Decrease)
+Cash Paid to Suppliers = COGS + Increase in
+Inventory (or - Decrease) + Decrease in Accounts
+Payable (or - Increase)
+Directly reports major receipts and
+payments. Skip non-cash adjustments
+(depreciation, gains, losses) as they do
+not generate cash.
+Cash Flow from Asset
+Disposals
+Cash Received from Disposal = Book Value + Gain
+on Sale (or - Loss on Sale)
+where: Book Value = Original Cost - Accumulated
+Depreciation
+Reported as a cash inflow in the
+Investing Activities section of the
+statement.
+Cash Flow from Dividends
+Paid
+Cash Dividends Paid = Beginning Retained Earnings
++ Net Income - Ending Retained Earnings
+Analyzes Retained Earnings. Outflow
+listed in the Financing Activities
+section of the statement.
+Free Cash Flow (FCF)
+Free Cash Flow = Net Cash Provided by Operating
+Activities - Planned Capital Expenditures (PP&amp;E;
+purchases) - Cash Dividends
+Measures financial flexibility and
+liquidity. Represents the cash available
+for discretionary investments, debt
+payoff, or expansion.
+PART IV: MANAGERIAL COST FLOWS &amp; CVP METRICS (CHAPTERS 9–10)
+Managerial accounting focuses on classifying product costs (raw materials, work-in-process, finished goods, MOH) and
+projecting cost behavior models (CVP) for business decision-making.
+Managerial Metric / Tool
+Mathematical Formula / Relationship
+Syllabus Context / Application
+Prime Costs vs. Conversion
+Costs
+Prime Costs = Direct Materials Used + Direct Labor
+Conversion Costs = Direct Labor + Manufacturing
+Overhead (MOH)
+Direct Labor is the shared bridging
+component. Prime is direct production
+cost; Conversion is the cost to
+transform raw materials.
+High-Low Method
+(Mixed-Cost Segregation)
+1. Variable Cost per Unit (b) = (Cost at Highest
+Activity - Cost at Lowest Activity) / (Highest Activity -
+Lowest Activity)
+2. Fixed Cost (a) = Total Mixed Cost - (Variable Cost
+x Volume)
+3. Cost Equation: Y = a + bX
+Segregates mixed costs into fixed and
+variable behaviors based on extreme
+high and low periods. Valid only within
+the relevant range.
+
+SOURCE PAGE 12
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 4
+GENERATED BY GEMINI NOTEBOOK
+Managerial Metric / Tool
+Mathematical Formula / Relationship
+Syllabus Context / Application
+Unit Contribution Margin
+(UCM)
+Unit Contribution Margin = Selling Price per Unit -
+Variable Cost per Unit
+Represents the dollar amount each unit
+sale contributes toward covering total
+fixed costs, then generating net profit.
+Contribution Margin Ratio
+(CMR)
+Contribution Margin Ratio = Unit Contribution Margin /
+Selling Price per Unit
+The percentage of each sales dollar
+available to cover fixed costs. Used to
+compute required sales in dollars.
+Required Sales for Target
+Profit (Units)
+Required Sales (Units) = (Total Fixed Costs + Target
+Operating Income) / Unit Contribution Margin
+Calculates required sales volume. For
+Breakeven Point, set Target Profit =
+$0.
+Required Sales for Target
+Profit (Dollars)
+Required Sales (Dollars) = (Total Fixed Costs +
+Target Operating Income) / Contribution Margin Ratio
+Calculates required sales in revenue
+dollars. Useful when unit details are
+unavailable.
+Margin of Safety
+Margin of Safety (Units or $) = Actual/Expected Sales
+- Breakeven Sales
+Margin of Safety % = Margin of Safety /
+Actual/Expected Sales
+The cushion of safety indicating how
+much sales can drop before the
+business begins to suffer operating
+losses.
+Degree of Operating
+Leverage (DOL)
+Degree of Operating Leverage = Total Contribution
+Margin / Operating Income
+% Change in Operating Income = DOL x % Change
+in Sales Volume
+Measures profit sensitivity relative to
+changes in unit volume. Companies
+with high fixed costs have higher
+leverage and higher risk.
+Weighted-Average UCM
+(Multiproduct Sales Mix)
+Weighted-Average UCM = Sum of (Individual Product
+UCM x Sales Mix Proportion)
+Total Breakeven Units = Fixed Costs /
+Weighted-Average UCM
+Reconciles multiproduct businesses.
+Total breakeven units are split back
+into individual products using their
+sales mix ratio.</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-6 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Formula Notebook · Service &amp; Merchandising Income Statement Architectures<span class="ml-2 text-xs font-medium text-slate-400">Single-step and multi-step formats</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 13
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 5
+GENERATED BY GEMINI NOTEBOOK
+PART V: INCOME STATEMENT ARCHITECTURES (ALL VARIATIONS
+COMPILATION)
+To satisfy the user&#x27;s detailed request, this section compiles all major variations of the Income Statement side-by-side,
+including Service, Merchandising Single-Step, Merchandising Multi-Step, Manufacturing with detailed Inventory
+Schedules (COGM/COGS), and CVP behavioral structures. Every line item and connection is presented.
+1. Service Company Income Statement Layout
+Service firms carry no physical inventories. Their revenue is generated from time, skill, and knowledge, and all non-revenue
+expenditures are period expenses written off immediately.
+Account Group
+Line Item Detail
+Total Level Amount
+REVENUES
+Service Revenue
+$ 230,000
+EXPENSES
+Salaries Expense
+80,000
+Rent Expense
+24,000
+Depreciation Expense—Furniture
+9,000
+Utilities Expense
+3,000
+Total Operating Expenses
+116,000
+NET INCOME
+Revenues minus Total Operating Expenses
+$ 114,000
+2. Merchandising Single-Step Income Statement Layout
+Single-Step format groups all revenues together and then lists and deducts all expenses together, without displaying
+intermediary subtotals like Gross Profit or Operating Income.
+Grouping Category
+Account Line Items
+Subtotals / Totals
+REVENUES
+Net Sales Revenue
+$ 920,000
+Interest Revenue (non-operating)
+12,000
+Total Revenues
+$ 932,000
+EXPENSES
+Cost of Goods Sold (COGS)
+540,000
+Salaries Expense
+92,580
+Rent Expense
+63,800
+Utilities Expense
+55,500
+Delivery Expense
+7,800
+Interest Expense (non-operating)
+11,000
+Total Expenses
+(770,680)
+NET INCOME
+Total Revenues minus Total Expenses
+$ 161,320
+
+SOURCE PAGE 14
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 6
+GENERATED BY GEMINI NOTEBOOK
+3. Merchandising Multi-Step Income Statement Layout
+Multi-Step format isolates crucial margins. Selling expenses are separated from Administrative expenses, and
+non-operating activities (interest, gains, losses) are reported separately in &#x27;Other Income and Expenses&#x27;.
+Account Classification
+Line Item / Group Details
+Intermediate
+Margins
+Final Amount
+SALES REVENUE
+Gross Sales Revenue
+$ 975,000
+Less: Sales Returns and Allowances
+(36,700)
+Less: Sales Discounts
+(18,300)
+NET SALES REVENUE
+Net Revenue from Customers
+$ 920,000
+COST OF GOODS SOLD
+Cost of Merchandise Sold (COGS)
+(540,000)
+GROSS PROFIT
+Net Sales Revenue minus COGS
+$ 380,000
+OPERATING EXPENSES
+Selling Expenses:
+Salaries Expense (Sales Staff)
+$ 53,650
+Rent Expense (Retail Store)
+38,280
+Advertising Expense
+11,800
+Delivery Expense (Freight-out)
+7,800
+Depreciation Expense—Store Building
+1,500
+Total Selling Expenses Subtotal:
+(113,030)
+Administrative Expenses:
+Utilities Expense (Headquarters)
+55,500
+Salaries Expense (Administrative)
+38,930
+Insurance Expense
+31,900
+Rent Expense (HQ Offices)
+25,520
+Supplies Expense
+2,900
+Depreciation Expense—Office Furniture
+1,800
+Total Administrative Expenses Subtotal:
+(156,550)
+TOTAL OPERATING EXP.
+Sum of Selling + Administrative Expenses
+(269,580)
+OPERATING INCOME
+Gross Profit minus Total Operating Expenses
+110,420
+OTHER REVENUES/EXP.
+Other Income and Expenses:
+Less: Interest Expense (non-operating)
+(11,000)
+TOTAL OTHER ITEMS
+Total Other Revenues minus Other Expenses
+(11,000)
+NET INCOME
+Operating Income plus/minus Other Items
+$ 99,420</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-7 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Formula Notebook · Manufacturing &amp; Contribution-Margin Architectures<span class="ml-2 text-xs font-medium text-slate-400">COGM, COGS and behaviour-based format</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 15
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 7
+GENERATED BY GEMINI NOTEBOOK
+4. Manufacturing Statement with Supporting Schedules
+Manufacturing firms use three inventory layers (Raw Materials, WIP, Finished Goods) and compile a Schedule of Cost of
+Goods Manufactured (COGM) to feed into Cost of Goods Sold. Both schedules are detailed below.
+A. Supporting Schedule of Cost of Goods Manufactured (COGM)
+COGM Schedule Step
+Manufacturing Cost Line Items
+Subtotal
+Calculation
+Final Segment
+STEP 1: Direct Materials
+Beginning Raw Materials Inventory (RM)
+$ 24,500
+Plus: Raw Materials Purchases (including Freight-In)
+68,750
+Raw Materials Available for Use
+93,250
+Less: Ending Raw Materials Inventory (RM)
+(18,200)
+Direct Materials Used in Production
+$ 75,050
+STEP 2: Incurred Costs
+Direct Labor (DL) incurred on assembly floor
+55,400
+Manufacturing Overhead (MOH) indirect costs:
+Factory utilities, plant insurance, &amp; property taxes
+18,000
+Indirect labor (supervisors &amp; sweepers)
+28,000
+Indirect materials (plant supplies used)
+17,000
+Depreciation on factory plant &amp; machinery
+20,000
+Total Manufacturing Overhead Subtotal
+83,000
+TOTAL MFG COSTS
+Direct Materials Used + Direct Labor + MOH
+213,450
+STEP 3: COGM
+Beginning Work-in-Process Inventory (WIP)
+12,600
+Total Manufacturing Costs to Account For
+226,050
+Less: Ending Work-in-Process Inventory (WIP)
+(10,400)
+COGM TOTAL
+Cost of Goods Manufactured (transferred to
+Finished Goods)
+$ 215,650
+B. Manufacturing Cost of Goods Sold (COGS) Roll-Forward Schedule
+Inventory Status
+Roll-Forward Calculations
+Subtotal Level
+COGS Segment
+Total
+Beginning Inventory
+Beginning Finished Goods Inventory (FG)
+$ 20,000
+Cost Layer Inflow
+Plus: Cost of Goods Manufactured (COGM, from
+Step 3)
+215,650
+Available Stock
+Cost of Finished Goods Available for Sale
+235,650
+Inventory Outflow
+Less: Ending Finished Goods Inventory (FG)
+(17,500)
+COGS TOTAL
+Cost of Goods Sold (transferred to Income
+Statement)
+$ 218,150
+C. Manufacturing Company Final Income Statement Layout
+
+SOURCE PAGE 16
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 8
+GENERATED BY GEMINI NOTEBOOK
+Account Grouping
+Line Items
+Subtotals
+Final Operating
+Profit
+REVENUES
+Net Sales Revenue
+$ 1,000,000
+COST OF GOODS SOLD
+Cost of Goods Sold (from schedule above)
+(218,150)
+GROSS PROFIT
+Net Sales Revenue minus manufacturing COGS
+$ 781,850
+OPERATING
+EXPENSES
+Selling &amp; Administrative Expenses (period costs):
+Employee Salaries Expense (non-factory)
+$ 120,000
+Rent Expense (corporate offices)
+100,000
+Insurance Expense (corporate)
+10,000
+Depreciation Expense (office headquarters)
+6,000
+Supplies Expense (administrative)
+5,000
+TOTAL PERIOD EXP.
+Sum of all non-manufacturing Operating Expenses
+(241,000)
+OPERATING INCOME
+Gross Profit minus Total Period Operating Expenses
+540,850
+OTHER INCOME/EXP.
+Other Income &amp; Expenses (Interest/Disposals)
+(7,600)
+IBT
+Income Before Taxes (operating income plus/minus
+other)
+533,250
+TAX EXPENSE
+Income Tax Expense (30% tax rate hypothetical
+example)
+(159,975)
+NET INCOME
+Final net profit reported to owners
+$ 373,275
+
+SOURCE PAGE 17
+
+BA FE: FINANCIAL &amp; MANAGERIAL ACCOUNTING MASTER FORMULAS
+CHAPTERS 1–10 SYLLABUS
+CONFIDENTIAL — FINAL EXAM PRACTICAL REVISION GUIDE Page 9
+GENERATED BY GEMINI NOTEBOOK
+5. Contribution Margin Income Statement Layout (Behavior-Based)
+Unlike traditional functional layouts (GAAP), the Contribution Margin Income Statement classifies costs strictly by behavior
+(variable vs. fixed). It is used for internal Cost-Volume-Profit analysis, breakeven, and sensitivity modeling.
+Behavior Classification
+Account &amp; Formula Details
+Sub-Segment
+Level
+Total Volume
+Amount
+NET SALES REVENUE
+Selling Price per Unit x Sales Volume
+$ 30,000
+VARIABLE COSTS
+Variable Cost of Goods Sold (Variable
+Product):
+Direct Materials Used
+$ 9,000
+Direct Labor Used (if hourly variable)
+4,500
+Variable Manufacturing Overhead
+1,500
+Variable Operating Expenses (Variable Period):
+Sales Commissions Expense (e.g. 5% of Sales)
+1,500
+TOTAL VARIABLE COSTS
+Sum of all Variable Product &amp; Period Costs
+(16,500)
+CONTRIBUTION MARGIN
+Sales Revenue minus Total Variable Costs
+$ 13,500
+FIXED COSTS
+Fixed Manufacturing Costs (Fixed Product
+Overhead):
+Factory Rent &amp; Supervisor Salaries
+8,000
+Depreciation on Factory Equipment
+2,000
+Fixed Operating Expenses (Fixed Period):
+Administrative salaries &amp; Office rent
+2,500
+Depreciation on Corporate Headquarters
+1,000
+TOTAL FIXED COSTS
+Sum of all Fixed Product &amp; Period Costs
+(13,500)
+OPERATING INCOME
+Contribution Margin minus Total Fixed Costs
+(Breakeven)
+$ 0
+Traditional vs. Contribution Margin Income Statement:
+• Traditional (GAAP-compliant): Groups costs by function (Product Costs in Cost of Goods Sold vs. Period Costs in
+Operating Expenses). Isolates Gross Profit.
+• Contribution Margin (Internal CVP): Groups costs by behavior (Variable Product &amp; Period Costs vs. Fixed Product &amp;
+Period Costs). Isolates Contribution Margin, which represents sales dollars left to cover fixed costs. Both statements yield
+the identical Operating Income of the period but differ in visual classification.</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-8 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Financial Statement Architectures &amp; Interconnections<span class="ml-2 text-xs font-medium text-slate-400">Income statement, equity, balance sheet and cash flows</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 18
+
+Confidential — Revision Material
+Page 1
+Horngren&#x27;s Accounting (14th Ed.)
+BA FE: ACCOUNTING &amp; MANAGERIAL
+FORMULAS MASTER GUIDE
+Chapters 1 to 10 Formula Compilation with Financial Statement Architectures
+SECTION 1: FINANCIAL STATEMENT ARCHITECTURES &amp; INTERCONNECTIONS
+Financial statements represent the end product of the accounting process. They summarize business activities and are
+prepared sequentially to establish a logical flow of mathematical links from period profitability to the final balance sheet.
+1. Income Statement (Profitability)
+The Income Statement measures operating performance over a specific time interval. It lists revenues and expenses,
+culminating in Net Income or Net Loss.
+Statement Type &amp; Margin
+Mathematical Layout Flow
+Linking Relationships &amp; Exam Notes
+Type of Statement
+Structural Equation / Layout Flow
+Interconnection Link
+Service Company Income
+Statement
+Net Service Revenue
+- Operating Expenses (Salaries,
+Rent, Supplies, Utilities,
+Depreciation)
+= Net Income / (Net Loss)
+Net Income / Net Loss is transferred directly to the
+Statement of Owner&#x27;s Equity as an
+addition/subtraction to Capital.
+Merchandising / Manufacturing
+Multi-Step Income Statement
+Net Sales Revenue
+- Cost of Goods Sold (COGS)
+= Gross Profit
+- Operating Expenses (Selling &amp;
+Administrative)
+= Operating Income
++/- Other Revenues / Expenses
+(Interest, Gains/Losses)
+= Net Income / (Net Loss)
+Gross Profit measures the primary markup
+efficiency. Operating Income isolates core
+performance before financial/non-operating
+events.
+2. Statement of Owner&#x27;s Equity (Capital Changes)
+This statement bridges the Income Statement and the Balance Sheet. It tracks changes in the owner&#x27;s capital account
+balance over a specified operating interval.
+Roll-forward Item
+Calculation Flow
+Interconnection Link
+Component
+Formula / Layout Flow
+Interconnection Link
+Owner&#x27;s Equity Roll-forward
+Beginning Owner, Capital (Nov 1)
++ Owner Contributions / Investments
++ Net Income (or - Net Loss) [From
+Income Statement]
+- Owner Withdrawals / Drawings
+= Ending Owner, Capital (Nov 30)
+The calculated Ending Owner, Capital balance
+is placed directly into the Owner&#x27;s Equity section
+of the Balance Sheet.
+3. Classified Balance Sheet (Financial Position)
+The Balance Sheet reports assets, liabilities, and owner&#x27;s equity at a specific point in time. Assets are shown in order of
+liquidity; liabilities are grouped into current and long-term segments.
+
+SOURCE PAGE 19
+
+Confidential — Revision Material
+Page 2
+Horngren&#x27;s Accounting (14th Ed.)
+Classification
+Assets, Liabilities &amp; Equity Components
+Mathematical Balance Rules
+Classification
+Structure / Components
+Key Rules &amp; Balance Checks
+Assets Grouping
+Current Assets: Cash, Accounts
+Receivable, Supplies, Prepaid
+Expenses, Merchandise Inventory.
+Property, Plant, and Equipment (PP&amp;E):
+Land, Building, Equipment (reported
+net of Accumulated Depreciation
+contra-assets).
+Assets = Liabilities + Equity
+Check: The left side (Total Assets) must exactly
+equal the right side (Total Liabilities + Equity).
+Liabilities &amp; Equity
+Grouping
+Current Liabilities: Accounts Payable,
+Accrued Payables (Salaries, Interest,
+Utilities, Taxes Payable), Unearned
+Revenue.
+Long-Term Liabilities: Notes Payable,
+Bonds Payable (due &gt; 1 year).
+Owner&#x27;s Equity: Ending Owner Capital
+[From Statement of Owner&#x27;s Equity].
+Unearned Revenue is classified as a liability
+because it represents a deferred obligation to
+perform services or deliver goods.
+4. Statement of Cash Flows (Liquidity &amp; Cash Solvency)
+Reports on cash receipts and payments over a span of time, explaining why accrual Net Income does not equal the change in
+cash. Reconciles ending cash back to the Balance Sheet cash account.
+CF Activity Segment
+Calculation &amp; Reconciliation Layout
+Interconnection Link
+Cash Flow Segment
+Formula / Layout Flow
+Interconnection Link
+Cash Reconciliations
+Net Cash from Operating Activities
+(core revenues/expenses)
++ Net Cash from Investing Activities
+(buying/selling long-term assets)
++ Net Cash from Financing Activities
+(stock, debt, dividends, capital)
+= Net Increase / (Decrease) in Cash
++ Beginning Cash Balance
+= Ending Cash Balance
+The calculated Ending Cash Balance must be
+identical to the cash balance reported in the
+Current Assets section of the Balance Sheet.</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-9 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapters 1–8 Formula Compilation<span class="ml-2 text-xs font-medium text-slate-400">Accounting, inventory, cash and cash flows</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 20
+
+Confidential — Revision Material
+Page 3
+Horngren&#x27;s Accounting (14th Ed.)
+SECTION 2: CHAPTER-BY-CHAPTER FORMULA MASTER COMPILATION
+The following tables compile every formula, ratio, inventory cost flow, and mathematical relationship across Chapters 1 to 10
+of the Financial and Managerial Accounting curriculum.
+Chapters 1 &amp; 2: Accounting in the Business Environment &amp; Recording Transactions
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Basic Accounting
+Equation
+Assets = Liabilities + Equity
+Fundamental balance rule. Resources (assets) must equal
+the claims against them (creditor liabilities + owner equity).
+Expanded Accounting
+Equation
+Assets = Liabilities + Owner&#x27;s
+Capital - Owner&#x27;s Withdrawals +
+Revenues - Expenses
+Incorporates equity components. Demonstrates how
+individual revenues, expenses, and withdrawals directly
+expand the equity portion.
+Return on Assets (ROA)
+ROA = Net Income / Average Total
+Assets
+Measures a firm&#x27;s profitability in using its assets. Expressed
+as a percentage.
+Average Total Assets
+Average Assets = (Beg. Assets +
+End. Assets) / 2
+Reconciles asset changes over the period. Used as the
+denominator in ROA calculations.
+Debt Ratio
+Debt Ratio = Total Liabilities /
+Total Assets
+Measures solvency and leverage. High ratios indicate high
+financing risk and greater dependency on creditors.
+Chapters 3 &amp; 4: The Adjusting Process &amp; Completing the Accounting Cycle
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Straight-Line
+Depreciation per Year
+Depr. = (Cost - Residual Value) /
+Useful Life
+Allocates equal expense across asset life. Salvage/residual
+value is deducted from cost first.
+Book Value of Plant
+Asset
+Book Value = Cost - Accumulated
+Depreciation
+The net asset value reported on the Balance Sheet.
+Accumulated Depreciation is a contra-asset.
+Accrued Interest
+Interest = Principal * Rate *
+Time
+Computes interest on notes payable/receivable. Time must
+be expressed in annual terms (e.g., Months / 12).
+Current Ratio
+Current Ratio = Current Assets /
+Current Liabilities
+Evaluates short-term liquidity and ability to pay immediate
+obligations. Targets are typically &gt; 1.0.
+
+SOURCE PAGE 21
+
+Confidential — Revision Material
+Page 4
+Horngren&#x27;s Accounting (14th Ed.)
+Chapters 5 &amp; 6: Merchandising Operations &amp; Merchandise Inventory Costing
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Net Cost of Inventory
+Purchased
+Net Cost = Purchases - Purchase
+Returns &amp; Allowances - Purchase
+Discounts + Freight-In
+Aggregates net cash costs capitalized to inventory. Early
+payment discounts are deducted from purchases.
+Cost of Goods Sold
+(COGS) - Periodic
+COGS = Beginning Inventory + Net
+Cost of Purchases - Ending
+Inventory
+Computes inventory expense globally after a physical
+inventory count is conducted.
+Gross Profit Margin
+Gross Profit = Net Sales Revenue
+- COGS
+Margin left after covering product cost to pay for operating
+expenses.
+Gross Profit Percentage
+GP % = Gross Profit / Net Sales
+Revenue
+Evaluates pricing and markdown efficiency. Measures Gross
+Profit earned per dollar of Sales.
+Weighted-Average Cost
+per Unit
+WA Cost = Cost of Goods Available
+/ Total Units Available
+Calculates a uniform unit cost. Under periodic, calculated
+monthly; under perpetual, recalculated after each purchase.
+Inventory Turnover
+Inv. Turnover = COGS / Average
+Inventory
+Measures how rapidly inventory is sold and replenished.
+Average inventory = (Beg. + End.) / 2.
+Days&#x27; Sales in Inventory
+Days&#x27; Sales = 365 / Inventory
+Turnover
+Measures the average number of days inventory sits on the
+shelves before being sold.
+Chapters 7 &amp; 8: Internal Control &amp; Cash / Statement of Cash Flows
+Formula / Ratio Name
+Mathematical Expression
+Conceptual Explanation / Application
+Cash Ratio
+Cash Ratio = (Cash + Cash
+Equivalents) / Current
+Liabilities
+Most conservative liquidity measure. Explores ability to pay
+short-term debt with cash on hand.
+Statement of Cash
+Flows Net Change
+Net Change in Cash = Net
+Operating CF + Net Investing CF +
+Net Financing CF
+Reconciles all cash activities to find the net change. Matches
+Balance Sheet cash differences.
+Operating Cash Flow
+(Indirect)
+Operating Cash = Net Income +
+Depreciation - Gains + Losses -
+Increase in Current Assets +
+Increase in Current Liabilities
+Reconciles net income to actual cash from operations.
+Current asset increases drain cash; liability increases save
+cash.
+Cash Received from
+Disposal
+Cash Rec&#x27;d = Cost - Accum. Depr.
++ Gain on Sale (or - Loss on
+Sale)
+Calculates actual cash inflow from long-term asset sales
+(reported in Investing Activities).
+Cash Dividends Paid
+Dividends Paid = Beg. Retained
+Earnings + Net Income - End.
+Retained Earnings
+Roll-forward formula to isolate cash paid to stockholders
+(reported in Financing Activities).
+Free Cash Flow (FCF)
+FCF = Net Operating Cash -
+Planned CapEx - Cash Dividends
+The cash generated that is free to be used for expansion,
+debt paydowns, or dividend increases.</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-10 -->
+                    <details class="group rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <summary class="cursor-pointer list-none px-5 py-4 font-bold text-slate-800 transition-colors hover:bg-amber-50 [&::-webkit-details-marker]:hidden">
+                            <span class="flex items-center justify-between gap-4"><span>Master Guide · Chapters 9–10 Formula Compilation &amp; Final Checklist<span class="ml-2 text-xs font-medium text-slate-400">Managerial accounting and CVP analysis</span></span><span class="text-amber-500 transition-transform group-open:rotate-180">▾</span></span>
+                        </summary>
+                        <div class="border-t border-slate-100 px-5 py-4">
+                            <pre class="whitespace-pre-wrap break-words font-sans text-sm leading-6 text-slate-700">SOURCE PAGE 22
+
+Confidential — Revision Material
+Page 5
+Horngren&#x27;s Accounting (14th Ed.)
+Chapter 9: Introduction to Managerial Accounting
+Formula / Cost Layer
+Name
+Mathematical Expression
+Conceptual Explanation / Application
+Prime Costs
+Prime Costs = Direct Materials
+Used + Direct Labor
+Combines the two primary direct physical costs of
+manufacturing.
+Conversion Costs
+Conversion Costs = Direct Labor +
+Manufacturing Overhead
+Combines Direct Labor with the indirect overhead costs
+required to convert raw materials into finished products.
+Direct Materials Used
+DM Used = Beginning Raw Materials
++ Raw Materials Purchased -
+Ending Raw Materials
+Step 1 of the Schedule of Cost of Goods Manufactured.
+Represents raw inventory transferred to production.
+Total Manufacturing
+Costs Incurred
+Total Mfg. Costs = DM Used +
+Direct Labor + Manufacturing
+Overhead (MOH)
+Step 2 of the Schedule of Cost of Goods Manufactured.
+Aggregates all production inputs during the period.
+Cost of Goods
+Manufactured (COGM)
+COGM = Beginning WIP + Total Mfg.
+Costs - Ending WIP
+Step 3 of the Schedule of Cost of Goods Manufactured.
+Represents inventory cost transferred to Finished Goods.
+Cost of Goods Sold
+(COGS) - Mfg.
+COGS = Beginning Finished Goods +
+COGM - Ending Finished Goods
+Calculates product expense on the manufacturer&#x27;s Income
+Statement.
+Unit Product Cost
+Unit Product Cost = COGM / Total
+Units Produced
+Determines the cost layer per product unit. Used for pricing
+and evaluating ending finished inventory values.
+Unit Cost per Service
+Unit Service Cost = Total
+Operating Costs / Total Services
+Provided
+Used by service companies to price projects and evaluate
+operating margins.
+
+SOURCE PAGE 23
+
+Confidential — Revision Material
+Page 6
+Horngren&#x27;s Accounting (14th Ed.)
+Chapter 10: Cost-Volume-Profit (CVP) Analysis
+Formula / CVP Metric
+Mathematical Expression
+Conceptual Explanation / Application
+High-Low Variable Cost
+per Unit
+Variable Cost/Unit = (Cost at
+High Activity - Cost at Low
+Activity) / (High Volume - Low
+Volume)
+Segregates variable costs from mixed costs using extreme
+points in a dataset.
+High-Low Fixed Cost
+Base
+Fixed Cost = Total Mixed Cost -
+(Variable Cost/Unit * Volume)
+Calculated at either the high or low point. Fixed costs remain
+constant across the relevant range.
+Unit Contribution
+Margin (UCM)
+UCM = Selling Price per Unit -
+Variable Cost per Unit
+Represents the amount of each sale that goes toward
+covering fixed costs, then generating profit.
+Contribution Margin
+Ratio (CMR)
+CMR = Unit Contribution Margin /
+Selling Price per Unit
+Percentage of each sales dollar contributing to fixed costs.
+Expressed as a decimal or percentage.
+Breakeven Point (Units)
+Breakeven (Units) = Total Fixed
+Costs / Unit Contribution Margin
+Required unit volume to generate $0 in operating income.
+Breakeven Point (Sales
+Dollars)
+Breakeven (Dollars) = Total Fixed
+Costs / Contribution Margin Ratio
+Required revenue volume to generate $0 in operating
+income.
+Target Profit Volume
+(Units)
+Target Vol (Units) = (Total Fixed
+Costs + Target Profit) / Unit
+Contribution Margin
+Determines necessary units to achieve a target operating
+income.
+Target Profit Volume
+(Dollars)
+Target Vol (Dollars) = (Total
+Fixed Costs + Target Profit) /
+Contribution Margin Ratio
+Determines necessary revenue to achieve a target operating
+income.
+Margin of Safety
+Margin of Safety =
+Expected/Actual Sales - Breakeven
+Sales
+The buffer drop in sales before a firm incurs losses.
+Expressed in units, dollars, or as a percentage ratio.
+Degree of Operating
+Leverage (DOL)
+DOL = Total Contribution Margin /
+Operating Income
+Measures leverage risk. High DOL indicates that small
+percentage sales shifts trigger large operating profit shifts.
+Weighted-Average UCM
+(Multiproduct)
+WA UCM = Sum of (Product UCM_i *
+Product Sales Mix Proportion_i)
+Used for multiproduct firms. Segregates product &#x27;packages&#x27;
+to find a unified package breakeven point.
+FINAL EXAM - CRITICAL REVISION CHECKLIST
+1. Always check cash transactions: Cash flows never involve adjusting entries like Depreciation. Adjusting entries always affect one
+Income Statement account and one Balance Sheet account, but never Cash.
+2. Remember the double-entry flow of Merchandising Sales: A perpetual sale always requires two journal entries: one to record Sales
+Revenue (and A/R or Cash) at selling price, and a concurrent one to record Cost of Goods Sold and reduce Merchandise Inventory at cost.
+3. Managerial vs. Financial: Financial reports are for external stakeholders (GAAP compliant, historical, aggregate), while managerial
+reports are for internal managers (no GAAP, future-focused, divisional).</pre>
+                        </div>
+                    </details>
+                    <!-- pdf-pages-11 -->
+                </div>
+            </section>
+
             <section id="sec-prep_blueprint" class="fade-in hidden">
                 <header class="mb-8 border-b border-slate-200 pb-4">
                     <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
@@ -549,7 +4124,7 @@
                         </ul>
                     </div>
                     <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-slate-200 p-6 min-h-[400px]">
-                        
+
                         <div id="wf-journal" class="wf-content block fade-in">
                             <h3 class="text-2xl font-bold text-slate-800 mb-4">Workflow: Journalizing Transactions</h3>
                             <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6">
@@ -4249,7 +7824,7 @@
                     <span class="text-indigo-600 font-bold tracking-wider text-sm uppercase">Chapter 5</span>
                     <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">Mastering Merchandising</h2>
                 </header>
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                     <div class="lg:col-span-1 bg-indigo-50 rounded-2xl border border-indigo-100 p-6 flex flex-col justify-center">
                         <h3 class="font-bold text-indigo-900 mb-3 text-lg"><span class="mr-2">📱</span> The Entire Chapter in One Story</h3>
@@ -4469,7 +8044,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Event 7 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 text-sm">🗓️ Alt Scenario: April 25 Late Payment</div>
@@ -4494,7 +8069,7 @@
                         <div class="bg-indigo-700 text-white p-3 rounded-t-xl text-center font-bold uppercase">🛒 Buyer: CBS (Periodic)</div>
                         <div class="bg-emerald-700 text-white p-3 rounded-t-xl text-center font-bold uppercase">🏪 Seller: KKS (Periodic)</div>
                     </div>
-                    
+
                     <!-- Periodic Event 1 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
                         <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 text-sm">🗓️ April 1: Cash Purchase</div>
@@ -4572,7 +8147,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Periodic Event 6 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
                         <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 text-sm">🗓️ April 14: Payment with Discount</div>
@@ -5045,7 +8620,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-50 p-4 border-b border-slate-200 flex gap-2 justify-center">
                         <button onclick="setCostingMethod('fifo')" id="btn-fifo" class="px-6 py-2 rounded-md bg-emerald-600 text-white font-bold">FIFO</button>
@@ -6993,7 +10568,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <section id="sec-cf_direct" class="fade-in hidden">
                 <header class="mb-8 border-b border-slate-200 pb-4">
                     <span class="text-fuchsia-600 font-bold tracking-wider text-sm uppercase">Chapter 8</span>
@@ -7700,7 +11275,7 @@
                     <span class="text-cyan-600 font-bold tracking-wider text-sm uppercase">Chapter 8.5</span>
                     <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">Conceptual Framework</h2>
                 </header>
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                     <!-- Eq Effects -->
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
@@ -8755,7 +12330,7 @@
                         <div class="space-y-4 text-sm">
                             <h4 class="text-blue-400 font-bold border-b border-slate-700 pb-1">1. Raw Materials</h4>
                             <div class="flex gap-2"><input type="number" id="mfg-beg-rm" value="70" oninput="calcMfg()" class="w-1/3 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="Beg RM"><span class="mt-1">+</span><input type="number" id="mfg-pur" value="350" oninput="calcMfg()" class="w-1/3 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="Purchases"><span class="mt-1">−</span><input type="number" id="mfg-end-rm" value="65" oninput="calcMfg()" class="w-1/3 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="End RM"></div>
-                            
+
                             <h4 class="text-blue-400 font-bold border-b border-slate-700 pb-1 mt-4">2. Work in Process</h4>
                             <div class="flex gap-2 mb-2"><input type="number" id="mfg-dl" value="169" oninput="calcMfg()" class="w-1/2 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="Direct Labor"><input type="number" id="mfg-moh" value="83" oninput="calcMfg()" class="w-1/2 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="Mfg Overhead"></div>
                             <div class="flex gap-2"><input type="number" id="mfg-beg-wip" value="80" oninput="calcMfg()" class="w-1/2 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="Beg WIP"><span class="mt-1">−</span><input type="number" id="mfg-end-wip" value="27" oninput="calcMfg()" class="w-1/2 bg-slate-800 border border-slate-600 p-1 rounded" placeholder="End WIP"></div>
@@ -10572,9 +14147,9 @@
     <script>
         let appState = {
             currentTab: 'prep_cheat',
-            role: 'buyer', 
-            system: 'perpetual', 
-            chartInstance: null 
+            role: 'buyer',
+            system: 'perpetual',
+            chartInstance: null
         };
 
         // ---- Mobile off-canvas navigation ----
@@ -10644,20 +14219,293 @@
         updateLastPushTime();
         setInterval(updateLastPushTime, 5 * 60 * 1000);
 
+        function escapeRevisionHtml(value) {
+            return value.replace(/[&<>"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[character]);
+        }
+
+        function setRevisionNotebookSections(expanded) {
+            document.querySelectorAll('#pdf-revision-notebook-content > details').forEach(section => {
+                section.open = expanded;
+            });
+        }
+
+        // Turn the visually verified source into scannable study blocks while retaining its wording.
+        function formatRevisionNotebookContent() {
+            document.querySelectorAll('#pdf-revision-notebook-content pre').forEach(pre => {
+                const sourcePages = pre.textContent
+                    .split(/(?=SOURCE PAGE \d+)/)
+                    .map(page => page.trim())
+                    .filter(Boolean);
+                if (sourcePages.length > 1) {
+                    pre.outerHTML = sourcePages
+                        .map(page => '<pre>' + escapeRevisionHtml(page) + '</pre>')
+                        .join('');
+                }
+            });
+
+            document.querySelectorAll('#pdf-revision-notebook-content pre').forEach(pre => {
+                const lines = pre.textContent
+                    .split('\n')
+                    .map(rawLine => {
+                        const hadBullet = /[\u2022\u25CF\uF0B7]/u.test(rawLine);
+                        const line = rawLine
+                            .normalize('NFKC')
+                            .replace(/[\u0B00-\u0B7F,]+(?=\s*units)/gu, '2,800')
+                            .replace(/^\s*[\u0B80-\u0BFF]+\s*$/gu, 'UCM')
+                            .replace(/\u0B3E/gu, ' + ')
+                            .replace(/[^A-Za-z0-9\s.,:;!?%$()\[\]{}+\-−=÷×/\\'"&<>#@|_*–—→←↑↓±~]+/gu, ' ')
+                            .replace(/\s+/g, ' ')
+                            .trim();
+                        if (!line) return hadBullet ? '•' : '';
+                        if (!/[A-Za-z0-9]/.test(line)) return hadBullet ? '•' : '';
+                        return line;
+                    });
+
+                const blocks = [];
+                let paragraph = [];
+                let listItems = [];
+                let listType = 'bullet';
+                let pageLabel = 'Source page';
+                const skipLine = line => /^(?:Master Exam Revision Compilation: Business|Accounting \(GEB2013\/GFB2013\)|CONFIDENTIAL.*|ISSUED AUGUST.*|BA FE:.*|CHAPTERS 1–10 SYLLABUS|GENERATED BY GEMINI NOTEBOOK|Confidential — Revision Material|Horngren's Accounting \(14th Ed\.\)|Page \d+|NOTEBOOK|Core Concept \/ Metric|Mathematical Formula \/ Relationship|Syllabus Context \/ Application|Formula \/ Ratio Name|Mathematical Expression|Conceptual Explanation \/ Application|Account Group|Line Item Detail|Total Level Amount|Grouping Category|Account Line Items|Subtotals \/ Totals|Account Classification|Line Item \/ Group Details|Intermediate|Margins|Final Amount|COGM Schedule Step|Manufacturing Cost Line Items|Subtotal|Calculation|Final Segment|Inventory Status|Roll-Forward Calculations|Subtotal Level|COGS Segment|Total|Account Grouping|Line Items|Subtotals|Final Operating|Profit|Behavior Classification|Account & Formula Details|Sub-Segment|Level|Total Volume|Amount|Statement Type & Margin|Mathematical Layout Flow|Linking Relationships & Exam Notes|Type of Statement|Structural Equation \/ Layout Flow|Interconnection Link|Roll-forward Item|Calculation Flow|Component|Formula \/ Layout Flow|Classification|Assets, Liabilities & Equity Components|Mathematical Balance Rules|Structure \/ Components|Key Rules & Balance Checks|CF Activity Segment|Calculation & Reconciliation Layout|Cash Flow Segment|Formula \/ Cost Layer|Name|Formula \/ CVP Metric)$/i.test(line);
+                const isMajorHeading = line => /^(?:Topic\s+\d+|PART\s+[IVX]+|SECTION\s+\d+|FINAL EXAM)/i.test(line);
+                const isSubheading = line => /^(?:\d+\.\d+\s+|Chapters?\s+\d|Chapter\s+\d|[A-C]\.\s+(?:Supporting|Manufacturing)|\d+\.\s+(?:Service|Merchandising|Manufacturing|Contribution)|In class activities$|Traditional vs\.|Magic Methods)/i.test(line);
+                const isQuestion = line => /(?:Compiled Question|^Question\s*\()/i.test(line);
+                const isHeading = line => isMajorHeading(line) || isSubheading(line);
+                const isListMarker = line => line === '•' || /^o$/i.test(line) || /^\d+\.$/.test(line) || /^\d+\.\s+/.test(line);
+                const isAmount = line => /^(?:RM|\$)?\s*\(?-?[\d,]+(?:\.\d+)?\)?(?:\s*(?:times\/year|times|units|days|%|:\s*1))?$/i.test(line);
+                const isFormula = line => /(?:=|÷|×|\bCOGS\b|\bCOGM\b|\bUCM\b|\bCMR\b|\bDOL\b|\bROA\b|\bBreakeven\b)/.test(line) && line.length < 260;
+                const isExplanationStart = line => /^(?:The |Measures |Allocates |Computes |Represents |Calculates? |Used |Evaluates |Determines? |Reconciles |Aggregates |Combines |Starts |Directly |Reports? |Capitalizes |Integrates |Incorporates |Provides |Analyzes |Segregates |Margin left |Direct Labor is |Fundamental |Most |Step \d|Financial accounting |Managerial accounting )/i.test(line);
+                const isTermHeading = (line, index) => {
+                    if (!line || line.length > 72 || /[.!?]$/.test(line) || /[=:]/.test(line) || isHeading(line) || isListMarker(line)) return false;
+                    const nextLines = lines.slice(index + 1, index + 3).filter(Boolean);
+                    const hasFormulaNearby = nextLines.some(candidate => /[=÷×]/.test(candidate));
+                    return hasFormulaNearby || /^[A-Z][A-Z\s&/().-]{3,}$/.test(line);
+                };
+                const isAmountLabel = (line, amount) => Boolean(amount) && isAmount(amount) && line.length < 82 && !/[.!?]$/.test(line) && !/[=:]/.test(line);
+                const nextMeaningfulLine = index => {
+                    for (let cursor = index + 1; cursor < lines.length; cursor += 1) {
+                        if (lines[cursor]) return lines[cursor];
+                    }
+                    return '';
+                };
+                const smartJoin = values => values
+                    .join(' ')
+                    .replace(/\s+([,.;!?])/g, '$1')
+                    .replace(/\(\s+/g, '(')
+                    .replace(/\s+\)/g, ')')
+                    .replace(/\s{2,}/g, ' ')
+                    .trim();
+                const formulaBlock = value => {
+                    const splitAt = value.indexOf(':');
+                    const hasShortLabel = splitAt > 0 && splitAt < 58;
+                    const label = hasShortLabel ? value.slice(0, splitAt) : 'Formula';
+                    const expression = hasShortLabel ? value.slice(splitAt + 1).trim() : value;
+                    return '<div class="pdf-revision-formula"><span class="pdf-revision-formula-label">' +
+                        escapeRevisionHtml(label) +
+                        '</span><code>' +
+                        escapeRevisionHtml(expression) +
+                        '</code></div>';
+                };
+                const flushParagraph = () => {
+                    if (!paragraph.length) return;
+                    const value = smartJoin(paragraph);
+                    if (isFormula(value)) {
+                        blocks.push(formulaBlock(value));
+                    } else if (/^(?:Assessment|Exam Preparation Notice|Remember|Always check|Key insight|Vertical Analysis Insights)/i.test(value)) {
+                        const splitAt = value.indexOf(':');
+                        const label = splitAt > 0 ? value.slice(0, splitAt) : 'Exam insight';
+                        const body = splitAt > 0 ? value.slice(splitAt + 1).trim() : value;
+                        blocks.push('<div class="pdf-revision-callout"><strong>' + escapeRevisionHtml(label) + '</strong>' + escapeRevisionHtml(body) + '</div>');
+                    } else {
+                        const splitAt = value.indexOf(':');
+                        if (splitAt > 1 && splitAt < 55 && value.length > splitAt + 2) {
+                            blocks.push('<div class="pdf-revision-keyline"><strong>' + escapeRevisionHtml(value.slice(0, splitAt)) + '</strong><span>' + escapeRevisionHtml(value.slice(splitAt + 1).trim()) + '</span></div>');
+                        } else {
+                            blocks.push('<p class="pdf-revision-paragraph">' + escapeRevisionHtml(value) + '</p>');
+                        }
+                    }
+                    paragraph = [];
+                };
+                const flushList = () => {
+                    if (!listItems.length) return;
+                    const modifier = listType === 'numbered'
+                        ? ' pdf-revision-list--numbered'
+                        : listType === 'nested'
+                            ? ' pdf-revision-list--nested'
+                            : '';
+                    const tag = listType === 'numbered' ? 'ol' : 'ul';
+                    blocks.push('<' + tag + ' class="pdf-revision-list' + modifier + '">' +
+                        listItems.map(item => '<li>' + escapeRevisionHtml(item) + '</li>').join('') +
+                        '</' + tag + '>');
+                    listItems = [];
+                };
+
+                for (let index = 0; index < lines.length; index += 1) {
+                    let line = lines[index];
+                    if (!line) {
+                        flushParagraph();
+                        if (!isListMarker(nextMeaningfulLine(index))) flushList();
+                        continue;
+                    }
+                    if (/^SOURCE PAGE \d+$/.test(line)) {
+                        flushParagraph();
+                        flushList();
+                        pageLabel = line;
+                        continue;
+                    }
+                    if (skipLine(line)) continue;
+                    if (/^Exam Preparation Notice:/i.test(line)) {
+                        flushParagraph();
+                        flushList();
+                        paragraph.push(line);
+                        continue;
+                    }
+                    if (/^Topic\s+\d+/i.test(line) && /[&:]$/.test(line) && nextMeaningfulLine(index) && !isHeading(nextMeaningfulLine(index))) {
+                        const continuationIndex = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && Boolean(candidate));
+                        if (continuationIndex > index) {
+                            line += ' ' + lines[continuationIndex];
+                            lines[continuationIndex] = '';
+                        }
+                    }
+                    if (isHeading(line) && /^&\s*/.test(nextMeaningfulLine(index))) {
+                        const continuationIndex = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && Boolean(candidate));
+                        if (continuationIndex > index) {
+                            line += ' ' + lines[continuationIndex];
+                            lines[continuationIndex] = '';
+                        }
+                    }
+                    if (isHeading(line)) {
+                        flushParagraph();
+                        flushList();
+                        const headingClass = isMajorHeading(line)
+                            ? 'pdf-revision-heading'
+                            : isQuestion(line)
+                                ? 'pdf-revision-question'
+                                : 'pdf-revision-subheading';
+                        blocks.push('<h4 class="' + headingClass + '">' + escapeRevisionHtml(line) + '</h4>');
+                        continue;
+                    }
+                    if (isQuestion(line)) {
+                        flushParagraph();
+                        flushList();
+                        const continuation = nextMeaningfulLine(index);
+                        if (continuation && continuation.length < 52 && !/^(?:On\b|At\b|For\b|\d+\.|o$|•)/i.test(continuation)) {
+                            const continuationIndex = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && candidate === continuation);
+                            line += ' ' + continuation;
+                            if (continuationIndex > index) {
+                                lines[continuationIndex] = '';
+                                index = continuationIndex;
+                            }
+                        }
+                        blocks.push('<h4 class="pdf-revision-question">' + escapeRevisionHtml(line) + '</h4>');
+                        continue;
+                    }
+                    if (line === 'Feature' && lines.slice(index + 1, index + 10).some(candidate => /Accrual Basis/i.test(candidate))) {
+                        flushParagraph();
+                        flushList();
+                        blocks.push('<div class="pdf-revision-comparison" aria-label="Accrual basis and cash basis comparison">' +
+                            '<div class="pdf-revision-compare-row"><span>Feature</span><span>Accrual basis</span><span>Cash basis</span></div>' +
+                            '<div class="pdf-revision-compare-row"><strong>Revenue recognition</strong><span>Recorded when earned, regardless of when cash arrives.</span><span>Recorded only when cash is collected.</span></div>' +
+                            '<div class="pdf-revision-compare-row"><strong>Expense recognition</strong><span>Recorded when incurred under the matching principle.</span><span>Recorded only when cash is paid.</span></div>' +
+                            '<div class="pdf-revision-compare-row"><strong>GAAP compliance</strong><span>Required by GAAP and IFRS.</span><span>Not permitted under GAAP.</span></div>' +
+                            '<div class="pdf-revision-compare-row"><strong>Long-term planning</strong><span>Provides a reliable picture of long-term profit.</span><span>Can be distorted by the timing of cash receipts and payments.</span></div>' +
+                            '</div>');
+                        const comparisonEnd = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && /^1\.3\s+/.test(candidate));
+                        if (comparisonEnd > index) index = comparisonEnd - 1;
+                        continue;
+                    }
+                    if (/^\[1\.\s*/.test(line)) {
+                        flushParagraph();
+                        flushList();
+                        const flowLines = [];
+                        let cursor = index;
+                        while (cursor < lines.length && !/^Magic Methods/i.test(lines[cursor])) {
+                            if (lines[cursor]) flowLines.push(lines[cursor]);
+                            cursor += 1;
+                        }
+                        const steps = [...flowLines.join(' ').matchAll(/\[([^\]]+)\]/g)].map(match => match[1].replace(/\s+/g, ' ').trim());
+                        if (steps.length) {
+                            blocks.push('<div class="pdf-revision-flow" aria-label="Accounting cycle">' + steps.map(step => '<div class="pdf-revision-flow-step">' + escapeRevisionHtml(step) + '</div>').join('') + '</div>');
+                        }
+                        index = cursor - 1;
+                        continue;
+                    }
+                    if (isListMarker(line)) {
+                        flushParagraph();
+                        const markerType = /^\d+\./.test(line) ? 'numbered' : /^o$/i.test(line) ? 'nested' : 'bullet';
+                        if (listItems.length && listType !== markerType) flushList();
+                        listType = markerType;
+                        const item = [];
+                        const inlineNumberedItem = line.match(/^\d+\.\s+(.+)/);
+                        if (inlineNumberedItem) item.push(inlineNumberedItem[1]);
+                        while (index + 1 < lines.length) {
+                            const candidate = lines[index + 1];
+                            if (!candidate || isListMarker(candidate) || isHeading(candidate) || /^SOURCE PAGE \d+$/.test(candidate)) break;
+                            if (!skipLine(candidate)) item.push(candidate);
+                            index += 1;
+                        }
+                        if (item.length) listItems.push(smartJoin(item));
+                        continue;
+                    }
+                    const nextLine = nextMeaningfulLine(index);
+                    if (isAmountLabel(line, nextLine)) {
+                        flushParagraph();
+                        flushList();
+                        const amountIndex = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && candidate === nextLine);
+                        blocks.push('<div class="pdf-revision-keyline"><strong>' + escapeRevisionHtml(line) + '</strong><span>' + escapeRevisionHtml(nextLine) + '</span></div>');
+                        if (amountIndex > index) {
+                            lines[amountIndex] = '';
+                            index = amountIndex;
+                        }
+                        continue;
+                    }
+                    if (isTermHeading(line, index)) {
+                        flushParagraph();
+                        flushList();
+                        blocks.push('<h5 class="pdf-revision-term">' + escapeRevisionHtml(line) + '</h5>');
+                        continue;
+                    }
+                    if (isFormula(line)) {
+                        flushParagraph();
+                        flushList();
+                        const formulaLines = [line];
+                        while (index + 1 < lines.length) {
+                            const candidate = lines[index + 1];
+                            if (!candidate || isHeading(candidate) || isListMarker(candidate) || isExplanationStart(candidate) || isTermHeading(candidate, index + 1)) break;
+                            if (formulaLines.join(' ').length > 240) break;
+                            formulaLines.push(candidate);
+                            index += 1;
+                        }
+                        blocks.push(formulaBlock(smartJoin(formulaLines)));
+                        continue;
+                    }
+                    paragraph.push(line);
+                }
+                flushParagraph();
+                flushList();
+                pre.outerHTML = '<article class="pdf-revision-source">' +
+                    '<div class="pdf-revision-page">' + escapeRevisionHtml(pageLabel) + '</div>' +
+                    '<div class="pdf-revision-content">' + blocks.join('') + '</div>' +
+                    '</article>';
+            });
+        }
+
+        formatRevisionNotebookContent();
+
         function nav(tabId) {
             appState.currentTab = tabId;
             closeMobileMenu();
             window.scrollTo({ top: 0, behavior: 'instant' });
 
             document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
-            
+
             const targetSec = document.getElementById('sec-' + tabId);
             if(targetSec) targetSec.classList.remove('hidden');
 
             document.querySelectorAll('nav ul button').forEach(btn => {
                 btn.className = 'w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium';
             });
-            
+
             const activeBtn = document.getElementById('nav-' + tabId);
             if(activeBtn) {
                 let colorClass = 'bg-indigo-600';
@@ -10671,12 +14519,12 @@
                 else if (['fw_overview', 'fw_intro', 'fw_quality', 'fw_elements', 'fw_recognition', 'fw_measurement', 'fw_presentation', 'fw_cases', 'fw_intuitive'].includes(tabId)) colorClass = 'bg-cyan-600';
                 else if (['man_intro', 'man_flow', 'man_org', 'man_types', 'man_trends', 'man_exam', 'man_intuitive'].includes(tabId)) colorClass = 'bg-blue-600';
                 else if (['cvp_master', 'cvp_behavior', 'cvp_highlow', 'cvp_contribution', 'cvp_breakeven', 'cvp_leverage', 'cvp_salesmix', 'cvp_exam', 'cvp_calc', 'cvp_intuitive'].includes(tabId)) colorClass = 'bg-rose-600';
-                else if (['prep_blueprint', 'prep_corrections', 'prep_cheat', 'prep_theory', 'prep_review', 'prep_drills', 'prep_resources'].includes(tabId)) colorClass = 'bg-amber-600';
-                
+                else if (['prep_blueprint', 'prep_corrections', 'prep_cheat', 'prep_theory', 'prep_review', 'prep_drills', 'prep_resources', 'prep_master_notebook', 'prep_pdf_revision_notebook'].includes(tabId)) colorClass = 'bg-amber-600';
+
                 activeBtn.className = `w-full text-left px-4 py-2.5 rounded-lg ${colorClass} text-white transition-colors duration-200 flex items-center shadow-md text-sm font-medium`;
             }
 
-            if (tabId === 'financials') setTimeout(renderChart, 100); 
+            if (tabId === 'financials') setTimeout(renderChart, 100);
         }
 
         function showWorkflow(wfId, btnElement) {
@@ -10687,7 +14535,7 @@
                 el.classList.add('hidden');
                 el.classList.remove('block');
             });
-            
+
             const target = document.getElementById(wfId);
             if(target) {
                 target.classList.remove('hidden');
@@ -10738,17 +14586,17 @@
             const btnPerp = document.getElementById('btn-perpetual');
             const btnPerio = document.getElementById('btn-periodic');
             const container = document.getElementById('entries-container');
-            
+
             if(!btnBuyer || !btnSeller || !btnPerp || !btnPerio || !container) return;
 
             btnBuyer.className = (appState.role === 'buyer') ? 'flex-1 md:flex-none px-6 py-2 rounded-md bg-white text-indigo-700 font-bold shadow-sm transition-all text-sm' : 'flex-1 md:flex-none px-6 py-2 rounded-md text-slate-600 font-medium hover:text-slate-900 transition-all text-sm';
             btnSeller.className = (appState.role === 'seller') ? 'flex-1 md:flex-none px-6 py-2 rounded-md bg-white text-indigo-700 font-bold shadow-sm transition-all text-sm' : 'flex-1 md:flex-none px-6 py-2 rounded-md text-slate-600 font-medium hover:text-slate-900 transition-all text-sm';
-            
+
             btnPerp.className = (appState.system === 'perpetual') ? 'flex-1 md:flex-none px-6 py-2 rounded-md bg-white text-sky-700 font-bold shadow-sm transition-all text-sm' : 'flex-1 md:flex-none px-6 py-2 rounded-md text-slate-600 font-medium hover:text-slate-900 transition-all text-sm';
             btnPerio.className = (appState.system === 'periodic') ? 'flex-1 md:flex-none px-6 py-2 rounded-md bg-white text-sky-700 font-bold shadow-sm transition-all text-sm' : 'flex-1 md:flex-none px-6 py-2 rounded-md text-slate-600 font-medium hover:text-slate-900 transition-all text-sm';
 
             container.innerHTML = '';
-            
+
             journalData[appState.role][appState.system].forEach(item => {
                 let entryHtml = `<div class="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden fade-in"><div class="bg-slate-100/50 px-5 py-3 border-b border-slate-200 flex items-center"><span class="text-xl mr-3">${item.icon}</span><div><h4 class="font-bold text-slate-800">${item.title}</h4><p class="text-xs text-slate-500">${item.desc}</p></div></div><div class="p-5 font-mono text-sm bg-white"><table class="w-full">`;
                 item.entries.forEach(entry => {
@@ -10763,9 +14611,9 @@
             const ctx = document.getElementById('waterfallChart');
             if (!ctx) return;
             if (appState.chartInstance) appState.chartInstance.destroy();
-            
+
             const config = {
-                type: 'bar', 
+                type: 'bar',
                 data: {
                     labels: ['Gross Sales', 'Returns & Disc.', 'Net Sales', 'COGS', 'Gross Profit', 'Op. Expenses', 'Net Income'],
                     datasets: [{
@@ -10774,21 +14622,21 @@
                         borderWidth: 1, borderRadius: 4, borderSkipped: false
                     }]
                 },
-                options: { 
-                    responsive: true, maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { display: false }, 
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
                         tooltip: { callbacks: { label: (ctx) => {
                             const val = ctx.raw;
                             const isDeduction = ['Returns & Disc.', 'COGS', 'Op. Expenses'].includes(ctx.label);
                             const amount = val[1] - val[0];
                             return `${ctx.label}: ${isDeduction ? '−' : ''}$${amount.toLocaleString()}`;
-                        }}} 
-                    }, 
-                    scales: { 
-                        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: (v) => '$' + v } }, 
-                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } } 
-                    } 
+                        }}}
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: (v) => '$' + v } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
                 }
             };
             appState.chartInstance = new Chart(ctx, config);
@@ -10848,7 +14696,7 @@
             let fund = parseFloat(fundEl.value) || 0;
             let cash = parseFloat(document.getElementById('pc-cash').value) || 0;
             let tickets = parseFloat(document.getElementById('pc-tickets').value) || 0;
-            let diff = fund - (cash + tickets); 
+            let diff = fund - (cash + tickets);
             let replenish = fund - cash;
             let statusEl = document.getElementById('pc-status');
             let journalEl = document.getElementById('pc-journal');
