@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,13 +25,29 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
 
+    <!-- Mobile Top Bar (phone / tablet only) -->
+    <header class="md:hidden sticky top-0 z-20 bg-slate-900 text-white flex items-center justify-between px-4 py-3 shadow-lg">
+        <span class="font-bold text-lg tracking-tight">Accounting 101</span>
+        <button onclick="toggleMobileMenu()" id="mobile-menu-btn" class="p-2 -mr-2 rounded-lg hover:bg-slate-800 active:bg-slate-700 transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </header>
+
+    <!-- Backdrop for mobile menu -->
+    <div id="sidebar-backdrop" onclick="closeMobileMenu()" class="hidden md:hidden fixed inset-0 bg-black/50 z-30"></div>
+
     <div class="flex flex-col md:flex-row min-h-screen">
-        
+
         <!-- Navigation Sidebar -->
-        <nav class="bg-slate-900 text-slate-300 w-full md:w-72 flex-shrink-0 shadow-xl z-10 sticky top-0 md:h-screen overflow-y-auto pb-10">
+        <nav id="sidebar" class="bg-slate-900 text-slate-300 w-72 max-w-[85vw] flex-shrink-0 shadow-xl fixed inset-y-0 left-0 z-40 -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto pb-10 md:sticky md:inset-y-auto md:top-0 md:left-auto md:translate-x-0 md:transition-none md:z-10 md:h-screen md:w-72 md:max-w-none">
             <div class="p-6">
-                <h1 class="text-2xl font-bold text-white tracking-tight mb-8">Accounting 101</h1>
-                
+                <div class="flex items-center justify-between mb-8">
+                    <h1 class="text-2xl font-bold text-white tracking-tight">Accounting 101</h1>
+                    <button onclick="closeMobileMenu()" class="md:hidden p-1 -mr-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Close navigation menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
                 <!-- Test Prep Navigation -->
                 <details class="mb-6 bg-slate-800 p-3 rounded-lg border border-amber-600/30 group" open>
                     <summary class="text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-2 border-b border-slate-700 pb-2 cursor-pointer list-none flex items-center justify-between [&::-webkit-details-marker]:hidden hover:text-white transition-colors"><span>Exam Prep</span><span class="transition-transform duration-200 group-open:rotate-180 text-slate-500">▾</span></summary>
@@ -214,6 +230,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
                         <h3 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">1️⃣</span> Transaction Rules</h3>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left mb-4">
                             <thead class="bg-slate-100 text-slate-600"><tr><th class="px-3 py-2 border-b">Event</th><th class="px-3 py-2 border-b">Perpetual</th><th class="px-3 py-2 border-b">Periodic</th></tr></thead>
                             <tbody class="divide-y divide-slate-100 font-mono">
@@ -223,9 +240,11 @@
                                 <tr class="hover:bg-slate-50"><td class="px-3 py-2">Discount</td><td class="px-3 py-2 text-rose-600">Cr Inventory</td><td class="px-3 py-2 text-amber-600">Cr Purch Discounts</td></tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
                         <h3 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">2️⃣</span> Costing: Rising Prices</h3>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left border border-slate-100 rounded">
                             <thead class="bg-slate-100 text-slate-600"><tr><th class="px-3 py-2 border-b">Method</th><th class="px-3 py-2 border-b">COGS</th><th class="px-3 py-2 border-b">Profit</th><th class="px-3 py-2 border-b">End Inv</th></tr></thead>
                             <tbody class="divide-y divide-slate-100">
@@ -234,6 +253,7 @@
                                 <tr class="hover:bg-slate-50"><td class="px-3 py-2 font-bold text-slate-700">LIFO</td><td class="px-3 py-2 text-rose-600">Highest</td><td class="px-3 py-2 text-emerald-600">Lowest</td><td class="px-3 py-2 text-emerald-600">Lowest</td></tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     <div class="bg-slate-900 rounded-xl shadow-sm border border-slate-800 p-5 text-slate-300">
                         <h3 class="font-bold text-white mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">3️⃣</span> Bank Rec Rules</h3>
@@ -2305,6 +2325,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                         <h3 class="text-lg font-bold text-slate-800 mb-3"><span class="text-lime-600 mr-2">↔️</span> Accumulated Depreciation Is a Contra-Asset</h3>
                         <p class="text-xs text-slate-600 mb-3">A contra account is linked to another account but has the <strong>opposite</strong> normal balance. Furniture (asset) is normally a debit; Accumulated Depreciation is normally a credit.</p>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left">
                             <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Account</th><th class="px-3 py-2 border-b">Normal Balance</th></tr></thead>
                             <tbody class="divide-y divide-slate-100">
@@ -2312,11 +2333,13 @@
                                 <tr><td class="px-3 py-2">Accumulated Depreciation—Furniture</td><td class="px-3 py-2 font-bold text-rose-600">Credit</td></tr>
                             </tbody>
                         </table>
+                        </div>
                         <p class="text-xs text-slate-500 mt-3">The asset stays at original cost — recording depreciation separately lets users see original cost, total accumulated depreciation, and remaining book value all at once.</p>
                     </div>
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                         <h3 class="text-lg font-bold text-slate-800 mb-3">📐 Book Value</h3>
                         <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 font-mono text-center text-sm text-slate-700 mb-3">Book Value = Asset Cost − Accumulated Depreciation</div>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left">
                             <tbody class="divide-y divide-slate-100">
                                 <tr><td class="px-3 py-2">Furniture</td><td class="px-3 py-2 text-right font-mono">18,000</td></tr>
@@ -2324,6 +2347,7 @@
                                 <tr class="font-bold bg-slate-50"><td class="px-3 py-2">Book Value</td><td class="px-3 py-2 text-right font-mono">17,700</td></tr>
                             </tbody>
                         </table>
+                        </div>
                         <p class="text-xs text-slate-500 mt-3">Book value is an accounting amount, not necessarily market value.</p>
                     </div>
                 </div>
@@ -2952,6 +2976,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                         <h3 class="text-lg font-bold text-slate-800 mb-2">Current Assets</h3>
                         <p class="text-xs text-slate-600 mb-3">Expected to be converted into cash, sold, or used up within one year (or the operating cycle, if longer). E.g. Cash, AR, Inventory, Supplies, Prepaid Rent/Insurance.</p>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left">
                             <tbody class="divide-y divide-slate-100 font-mono">
                                 <tr><td class="px-2 py-1 font-sans">Cash</td><td class="px-2 py-1 text-right">12,200</td></tr>
@@ -2961,12 +2986,14 @@
                                 <tr class="font-bold bg-slate-50"><td class="px-2 py-1 font-sans">Total Current Assets</td><td class="px-2 py-1 text-right">16,100</td></tr>
                             </tbody>
                         </table>
+                        </div>
                         <div class="bg-slate-50 mt-3 p-2 rounded font-mono text-[11px] text-center">Cash → Goods/Services → Sale → Accounts Receivable → Cash</div>
                         <p class="text-[11px] text-slate-500 mt-1">The operating cycle — for most businesses, shorter than one year.</p>
                     </div>
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                         <h3 class="text-lg font-bold text-slate-800 mb-2">Current Liabilities</h3>
                         <p class="text-xs text-slate-600 mb-3">Must normally be settled within one year (or the operating cycle). E.g. AP, Salaries/Utilities/Interest Payable, Unearned Revenue.</p>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left">
                             <tbody class="divide-y divide-slate-100 font-mono">
                                 <tr><td class="px-2 py-1 font-sans">Accounts Payable</td><td class="px-2 py-1 text-right">200</td></tr>
@@ -2977,6 +3004,7 @@
                                 <tr class="font-bold bg-slate-50"><td class="px-2 py-1 font-sans">Total Current Liabilities</td><td class="px-2 py-1 text-right">2,000</td></tr>
                             </tbody>
                         </table>
+                        </div>
                         <p class="text-[11px] text-slate-500 mt-3">Unearned Revenue is included because the business still owes goods or services to customers.</p>
                     </div>
                 </div>
@@ -4615,6 +4643,7 @@
                                 <div class="bg-white border border-slate-200 px-3 py-2 rounded shadow-sm text-rose-600">Net Income is <span class="underline">Overstated</span></div>
                             </div>
                         </div>
+                        <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
                             <thead class="bg-rose-100 text-rose-800"><tr><th class="p-2">Yr 1 End Inv. Error</th><th class="p-2">Yr 1 Profit</th><th class="p-2">Yr 2 Profit</th></tr></thead>
                             <tbody>
@@ -4622,6 +4651,7 @@
                                 <tr><td class="p-2 font-bold">Understated</td><td class="p-2 text-emerald-600">Understated</td><td class="p-2 text-rose-600">Overstated</td></tr>
                             </tbody>
                         </table>
+                        </div>
                         <p class="text-xs text-slate-500 mt-3">Year 1 Ending Inventory becomes Year 2 Beginning Inventory — since Beg. Inv is <em>added</em> into COGS while End. Inv is <em>subtracted</em>, the error reverses itself across two periods.</p>
                     </div>
                     <div class="bg-slate-800 rounded-2xl p-6 text-white">
@@ -9127,6 +9157,7 @@
 
                 <div class="bg-slate-800 rounded-2xl p-6 text-white mb-8">
                     <h3 class="font-bold text-rose-400 mb-3">↔️ Variable vs. Fixed — the Reversal Trap</h3>
+                    <div class="overflow-x-auto">
                     <table class="w-full text-xs text-left text-slate-200 mb-4">
                         <thead class="text-slate-400 font-semibold"><tr><th class="px-3 py-2 border-b border-slate-700">Behaviour</th><th class="px-3 py-2 border-b border-slate-700">Total cost</th><th class="px-3 py-2 border-b border-slate-700">Cost per unit</th></tr></thead>
                         <tbody class="divide-y divide-slate-700">
@@ -9134,6 +9165,7 @@
                             <tr><td class="px-3 py-2 font-medium">Fixed</td><td class="px-3 py-2">Stays constant</td><td class="px-3 py-2">Changes inversely with volume</td></tr>
                         </tbody>
                     </table>
+                    </div>
                     <p class="text-xs text-slate-400 mb-2">Students often assume "fixed" means fixed <em>per unit</em>. It does not — it's the total that's fixed.</p>
                     <div class="bg-black/30 p-3 rounded font-mono text-xs text-center text-rose-300">"Variable varies in total. Fixed is fixed in total."</div>
                 </div>
@@ -9741,15 +9773,51 @@
             chartInstance: null 
         };
 
+        // ---- Mobile off-canvas navigation ----
+        function openMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            const btn = document.getElementById('mobile-menu-btn');
+            if (!sidebar || !backdrop) return;
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            const btn = document.getElementById('mobile-menu-btn');
+            if (!sidebar || !backdrop) return;
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            if (sidebar.classList.contains('-translate-x-full')) openMobileMenu();
+            else closeMobileMenu();
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) closeMobileMenu();
+        });
+
         function nav(tabId) {
             appState.currentTab = tabId;
+            closeMobileMenu();
+            window.scrollTo({ top: 0, behavior: 'instant' });
 
             document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
             
             const targetSec = document.getElementById('sec-' + tabId);
             if(targetSec) targetSec.classList.remove('hidden');
 
-            document.querySelectorAll('nav button').forEach(btn => {
+            document.querySelectorAll('nav ul button').forEach(btn => {
                 btn.className = 'w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium';
             });
             
