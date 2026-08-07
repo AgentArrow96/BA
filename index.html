@@ -36,13 +36,16 @@
     <!-- Backdrop for mobile menu -->
     <div id="sidebar-backdrop" onclick="closeMobileMenu()" class="hidden md:hidden fixed inset-0 bg-black/50 z-30"></div>
 
-    <div class="flex flex-col md:flex-row min-h-screen">
+    <div class="flex flex-col min-h-screen">
 
         <!-- Navigation Sidebar -->
-        <nav id="sidebar" class="bg-slate-900 text-slate-300 w-72 max-w-[85vw] flex-shrink-0 shadow-xl fixed inset-y-0 left-0 z-40 -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto pb-10 md:sticky md:inset-y-auto md:top-0 md:left-auto md:translate-x-0 md:transition-none md:z-10 md:h-screen md:w-72 md:max-w-none">
+        <nav id="sidebar" class="bg-slate-900 text-slate-300 w-72 max-w-[85vw] flex-shrink-0 shadow-xl fixed inset-y-0 left-0 z-40 -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto overscroll-contain pb-10 md:fixed md:inset-y-0 md:left-0 md:translate-x-0 md:transition-none md:z-10 md:h-dvh md:w-72 md:max-w-none">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-8">
-                    <h1 class="text-2xl font-bold text-white tracking-tight">Accounting 101</h1>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white tracking-tight">Accounting 101</h1>
+                        <p class="mt-1 text-[10px] font-medium uppercase tracking-wide text-slate-500">Last updated: 7 Aug 2026, 4:36 PM</p>
+                    </div>
                     <button onclick="closeMobileMenu()" class="md:hidden p-1 -mr-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Close navigation menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
@@ -52,8 +55,12 @@
                 <details class="mb-6 bg-slate-800 p-3 rounded-lg border border-amber-600/30 group" open>
                     <summary class="text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-2 border-b border-slate-700 pb-2 cursor-pointer list-none flex items-center justify-between [&::-webkit-details-marker]:hidden hover:text-white transition-colors"><span>Exam Prep</span><span class="transition-transform duration-200 group-open:rotate-180 text-slate-500">▾</span></summary>
                     <ul class="space-y-1">
+                        <li><button onclick="nav('prep_blueprint')" id="nav-prep_blueprint" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🎯</span> Exam Blueprint</button></li>
+                        <li><button onclick="nav('prep_corrections')" id="nav-prep_corrections" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">⚠️</span> Lecturer Corrections</button></li>
                         <li><button onclick="nav('prep_cheat')" id="nav-prep_cheat" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🚀</span> Quick Cheat Sheet</button></li>
+                        <li><button onclick="nav('prep_theory')" id="nav-prep_theory" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🗺️</span> Theory & Mental Map</button></li>
                         <li><button onclick="nav('prep_review')" id="nav-prep_review" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧠</span> Focused Workflows</button></li>
+                        <li><button onclick="nav('prep_drills')" id="nav-prep_drills" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">✍️</span> 5 Practice Questions</button></li>
                         <li><button onclick="nav('prep_resources')" id="nav-prep_resources" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-700 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🔗</span> Practice Resources</button></li>
                     </ul>
                 </details>
@@ -206,6 +213,7 @@
                         <li><button onclick="nav('cvp_leverage')" id="nav-cvp_leverage" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">⚖️</span> Safety & Leverage</button></li>
                         <li><button onclick="nav('cvp_salesmix')" id="nav-cvp_salesmix" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🐱</span> Sales Mix</button></li>
                         <li><button onclick="nav('cvp_exam')" id="nav-cvp_exam" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🎯</span> Exam Prep</button></li>
+                        <li><button onclick="nav('cvp_calc')" id="nav-cvp_calc" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">🧮</span> Calc-Focused Intuition</button></li>
                         <li><button onclick="nav('cvp_intuitive')" id="nav-cvp_intuitive" class="w-full text-left px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center text-sm font-medium"><span class="mr-3 text-base">📚</span> Full Intuitive</button></li>
                     </ul>
                 </details>
@@ -213,11 +221,126 @@
         </nav>
 
         <!-- Main Content Area -->
-        <main class="flex-grow p-6 md:p-8 lg:p-10 max-w-7xl mx-auto w-full">
+        <main class="w-full flex-grow p-6 md:ml-72 md:p-8 lg:p-10">
             
             <!-- ========================================== -->
             <!-- EXAM PREP SECTIONS -->
             <!-- ========================================== -->
+            <section id="sec-prep_blueprint" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Exam Blueprint</h2>
+                    <p class="text-base text-slate-600 leading-relaxed max-w-3xl">Based on the lecturer's hints, the final looks less like "10 chapters = 10 questions" and more like <strong>5 integrated subjective questions</strong>, where each question can pull ideas from several chapters at once. This is not guaranteed, but it matches the lecturer's description unusually well.</p>
+                </header>
+
+                <div class="bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-5 mb-8">
+                    <p class="text-amber-900 font-bold text-lg">"Do not study chapter by chapter anymore. Study by exam task."</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center"><p class="text-amber-600 font-bold text-xs uppercase tracking-wide mb-1">Q1 · 20 marks</p><p class="font-bold text-slate-800 text-sm mb-2">Fundamentals + Adjustments</p><div class="flex justify-center gap-1 flex-wrap"><button onclick="nav('found_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-teal-100 text-teal-800 text-[11px] font-bold hover:bg-teal-200 transition-colors">Ch1</button><button onclick="nav('found2_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-orange-100 text-orange-800 text-[11px] font-bold hover:bg-orange-200 transition-colors">Ch2</button><button onclick="nav('found3_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch3</button></div></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center"><p class="text-amber-600 font-bold text-xs uppercase tracking-wide mb-1">Q2 · 20 marks</p><p class="font-bold text-slate-800 text-sm mb-2">Financial Statements</p><div class="flex justify-center gap-1 flex-wrap"><button onclick="nav('found4_statements')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-pink-100 text-pink-800 text-[11px] font-bold hover:bg-pink-200 transition-colors">Ch4</button><button onclick="nav('overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5</button><button onclick="nav('fw_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-cyan-100 text-cyan-800 text-[11px] font-bold hover:bg-cyan-200 transition-colors">Ch8.5</button></div></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center"><p class="text-amber-600 font-bold text-xs uppercase tracking-wide mb-1">Q3 · 20 marks</p><p class="font-bold text-slate-800 text-sm mb-2">Merchandising + Inventory</p><div class="flex justify-center gap-1 flex-wrap"><button onclick="nav('overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5</button><button onclick="nav('inv_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6</button></div></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center"><p class="text-amber-600 font-bold text-xs uppercase tracking-wide mb-1">Q4 · 20 marks</p><p class="font-bold text-slate-800 text-sm mb-2">Cash</p><div class="flex justify-center gap-1 flex-wrap"><button onclick="nav('control_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7</button><button onclick="nav('cf_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-fuchsia-100 text-fuchsia-800 text-[11px] font-bold hover:bg-fuchsia-200 transition-colors">Ch8</button></div></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center"><p class="text-amber-600 font-bold text-xs uppercase tracking-wide mb-1">Q5 · 20 marks</p><p class="font-bold text-slate-800 text-sm mb-2">Management Accounting</p><div class="flex justify-center gap-1 flex-wrap"><button onclick="nav('man_intro')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9</button><button onclick="nav('cvp_master')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10</button></div></div>
+                </div>
+
+                <div class="space-y-3 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"><p class="font-bold text-slate-800 mb-1">Q1 — Accounting Fundamentals + Adjustments <span class="font-normal text-slate-500">(20 marks: ~5 theory + ~15 journal entries/calculations)</span></p><p class="text-xs text-slate-600">Topics: accrual accounting, accrued revenue, prepaid expense, unearned revenue, accrued liability, depreciation.</p></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"><p class="font-bold text-slate-800 mb-1">Q2 — Financial Statements <span class="font-normal text-slate-500">(20 marks: statement preparation + theory)</span></p><p class="text-xs text-slate-600">The lecturer specifically said the financial statement question will be in the context of <strong>one company type</strong> — service, merchandising, or manufacturing. Identify that first. Need: correct headings, correct arrangement, correct subtotals, short profitability explanation.</p></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"><p class="font-bold text-slate-800 mb-1">Q3 — Merchandising + Inventory <span class="font-normal text-slate-500">(20 marks: journal entries + FIFO/LIFO/WA + COGS)</span></p><p class="text-xs text-slate-600">Could combine perpetual/periodic journal entries, freight-in/out, purchase discounts, sales returns, FIFO, LIFO, weighted average, ending inventory, COGS.</p></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"><p class="font-bold text-slate-800 mb-1">Q4 — Cash <span class="font-normal text-slate-500">(20 marks: bank reconciliation + cash flow direct/indirect)</span></p><p class="text-xs text-slate-600">Part A: bank reconciliation + correcting entries. Part B: cash flow statement — direct or indirect, possibly classification of O/I/F, noncash transaction.</p></div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"><p class="font-bold text-slate-800 mb-1">Q5 — Management Accounting <span class="font-normal text-slate-500">(20 marks — likely the most formula-dense question)</span></p><p class="text-xs text-slate-600">Likely several pieces: cost classification, product vs. period, manufacturing inventories, COGM/COGS, fixed/variable/mixed cost, high-low, contribution margin, breakeven.</p></div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8 overflow-x-auto">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">📊 Priority Ranking for Final Revision</h3>
+                    <p class="text-xs text-slate-500 mb-4">🔴 Very high · 🟠 High · 🟡 Medium · 🟢 Low — given everything the lecturer said, this is roughly how effort should be allocated.</p>
+                    <table class="w-full text-xs text-left">
+                        <thead class="bg-slate-100 text-slate-600"><tr><th class="px-3 py-2 border-b"></th><th class="px-3 py-2 border-b">Topic</th><th class="px-3 py-2 border-b">Reason</th><th class="px-3 py-2 border-b">Go</th></tr></thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Adjusting entries</td><td class="px-3 py-2 text-slate-500">Likely calculation + underlying foundation</td><td class="px-3 py-2"><button onclick="nav('found3_patterns')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch3</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Merchandising financial statement</td><td class="px-3 py-2 text-slate-500">Explicitly hinted</td><td class="px-3 py-2"><button onclick="nav('financials')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">FIFO / LIFO / Weighted Average + freight</td><td class="px-3 py-2 text-slate-500">Explicit calculation</td><td class="px-3 py-2"><button onclick="nav('costing')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Bank reconciliation</td><td class="px-3 py-2 text-slate-500">Large subjective calculation</td><td class="px-3 py-2"><button onclick="nav('bankrec')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Direct + indirect cash flow</td><td class="px-3 py-2 text-slate-500">Both methods relevant</td><td class="px-3 py-2"><button onclick="nav('cf_indirect')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-fuchsia-100 text-fuchsia-800 text-[11px] font-bold hover:bg-fuchsia-200 transition-colors">Ch8</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Manufacturing COGM/COGS</td><td class="px-3 py-2 text-slate-500">Explicit hint</td><td class="px-3 py-2"><button onclick="nav('man_flow')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Cost classification</td><td class="px-3 py-2 text-slate-500">Explicit hint</td><td class="px-3 py-2"><button onclick="nav('man_intro')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">High-low method</td><td class="px-3 py-2 text-slate-500">Explicit hint</td><td class="px-3 py-2"><button onclick="nav('cvp_highlow')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10</button></td></tr>
+                            <tr><td class="px-3 py-2">🔴</td><td class="px-3 py-2 font-medium">Contribution margin / breakeven</td><td class="px-3 py-2 text-slate-500">Explicit hint</td><td class="px-3 py-2"><button onclick="nav('cvp_breakeven')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10</button></td></tr>
+                            <tr><td class="px-3 py-2">🟠</td><td class="px-3 py-2 font-medium">Perpetual vs. periodic journal entries</td><td class="px-3 py-2 text-slate-500">Directly linked to merchandising</td><td class="px-3 py-2"><button onclick="nav('journal')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5</button></td></tr>
+                            <tr><td class="px-3 py-2">🟠</td><td class="px-3 py-2 font-medium">Ch. 1–4 basic theory</td><td class="px-3 py-2 text-slate-500">Easy subjective marks</td><td class="px-3 py-2"><button onclick="nav('found_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-teal-100 text-teal-800 text-[11px] font-bold hover:bg-teal-200 transition-colors">Ch1</button></td></tr>
+                            <tr><td class="px-3 py-2">🟠</td><td class="px-3 py-2 font-medium">Product vs. period cost</td><td class="px-3 py-2 text-slate-500">Likely management theory</td><td class="px-3 py-2"><button onclick="nav('man_intro')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9</button></td></tr>
+                            <tr><td class="px-3 py-2">🟡</td><td class="px-3 py-2 font-medium">Conceptual Framework</td><td class="px-3 py-2 text-slate-500">Mainly theory</td><td class="px-3 py-2"><button onclick="nav('fw_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-cyan-100 text-cyan-800 text-[11px] font-bold hover:bg-cyan-200 transition-colors">Ch8.5</button></td></tr>
+                            <tr><td class="px-3 py-2">🟡</td><td class="px-3 py-2 font-medium">Internal-control theory</td><td class="px-3 py-2 text-slate-500">Possible short theory</td><td class="px-3 py-2"><button onclick="nav('control_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7</button></td></tr>
+                            <tr><td class="px-3 py-2">🟡</td><td class="px-3 py-2 font-medium">Cash ratio / other ratios</td><td class="px-3 py-2 text-slate-500">Could appear, but less emphasized</td><td class="px-3 py-2"><button onclick="nav('cashratios')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7</button></td></tr>
+                            <tr><td class="px-3 py-2">🟢</td><td class="px-3 py-2 font-medium">Accounting worksheet</td><td class="px-3 py-2 text-slate-500">Lecturer explicitly excluded it</td><td class="px-3 py-2"><button onclick="nav('found4_ratio')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-pink-100 text-pink-800 text-[11px] font-bold hover:bg-pink-200 transition-colors">Ch4</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white mb-8">
+                    <h3 class="font-bold text-amber-400 mb-3 text-lg">❌ What Is NOT Coming</h3>
+                    <p class="text-sm text-slate-300 mb-2"><strong class="text-white">The large accounting worksheet</strong> — do not spend much time practising: Unadjusted TB → Adjustments → Adjusted TB → Income Statement → Balance Sheet. The concepts behind adjustments still matter, but the worksheet itself is not coming. <button onclick="nav('found4_ratio')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-pink-100 text-pink-800 text-[11px] font-bold hover:bg-pink-200 transition-colors ml-1">still built out if you want it — just don't spend time there →</button></p>
+                        <p class="text-sm text-slate-300"><strong class="text-white">Very obscure textbook theory</strong> — the lecturer said the final theory will come from slides, class activities, WhatsApp/class discussion, and notes given. Your goal is not to memorise every obscure paragraph. Ask instead: <em>can I explain the main concept clearly in 2–5 sentences?</em></p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">⏱️ Order of Attack & Time Budget</h3>
+                    <p class="text-xs text-slate-600 mb-3">5 questions × 20 marks each = roughly equal time per question. Suggested sequence: start with the question you're most confident in to bank marks early, then work through the rest in order, leaving the weakest for last so partial credit is still possible if time runs short.</p>
+                    <div class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg text-amber-900 text-xs mb-3">The checking habit matters: for calculation-heavy questions (bank rec, breakeven, COGM), always re-verify your final number balances or makes sense before moving on.</div>
+                    <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg text-sky-900 text-xs">"Even if you don't know, write something — he will give marks." Blank answers earn zero; a short, correctly-worded attempt at a definition or formula often earns partial credit.</div>
+                </div>
+            </section>
+
+            <section id="sec-prep_corrections" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Lecturer Corrections</h2>
+                    <p class="text-base text-slate-600 leading-relaxed max-w-3xl">Three places where the lecturer's stated method differs from — or clarifies — standard textbook practice. Read this tab last before you walk in; it takes about 60 seconds.</p>
+                </header>
+
+                <div class="space-y-6 mb-8">
+                    <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
+                        <h3 class="font-bold text-rose-900 mb-3 text-lg">1. Units Sold ≠ Beginning Inventory − Ending Inventory</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                            <div class="bg-white border border-rose-200 rounded-lg p-4"><p class="text-xs font-bold text-rose-700 uppercase tracking-wide mb-1">❌ Wrong</p><div class="font-mono text-xs text-rose-900">Units Sold = Beginning Inventory − Ending Inventory</div></div>
+                            <div class="bg-white border border-emerald-200 rounded-lg p-4"><p class="text-xs font-bold text-emerald-700 uppercase tracking-wide mb-1">✅ Right</p><div class="font-mono text-xs text-emerald-900">Units Sold = Beginning Units + Purchased Units − Ending Units</div></div>
+                        </div>
+                        <p class="text-xs text-rose-800 mb-2">That shortcut ignores purchases entirely. Worked example — Beginning inventory 500 units, Purchases 1,500 units, Ending inventory 600 units:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-2">Correct: 500 + 1,500 − 600 = <strong>1,400</strong> units sold<br>Wrong: 500 − 600 = <strong>−100</strong> (a negative unit count should have told you immediately that something was wrong)</div>
+                        <button onclick="nav('costing')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6 · Costing Methods →</button>
+                    </div>
+
+                    <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
+                        <h3 class="font-bold text-rose-900 mb-3 text-lg">2. This Lecturer's "Average Net Purchase Cost" Formula</h3>
+                        <p class="text-xs text-rose-800 mb-2">For your exam, follow the lecturer's stated method whenever a question specifically asks for <strong>Average Net Purchase Cost</strong> — it differs slightly from the standard periodic weighted-average approach:</p>
+                        <div class="bg-slate-900 text-white rounded-lg px-4 py-3 font-mono text-xs mb-3 text-center">Average Net Purchase Cost/unit = (Total Purchase Cost + Additional Purchasing Costs, e.g. Freight-in) ÷ Total Purchase Units</div>
+                        <p class="text-xs text-rose-800 mb-2">Worked example — Purchase: 1,000 units × RM20 = RM20,000; Freight-in = RM2,000:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-3">(RM20,000 + RM2,000) ÷ 1,000 = <strong>RM22/unit</strong><br>If 700 units are sold: 700 × RM22 = <strong>RM15,400 COGS</strong></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                            <div class="bg-white border border-slate-200 rounded-lg p-4"><p class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">Standard periodic WA</p><p class="text-xs text-slate-600">Pools <strong>beginning inventory</strong> together with purchases before dividing by total units.</p></div>
+                            <div class="bg-white border border-rose-200 rounded-lg p-4"><p class="text-xs font-bold text-rose-700 uppercase tracking-wide mb-1">Lecturer's method</p><p class="text-xs text-rose-800">Uses <strong>purchases only</strong> (+ freight-in), divided by purchased units — no beginning inventory in the average.</p></div>
+                        </div>
+                        <div class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg text-amber-900 text-xs mb-2">Do not silently substitute the standard version during the exam if the lecturer clearly taught this one. This also reinforces the freight rule: <strong>freight-in enters inventory/product cost; freight-out does not enter COGS.</strong></div>
+                        <button onclick="nav('costing')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6 · Costing Methods →</button>
+                    </div>
+
+                    <div class="bg-rose-50 border border-rose-200 rounded-2xl p-6">
+                        <h3 class="font-bold text-rose-900 mb-3 text-lg">3. Use the Exact Account Name the Question Gives You</h3>
+                        <p class="text-xs text-rose-800 mb-2">If the question specifically says <strong>Accrued Revenue</strong>, use that account name — do not change it to Accounts Receivable.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-2">Dr Accrued Revenue<br>&nbsp;&nbsp;&nbsp;Cr Service Revenue</div>
+                        <p class="text-xs text-rose-800 mb-2">Most textbooks — and this dashboard's Ch3 tab — use Accounts Receivable, which is also defensible standard practice. Both are correct in general; the point is to <strong>match the terminology the question itself uses</strong> so the marker isn't left wondering whether you understood the distinction.</p>
+                        <button onclick="nav('found3_accrued')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch3 · Accrued Adjustments →</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white">
+                    <h3 class="font-bold text-amber-400 mb-2">💡 The Underlying Principle</h3>
+                    <p class="text-sm text-slate-300">When the lecturer's stated method differs from the textbook, use the lecturer's — and <strong class="text-white">write out the formula line</strong> so the marker can follow your reasoning even if the final number looks unfamiliar.</p>
+                </div>
+            </section>
+
             <section id="sec-prep_cheat" class="fade-in hidden">
                 <header class="mb-8 border-b border-slate-200 pb-4">
                     <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
@@ -226,6 +349,25 @@
                         Your test forms one accounting chain: <code class="bg-amber-100 text-amber-800 px-1 rounded">Journal Entries ➔ Financial Statements ➔ Inventory Costing ➔ Correct Cash Balance ➔ Cash Movements</code>. Use this condensed dashboard for rapid memorization.
                     </p>
                 </header>
+
+                <div class="bg-rose-50 border-2 border-rose-300 rounded-xl p-5 mb-6">
+                    <p class="font-bold text-rose-900 mb-2">⚠️ 3 lecturer corrections that change your answer</p>
+                    <ul class="text-xs text-rose-800 space-y-1 mb-3 list-disc list-inside">
+                        <li>Units Sold = Beginning + Purchased − Ending (not Beginning − Ending)</li>
+                        <li>Use the lecturer's "Average Net Purchase Cost" formula when the question asks for it</li>
+                        <li>Match the exact account name the question uses (e.g. "Accrued Revenue")</li>
+                    </ul>
+                    <button onclick="nav('prep_corrections')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-rose-600 text-white text-xs font-bold hover:bg-rose-700 transition-colors">See full corrections →</button>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <button onclick="nav('prep_blueprint')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">🎯 Exam Blueprint</button>
+                    <button onclick="nav('prep_corrections')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">⚠️ Lecturer Corrections</button>
+                    <button onclick="nav('prep_theory')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">🗺️ Theory & Mental Map</button>
+                    <button onclick="nav('prep_review')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">🧠 Focused Workflows</button>
+                    <button onclick="nav('prep_drills')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">✍️ 5 Practice Questions</button>
+                    <button onclick="nav('prep_resources')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition-colors">🔗 Practice Resources</button>
+                </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
@@ -287,6 +429,97 @@
                             </div>
                         </div>
                     </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">5️⃣</span> The Four Adjustment Patterns</h3>
+                        <div class="text-xs font-mono space-y-2">
+                            <div class="bg-slate-50 border border-slate-100 rounded p-2"><p class="text-slate-500 mb-1">Prepaid expense:</p>Dr Expense / Cr Prepaid Asset</div>
+                            <div class="bg-slate-50 border border-slate-100 rounded p-2"><p class="text-slate-500 mb-1">Unearned revenue:</p>Dr Unearned Revenue / Cr Revenue</div>
+                            <div class="bg-slate-50 border border-slate-100 rounded p-2"><p class="text-slate-500 mb-1">Accrued expense:</p>Dr Expense / Cr Payable</div>
+                            <div class="bg-slate-50 border border-slate-100 rounded p-2"><p class="text-slate-500 mb-1">Accrued revenue:</p>Dr Accrued Revenue (or AR) / Cr Revenue</div>
+                        </div>
+                        <button onclick="nav('found3_patterns')" class="inline-flex items-center gap-1 mt-3 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch3 →</button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">6️⃣</span> Multi-Step Income Statement</h3>
+                        <div class="bg-slate-50 border border-slate-100 rounded p-3 font-mono text-xs text-center text-slate-700">Net Sales − COGS = Gross Profit<br>− Operating Expenses = Operating Income<br>± Other Rev/Exp = Net Income</div>
+                        <button onclick="nav('financials')" class="inline-flex items-center gap-1 mt-3 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5 →</button>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl shadow-sm border border-slate-800 p-5 text-slate-300">
+                        <h3 class="font-bold text-white mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">7️⃣</span> Manufacturing Cost Chain</h3>
+                        <div class="font-mono text-xs text-center bg-black/30 rounded p-3">RM → WIP → FG → COGS<br><span class="text-blue-400">DM + DL + MOH</span></div>
+                        <button onclick="nav('man_flow')" class="inline-flex items-center gap-1 mt-3 px-2 py-1 rounded-md bg-blue-900/50 text-blue-300 text-[11px] font-bold hover:bg-blue-900 transition-colors">Ch9 →</button>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl shadow-sm border border-slate-800 p-5 text-slate-300">
+                        <h3 class="font-bold text-white mb-4 flex items-center text-lg"><span class="text-amber-500 mr-2">8️⃣</span> CVP Core</h3>
+                        <div class="font-mono text-xs text-center bg-black/30 rounded p-3">SP − VC = CM<br>BE = FC ÷ CM<br>Y = a + bX</div>
+                        <button onclick="nav('cvp_master')" class="inline-flex items-center gap-1 mt-3 px-2 py-1 rounded-md bg-rose-900/50 text-rose-300 text-[11px] font-bold hover:bg-rose-900 transition-colors">Ch10 →</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white mt-8">
+                    <h3 class="font-bold text-amber-400 mb-4 text-lg">🔑 3 Equations You Cannot Forget</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">COGS + Ending Inventory<br>=<br><strong class="text-amber-300">Cost of Goods Available</strong></div>
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">Adjusted Bank<br>=<br><strong class="text-amber-300">Adjusted Books</strong></div>
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">Profit<br>=<br><strong class="text-amber-300">(SP − VC)Q − FC</strong></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-prep_theory" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Theory & Mental Map</h2>
+                </header>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white mb-8">
+                    <h3 class="font-bold text-amber-400 mb-4 text-lg">🔑 3 Equations You Cannot Forget</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">COGS + Ending Inventory<br>=<br><strong class="text-amber-300">Cost of Goods Available</strong></div>
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">Adjusted Bank<br>=<br><strong class="text-amber-300">Adjusted Books</strong></div>
+                        <div class="bg-black/30 rounded-lg p-4 font-mono text-center text-sm">Profit<br>=<br><strong class="text-amber-300">(SP − VC)Q − FC</strong></div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3">These three equations cover an absurdly large percentage of the calculation logic across the final.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">🗺️ The One-Page Mental Map</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-teal-50 border border-teal-200 rounded-lg p-4"><p class="text-xs font-bold text-teal-800 uppercase tracking-wide mb-2">Ch 1–4</p><div class="bg-white border border-teal-200 rounded px-3 py-2 font-mono text-xs text-center text-teal-900">Transaction → Journal → Adjustment → Statements</div><button onclick="nav('found_overview')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-teal-100 text-teal-800 text-[11px] font-bold hover:bg-teal-200 transition-colors">Ch1 →</button></div>
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4"><p class="text-xs font-bold text-indigo-800 uppercase tracking-wide mb-2">Ch 5</p><div class="bg-white border border-indigo-200 rounded px-3 py-2 font-mono text-xs text-center text-indigo-900">Purchase/Sale → Perpetual or Periodic → Net Sales → Gross Profit</div><button onclick="nav('overview')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch5 →</button></div>
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4"><p class="text-xs font-bold text-emerald-800 uppercase tracking-wide mb-2">Ch 6</p><div class="bg-white border border-emerald-200 rounded px-3 py-2 font-mono text-xs text-center text-emerald-900">Goods Available → FIFO/LIFO/WA → COGS + Ending Inventory</div><button onclick="nav('inv_overview')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6 →</button></div>
+                        <div class="bg-violet-50 border border-violet-200 rounded-lg p-4"><p class="text-xs font-bold text-violet-800 uppercase tracking-wide mb-2">Ch 7</p><div class="bg-white border border-violet-200 rounded px-3 py-2 font-mono text-xs text-center text-violet-900">Bank vs. Books → Who recorded it? → Too high or too low? → Reconcile</div><button onclick="nav('bankrec')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7 →</button></div>
+                        <div class="bg-fuchsia-50 border border-fuchsia-200 rounded-lg p-4"><p class="text-xs font-bold text-fuchsia-800 uppercase tracking-wide mb-2">Ch 8</p><div class="bg-white border border-fuchsia-200 rounded px-3 py-2 font-mono text-xs text-center text-fuchsia-900">Operating / Investing / Financing<br>Indirect: NI ± adjustments · Direct: actual cash receipts/payments</div><button onclick="nav('cf_class')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-fuchsia-100 text-fuchsia-800 text-[11px] font-bold hover:bg-fuchsia-200 transition-colors">Ch8 →</button></div>
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4"><p class="text-xs font-bold text-blue-800 uppercase tracking-wide mb-2">Ch 9</p><div class="bg-white border border-blue-200 rounded px-3 py-2 font-mono text-xs text-center text-blue-900">RM → WIP → FG → COGS<br>DM + DL + MOH</div><button onclick="nav('man_flow')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9 →</button></div>
+                        <div class="bg-rose-50 border border-rose-200 rounded-lg p-4 md:col-span-2"><p class="text-xs font-bold text-rose-800 uppercase tracking-wide mb-2">Ch 10</p><div class="bg-white border border-rose-200 rounded px-3 py-2 font-mono text-xs text-center text-rose-900">SP − VC = CM · CM × Units − FC = Profit</div><button onclick="nav('cvp_master')" class="inline-flex items-center gap-1 mt-2 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10 →</button></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">📝 9 Theory Answers to Memorise</h3>
+                    <p class="text-xs text-slate-500 mb-4">Prepare short, precise definitions rather than long paragraphs — 2 to 5 sentences each.</p>
+                    <div class="space-y-3">
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is an income statement?</summary><p class="text-xs text-slate-600 mt-2">An income statement reports a company's revenues and expenses over a period and determines its profit or loss.</p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">Where is profitability examined?</summary><p class="text-xs text-slate-600 mt-2">Profitability is mainly examined through the income statement using measures such as gross profit, operating income and net income. For a merchandising or manufacturing company, gross profit and net income are particularly useful indicators.</p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is a product cost?</summary><p class="text-xs text-slate-600 mt-2">A product cost is a cost assigned to inventory. For a manufacturer, it includes direct materials, direct labour and manufacturing overhead. It becomes Cost of Goods Sold when the product is sold. <button onclick="nav('man_intro')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9 →</button></p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is a period cost?</summary><p class="text-xs text-slate-600 mt-2">A period cost is a non-manufacturing cost such as a selling or administrative expense, and is expensed in the period incurred. <button onclick="nav('man_intro')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9 →</button></p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is the periodic inventory system?</summary><p class="text-xs text-slate-600 mt-2">The periodic system does not continuously update Merchandise Inventory and COGS. Purchases, returns, discounts and freight-in are recorded separately, and ending inventory is determined by physical count at period-end. <button onclick="nav('costing')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch6 →</button></p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is gross profit?</summary><p class="text-xs text-slate-600 mt-2">Gross profit = Net Sales − Cost of Goods Sold. It measures how much a company earns from selling merchandise before considering operating expenses.</p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is contribution margin?</summary><p class="text-xs text-slate-600 mt-2">Sales remaining after variable costs are covered — the amount available to cover fixed costs and then generate profit. <button onclick="nav('cvp_contribution')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10 →</button></p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is breakeven?</summary><p class="text-xs text-slate-600 mt-2">The sales level where total revenue equals total cost and operating income is zero. <button onclick="nav('cvp_breakeven')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Ch10 →</button></p></details>
+                        <details class="bg-slate-50 rounded-lg border border-slate-100 p-3"><summary class="text-sm font-bold text-slate-700 cursor-pointer">What is accrual accounting?</summary><p class="text-xs text-slate-600 mt-2">Recording revenues when earned and expenses when incurred, rather than solely when cash is received or paid. <button onclick="nav('found3_overview')" class="inline-flex items-center gap-1 ml-1 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch3 →</button></p></details>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 rounded-2xl border border-amber-200 p-6">
+                    <h3 class="font-bold text-amber-900 mb-2">✍️ Writing Strategy</h3>
+                    <p class="text-xs text-amber-800 mb-3">"Even if you don't know, write something — he will give marks." For any "explain X" question, use this 4-step skeleton:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+                        <div class="bg-white border border-amber-200 rounded-lg p-3 text-center"><p class="font-bold text-amber-700 mb-1">1. Define</p><p class="text-amber-900">State the term's definition.</p></div>
+                        <div class="bg-white border border-amber-200 rounded-lg p-3 text-center"><p class="font-bold text-amber-700 mb-1">2. Formula</p><p class="text-amber-900">Give the relevant formula, if any.</p></div>
+                        <div class="bg-white border border-amber-200 rounded-lg p-3 text-center"><p class="font-bold text-amber-700 mb-1">3. Example</p><p class="text-amber-900">Illustrate with a short numeric or worded example.</p></div>
+                        <div class="bg-white border border-amber-200 rounded-lg p-3 text-center"><p class="font-bold text-amber-700 mb-1">4. Purpose</p><p class="text-amber-900">State why it matters / what it's used for.</p></div>
+                    </div>
                 </div>
             </section>
 
@@ -296,6 +529,11 @@
                     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Focused Exam Workflows</h2>
                 </header>
 
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                    <p class="text-xs font-bold text-amber-900 mb-1">Which workflow for which exam question?</p>
+                    <p class="text-xs text-amber-800">Q1 → workflow 5 · Q2 → workflow 6 · Q3 → workflows 1 + 2 · Q4 → workflows 3 + 8 · Q5 → workflow 7</p>
+                </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                     <div class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-max">
                         <ul class="divide-y divide-slate-100" id="workflow-list">
@@ -303,6 +541,11 @@
                             <li><button onclick="showWorkflow('wf-costing', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">2. Inventory Costing</button></li>
                             <li><button onclick="showWorkflow('wf-bankrec', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">3. Bank Rec</button></li>
                             <li><button onclick="showWorkflow('wf-cashflows', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">4. Cash Flows</button></li>
+                            <li class="bg-slate-50 px-4 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-wide">Full-Paper Coverage</li>
+                            <li><button onclick="showWorkflow('wf-adjusting', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">5. Adjusting Entries (Q1)</button></li>
+                            <li><button onclick="showWorkflow('wf-statements', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">6. Financial Statements (Q2)</button></li>
+                            <li><button onclick="showWorkflow('wf-mfgcvp', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">7. Manufacturing & CVP (Q5)</button></li>
+                            <li><button onclick="showWorkflow('wf-directcf', this)" class="wf-tab w-full text-left p-4 hover:bg-slate-50 text-sm font-medium">8. Direct Method Cash Flow</button></li>
                         </ul>
                     </div>
                     <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-slate-200 p-6 min-h-[400px]">
@@ -384,7 +627,291 @@
                                 <li><strong>Check Ending Cash:</strong> Beginning Cash + Net Change = Ending Cash.</li>
                             </ol>
                         </div>
+
+                        <div id="wf-adjusting" class="wf-content hidden fade-in">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-4">Workflow: Adjusting Entries (Q1)</h3>
+                            <ol class="list-decimal list-inside space-y-3 text-sm text-slate-700 mb-6">
+                                <li><strong>Read the clue:</strong> "paid for 12 months", "not yet paid", "now earned", "not yet received" all signal a different pattern.</li>
+                                <li><strong>Identify the pattern:</strong> prepaid expense / unearned revenue / accrued expense / accrued revenue / depreciation.</li>
+                                <li><strong>Compute the portion:</strong> use the <em>months used ÷ months covered</em> trick — e.g. rent paid for 12 months, 3 have passed → × 3/12.</li>
+                                <li><strong>Write the Dr/Cr</strong> using the account names the question gives you.</li>
+                                <li><strong>State the element affected:</strong> asset / liability / revenue / expense, and its direction.</li>
+                            </ol>
+                            <div class="bg-rose-50 border border-rose-200 p-4 rounded text-sm text-rose-800">
+                                <strong class="text-rose-900 block mb-2">🚨 Errors That Cost Marks:</strong>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Touching Cash in an adjusting entry — adjusting entries never involve Cash.</li>
+                                    <li>Using the full amount instead of the accrued/expired portion.</li>
+                                    <li>Naming the wrong element affected (e.g. calling a liability an expense).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="wf-statements" class="wf-content hidden fade-in">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-4">Workflow: Financial Statements (Q2)</h3>
+                            <ol class="list-decimal list-inside space-y-3 text-sm text-slate-700 mb-6">
+                                <li><strong>Identify the company type FIRST:</strong> service, merchandising, or manufacturing — the format depends entirely on this.</li>
+                                <li><strong>Build in order:</strong> Net Sales → COGS → Gross Profit → Operating Expenses → Operating Income → Other Revenue/Expenses → Net Income.</li>
+                                <li><strong>Know which statement answers "where is profitability examined":</strong> the income statement, via gross profit / operating income / net income.</li>
+                                <li><strong>Then the linkage:</strong> Income Statement → Statement of Owner's Equity → Balance Sheet → Statement of Cash Flows.</li>
+                            </ol>
+                        </div>
+
+                        <div id="wf-mfgcvp" class="wf-content hidden fade-in">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-4">Workflow: Manufacturing & CVP (Q5)</h3>
+                            <ol class="list-decimal list-inside space-y-3 text-sm text-slate-700 mb-6">
+                                <li><strong>Classify</strong> every cost as DM / DL / MOH / period cost.</li>
+                                <li><strong>DM Used</strong> → <strong>Total Manufacturing Costs</strong> → <strong>COGM</strong> → <strong>COGS</strong>.</li>
+                                <li><strong>High-low:</strong> pick highest/lowest activity (not cost), find variable rate, then fixed cost.</li>
+                                <li><strong>Contribution margin</strong> = Selling price − Variable cost.</li>
+                                <li><strong>Breakeven</strong> = Fixed costs ÷ Contribution margin.</li>
+                            </ol>
+                            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg text-sm text-amber-900">
+                                <strong>The unifying insight — "the same formula three times":</strong> Materials Used, COGM and COGS are all just <em>Beginning + Added − Ending</em>. Learn that once instead of memorising three formulas.
+                            </div>
+                        </div>
+
+                        <div id="wf-directcf" class="wf-content hidden fade-in">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-4">Workflow: Direct Method Cash Flow</h3>
+                            <p class="text-sm text-slate-700 mb-4">Unlike the indirect method, the direct method shows actual cash receipts and payments — convert accrual-basis figures using these three relationships:</p>
+                            <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-4 space-y-2">
+                                <div>Cash collected from customers = Sales + Beginning AR − Ending AR</div>
+                                <div>Purchases = COGS + Ending Inventory − Beginning Inventory</div>
+                                <div>Cash paid for inventory = Purchases + Beginning AP − Ending AP</div>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-2">Small example: Sales RM50,000, Beginning AR RM8,000, Ending AR RM6,000 → Cash collected = 50,000 + 8,000 − 6,000 = <strong>RM52,000</strong> (AR fell, so more cash came in than sales alone would suggest).</p>
+                            <button onclick="nav('cf_direct')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-fuchsia-100 text-fuchsia-800 text-[11px] font-bold hover:bg-fuchsia-200 transition-colors">Ch8 · Direct Method & Disposals →</button>
+                        </div>
                     </div>
+                </div>
+            </section>
+
+            <section id="sec-prep_drills" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-amber-600 font-bold tracking-wider text-sm uppercase">Exam Preparation</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-1 mb-3">5 Practice Questions</h2>
+                    <p class="text-base text-slate-600 leading-relaxed max-w-3xl">One realistic question per predicted exam question. <strong>Attempt each on paper first (~20 minutes)</strong> — only open the solution afterwards. Rehearsal under exam conditions is the point; a calculator you can lean on defeats it.</p>
+                </header>
+
+                <div class="space-y-8">
+
+                    <!-- Q1 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-amber-50 border-b border-amber-200 p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Q1 · 20 marks</span><button onclick="nav('found3_overview')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-lime-100 text-lime-800 text-[11px] font-bold hover:bg-lime-200 transition-colors">Ch1–3</button></div>
+                            <p class="font-bold text-slate-800 mb-2">Beta Services — Adjusting Entries</p>
+                            <p class="text-sm text-slate-700 mb-2">Beta Services has the following events at 31 December:</p>
+                            <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1 mb-2">
+                                <li>RM12,000 of rent was paid on 1 October for 12 months.</li>
+                                <li>Employees earned RM4,500 salary that has not yet been paid.</li>
+                                <li>RM3,000 of previously unearned revenue has now been earned.</li>
+                                <li>RM2,200 revenue has been earned but has not been received.</li>
+                                <li>Equipment costing RM60,000 is depreciated at RM6,000 per year.</li>
+                            </ol>
+                            <p class="text-xs font-bold text-slate-600">Required: (a) Prepare the adjusting entries. (b) State whether each affects an asset, liability, revenue or expense. (c) Explain why accrual accounting requires these entries.</p>
+                        </div>
+                        <details class="group">
+                            <summary class="px-5 py-3 cursor-pointer text-sm font-bold text-amber-700 hover:bg-amber-50 transition-colors list-none flex items-center gap-2">⏱ Attempt on paper first — then reveal full worked solution <span class="transition-transform duration-300 group-open:rotate-180">▼</span></summary>
+                            <div class="p-6 overflow-x-auto">
+                                <table class="w-full text-xs text-left mb-4">
+                                    <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Event</th><th class="px-3 py-2 border-b">Working</th><th class="px-3 py-2 border-b">Entry</th><th class="px-3 py-2 border-b">Element affected</th></tr></thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr><td class="px-3 py-2">1. Rent</td><td class="px-3 py-2 font-mono">12,000 × 3/12 = 3,000</td><td class="px-3 py-2 font-mono">Dr Rent Expense 3,000<br>Cr Prepaid Rent 3,000</td><td class="px-3 py-2">Expense ↑, Asset ↓</td></tr>
+                                        <tr><td class="px-3 py-2">2. Salary</td><td class="px-3 py-2 font-mono">Given</td><td class="px-3 py-2 font-mono">Dr Salary Expense 4,500<br>Cr Salary Payable 4,500</td><td class="px-3 py-2">Expense ↑, Liability ↑</td></tr>
+                                        <tr><td class="px-3 py-2">3. Unearned revenue</td><td class="px-3 py-2 font-mono">Given</td><td class="px-3 py-2 font-mono">Dr Unearned Revenue 3,000<br>Cr Service Revenue 3,000</td><td class="px-3 py-2">Liability ↓, Revenue ↑</td></tr>
+                                        <tr><td class="px-3 py-2">4. Accrued revenue</td><td class="px-3 py-2 font-mono">Given</td><td class="px-3 py-2 font-mono">Dr Accrued Revenue 2,200<br>Cr Service Revenue 2,200</td><td class="px-3 py-2">Asset ↑, Revenue ↑</td></tr>
+                                        <tr><td class="px-3 py-2">5. Depreciation</td><td class="px-3 py-2 font-mono">Given (RM6,000/yr)</td><td class="px-3 py-2 font-mono">Dr Depreciation Expense 6,000<br>Cr Accumulated Depreciation 6,000</td><td class="px-3 py-2">Expense ↑, Contra-asset ↑</td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="border-l-4 border-rose-400 bg-rose-50 px-4 py-2 rounded-r-lg text-rose-900 text-xs mb-4">⚠️ Entry 4 uses the account name <strong>Accrued Revenue</strong> exactly as the question states it — see <button onclick="nav('prep_corrections')" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Lecturer Corrections →</button> for why this matters.</div>
+                                <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 text-xs text-slate-700"><strong>(c) Why accrual accounting requires these entries:</strong> accrual accounting records revenues when earned and expenses when incurred, not merely when cash changes hands. Without these adjustments, Beta Services' statements would overstate assets already consumed (prepaid rent), understate liabilities/expenses already incurred (salary), misstate revenue already earned but uncollected or already collected but unearned (accrued/unearned revenue), and fail to reflect the gradual use of a long-term asset (depreciation) — producing statements that don't faithfully represent the period's actual economic activity.</div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-amber-50 border-b border-amber-200 p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Q2 · 20 marks</span><button onclick="nav('financials')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-100 text-indigo-800 text-[11px] font-bold hover:bg-indigo-200 transition-colors">Ch4–5, 8.5</button></div>
+                            <p class="font-bold text-slate-800 mb-2">Multi-Step Income Statement</p>
+                            <p class="text-sm text-slate-700 mb-2">A merchandising company reports:</p>
+                            <div class="overflow-x-auto mb-2"><table class="w-full text-xs text-left border border-slate-200 rounded"><tbody class="divide-y divide-slate-100">
+                                <tr><td class="px-3 py-1.5">Sales Revenue</td><td class="px-3 py-1.5 text-right font-mono">400,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Sales Returns</td><td class="px-3 py-1.5 text-right font-mono">10,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Sales Discounts</td><td class="px-3 py-1.5 text-right font-mono">5,000</td></tr>
+                                <tr><td class="px-3 py-1.5">COGS</td><td class="px-3 py-1.5 text-right font-mono">230,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Selling Expenses</td><td class="px-3 py-1.5 text-right font-mono">45,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Administrative Expenses</td><td class="px-3 py-1.5 text-right font-mono">35,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Interest Revenue</td><td class="px-3 py-1.5 text-right font-mono">3,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Interest Expense</td><td class="px-3 py-1.5 text-right font-mono">8,000</td></tr>
+                            </tbody></table></div>
+                            <p class="text-xs font-bold text-slate-600">Required: prepare a multi-step income statement and identify where profitability can be evaluated.</p>
+                        </div>
+                        <details class="group">
+                            <summary class="px-5 py-3 cursor-pointer text-sm font-bold text-amber-700 hover:bg-amber-50 transition-colors list-none flex items-center gap-2">⏱ Attempt on paper first — then reveal full worked solution <span class="transition-transform duration-300 group-open:rotate-180">▼</span></summary>
+                            <div class="p-6 overflow-x-auto">
+                                <table class="w-full text-xs text-left mb-4">
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr><td class="px-3 py-1.5">Sales Revenue</td><td class="px-3 py-1.5 text-right font-mono">400,000</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Sales Returns and Allowances</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(10,000)</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Sales Discounts</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(5,000)</td></tr>
+                                        <tr class="font-bold border-t-2 border-slate-300"><td class="px-3 py-1.5">Net Sales</td><td class="px-3 py-1.5 text-right font-mono">385,000</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Cost of Goods Sold</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(230,000)</td></tr>
+                                        <tr class="font-bold border-t-2 border-slate-300"><td class="px-3 py-1.5">Gross Profit</td><td class="px-3 py-1.5 text-right font-mono">155,000</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Selling Expenses</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(45,000)</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Administrative Expenses</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(35,000)</td></tr>
+                                        <tr class="font-bold border-t-2 border-slate-300"><td class="px-3 py-1.5">Operating Income</td><td class="px-3 py-1.5 text-right font-mono">75,000</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Add: Interest Revenue</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">3,000</td></tr>
+                                        <tr><td class="px-3 py-1.5 text-slate-500">Less: Interest Expense</td><td class="px-3 py-1.5 text-right font-mono text-slate-500">(8,000)</td></tr>
+                                        <tr class="font-bold border-t-2 border-slate-800 text-emerald-700"><td class="px-3 py-1.5">Net Income</td><td class="px-3 py-1.5 text-right font-mono">70,000</td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 text-xs text-slate-700">Profitability can be evaluated through the income statement because it reports revenues, expenses and resulting profit over a period. For a merchandising or manufacturing company, gross profit and net income are particularly useful indicators.</div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-amber-50 border-b border-amber-200 p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Q3 · 20 marks</span><button onclick="nav('costing')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold hover:bg-emerald-200 transition-colors">Ch5–6</button></div>
+                            <p class="font-bold text-slate-800 mb-2">Inventory Costing</p>
+                            <p class="text-sm text-slate-700 mb-2">A company has:</p>
+                            <div class="overflow-x-auto mb-2"><table class="w-full text-xs text-left border border-slate-200 rounded"><tbody class="divide-y divide-slate-100">
+                                <tr><td class="px-3 py-1.5">Beginning Inventory</td><td class="px-3 py-1.5 text-right font-mono">300 units @ RM20</td></tr>
+                                <tr><td class="px-3 py-1.5">Purchase 1</td><td class="px-3 py-1.5 text-right font-mono">500 units @ RM24 + Freight-in RM1,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Purchase 2</td><td class="px-3 py-1.5 text-right font-mono">400 units @ RM27</td></tr>
+                                <tr><td class="px-3 py-1.5">Ending Inventory</td><td class="px-3 py-1.5 text-right font-mono">350 units</td></tr>
+                            </tbody></table></div>
+                            <p class="text-xs font-bold text-slate-600">Required: units sold, then COGS under FIFO, LIFO, and the lecturer's Average Net Purchase Cost method.</p>
+                        </div>
+                        <details class="group">
+                            <summary class="px-5 py-3 cursor-pointer text-sm font-bold text-amber-700 hover:bg-amber-50 transition-colors list-none flex items-center gap-2">⏱ Attempt on paper first — then reveal full worked solution <span class="transition-transform duration-300 group-open:rotate-180">▼</span></summary>
+                            <div class="p-6 overflow-x-auto">
+                                <div class="border-l-4 border-rose-400 bg-rose-50 px-4 py-2 rounded-r-lg text-rose-900 text-xs mb-4">⚠️ Units sold is <strong>not</strong> Beginning − Ending. See <button onclick="nav('prep_corrections')" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-[11px] font-bold hover:bg-rose-200 transition-colors">Lecturer Corrections →</button>.</div>
+                                <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-4">Units available = 300 + 500 + 400 = 1,200<br>Units sold = 1,200 − 350 = <strong>850</strong></div>
+                                <table class="w-full text-xs text-left mb-4">
+                                    <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Method</th><th class="px-3 py-2 border-b">Working (merchandise cost layers)</th><th class="px-3 py-2 border-b">COGS</th></tr></thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr><td class="px-3 py-2 font-bold">FIFO</td><td class="px-3 py-2 font-mono">300(20) + 500(24) + 50(27) = 6,000+12,000+1,350</td><td class="px-3 py-2 font-bold">RM19,350</td></tr>
+                                        <tr><td class="px-3 py-2 font-bold">LIFO</td><td class="px-3 py-2 font-mono">400(27) + 450(24) = 10,800+10,800</td><td class="px-3 py-2 font-bold">RM21,600</td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-2">Control check (FIFO): Ending inventory 350 @ RM27 = RM9,450<br>COGS 19,350 + Ending Inv 9,450 = RM28,800 = Goods Available (300×20+500×24+400×27) ✓</div>
+                                <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg text-sky-900 text-xs mb-2"><strong>Lecturer's Average Net Purchase Cost:</strong> pools <em>purchases only</em> (not beginning inventory), plus freight-in.</div>
+                                <div class="bg-slate-900 text-white rounded-lg px-4 py-3 font-mono text-xs">Purchase cost = (500×24) + (400×27) = 12,000 + 10,800 = 22,800<br>+ Freight-in 1,000 = 23,800<br>÷ Purchase units (500+400) = 900<br>= <strong class="text-amber-300">RM26.44/unit</strong><br>Applied to units sold: 850 × 26.44 ≈ <strong class="text-amber-300">RM22,478</strong></div>
+                                <p class="text-xs text-slate-500 mt-2 italic">Whether this rate also applies to the units that came from beginning inventory depends on exactly how the exam question is worded — read it carefully, and write out the formula line either way so the marker can follow your reasoning.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-amber-50 border-b border-amber-200 p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Q4 · 20 marks</span><button onclick="nav('bankrec')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7–8</button></div>
+                            <p class="font-bold text-slate-800 mb-2">Bank Reconciliation</p>
+                            <div class="overflow-x-auto mb-2"><table class="w-full text-xs text-left border border-slate-200 rounded"><tbody class="divide-y divide-slate-100">
+                                <tr><td class="px-3 py-1.5">Bank balance</td><td class="px-3 py-1.5 text-right font-mono">RM28,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Book balance</td><td class="px-3 py-1.5 text-right font-mono">RM27,100</td></tr>
+                                <tr><td class="px-3 py-1.5">Deposit in transit</td><td class="px-3 py-1.5 text-right font-mono">4,200</td></tr>
+                                <tr><td class="px-3 py-1.5">Outstanding cheques</td><td class="px-3 py-1.5 text-right font-mono">3,000</td></tr>
+                                <tr><td class="px-3 py-1.5">Bank service charge</td><td class="px-3 py-1.5 text-right font-mono">100</td></tr>
+                                <tr><td class="px-3 py-1.5">Interest earned</td><td class="px-3 py-1.5 text-right font-mono">80</td></tr>
+                                <tr><td class="px-3 py-1.5">Customer EFT receipt</td><td class="px-3 py-1.5 text-right font-mono">700</td></tr>
+                                <tr><td class="px-3 py-1.5">NSF cheque</td><td class="px-3 py-1.5 text-right font-mono">380</td></tr>
+                            </tbody></table></div>
+                            <p class="text-xs font-bold text-slate-600">Required: reconcile the bank and book balances.</p>
+                        </div>
+                        <details class="group">
+                            <summary class="px-5 py-3 cursor-pointer text-sm font-bold text-amber-700 hover:bg-amber-50 transition-colors list-none flex items-center gap-2">⏱ Attempt on paper first — then reveal Step 1 <span class="transition-transform duration-300 group-open:rotate-180">▼</span></summary>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-xs"><p class="font-bold text-slate-700 mb-2">Bank side</p>28,000 + 4,200 − 3,000<br>= <strong>29,200</strong></div>
+                                    <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 font-mono text-xs"><p class="font-bold text-slate-700 mb-2">Book side</p>27,100 + 80 + 700 − 100 − 380<br>= <strong>27,400</strong></div>
+                                </div>
+                                <div class="bg-rose-100 border-2 border-rose-400 rounded-xl p-5 mb-4">
+                                    <p class="font-bold text-rose-900 mb-2">🛑 STOP. 29,200 ≠ 27,400. Difference RM1,800. Do not invent a plug entry.</p>
+                                    <p class="text-xs text-rose-800 mb-2">This is deliberate — a data set that doesn't reconcile is exactly what a real exam might throw at you. The correct move: re-read the question, check every item is on the correct side (bank vs. book), check nothing is double-counted or mis-signed, then <strong>state your assumption in the answer script and move on.</strong></p>
+                                    <p class="text-xs text-rose-800 italic">"That checking habit is important." Never keep adjusting numbers on the fly until they happen to match — that's a sign you're guessing, not reconciling.</p>
+                                </div>
+                                <details class="group/inner border-t border-slate-200 pt-4">
+                                    <summary class="cursor-pointer text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors list-none flex items-center gap-2 px-2 py-2 rounded">✅ Reveal Step 2 — a version that DOES reconcile <span class="transition-transform duration-300 group-open/inner:rotate-180">▼</span></summary>
+                                    <div class="pt-3 overflow-x-auto">
+                                        <p class="text-xs text-slate-600 mb-2">Same structure, corrected data set — bank balance RM28,000, book balance RM24,820, and one extra bank-side item corrected:</p>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4 font-mono text-xs"><p class="font-bold text-emerald-800 mb-2">Bank side</p>28,000 + 4,200 (DIT) − 3,000 (outstanding cheques)<br>= <strong>29,200</strong></div>
+                                            <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4 font-mono text-xs"><p class="font-bold text-emerald-800 mb-2">Book side</p>24,820 + 80 (interest) + 700 (EFT) + 3,980 (correcting a cheque recorded RM3,980 too low) − 100 (service charge) − 380 (NSF)<br>= <strong>29,200</strong> ✓</div>
+                                        </div>
+                                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs mb-3">Book-side journal entries needed:<br>Dr Cash 80 / Cr Interest Revenue 80<br>Dr Cash 700 / Cr Accounts Receivable 700<br>Dr Cash 3,980 / Cr Accounts Payable 3,980<br>Dr Bank Service Charge Expense 100 / Cr Cash 100<br>Dr Accounts Receivable 380 / Cr Cash 380</div>
+                                        <p class="text-xs text-slate-500">Bank-side items (deposit in transit, outstanding cheques) need no journal entry — the bank will catch up on its own.</p>
+                                        <button onclick="nav('bankrec')" class="inline-flex items-center gap-1 mt-3 px-2 py-1 rounded-md bg-violet-100 text-violet-800 text-[11px] font-bold hover:bg-violet-200 transition-colors">Ch7 · Full Bank Rec Explorer →</button>
+                                    </div>
+                                </details>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-amber-50 border-b border-amber-200 p-5">
+                            <div class="flex items-center gap-2 mb-2"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Q5 · 20 marks</span><button onclick="nav('man_intro')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-100 text-blue-800 text-[11px] font-bold hover:bg-blue-200 transition-colors">Ch9–10</button></div>
+                            <p class="font-bold text-slate-800 mb-2">Manufacturing + CVP</p>
+                            <p class="text-sm text-slate-700 mb-2">A manufacturer gives:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2 text-xs">
+                                <div class="overflow-x-auto"><table class="w-full text-left border border-slate-200 rounded"><thead class="bg-slate-100"><tr><th class="px-2 py-1">Cost</th><th class="px-2 py-1 text-right">RM</th></tr></thead><tbody class="divide-y divide-slate-100">
+                                    <tr><td class="px-2 py-1">Wood</td><td class="px-2 py-1 text-right font-mono">80,000</td></tr>
+                                    <tr><td class="px-2 py-1">Assembly worker wages</td><td class="px-2 py-1 text-right font-mono">60,000</td></tr>
+                                    <tr><td class="px-2 py-1">Factory supervisor</td><td class="px-2 py-1 text-right font-mono">20,000</td></tr>
+                                    <tr><td class="px-2 py-1">Factory rent</td><td class="px-2 py-1 text-right font-mono">30,000</td></tr>
+                                    <tr><td class="px-2 py-1">Advertising</td><td class="px-2 py-1 text-right font-mono">15,000</td></tr>
+                                    <tr><td class="px-2 py-1">Office salaries</td><td class="px-2 py-1 text-right font-mono">18,000</td></tr>
+                                </tbody></table></div>
+                                <div class="overflow-x-auto"><table class="w-full text-left border border-slate-200 rounded"><thead class="bg-slate-100"><tr><th class="px-2 py-1" colspan="2">Inventory</th></tr></thead><tbody class="divide-y divide-slate-100 font-mono">
+                                    <tr><td class="px-2 py-1">Beg / End RM</td><td class="px-2 py-1 text-right">30,000 / 25,000</td></tr>
+                                    <tr><td class="px-2 py-1">Purchases RM</td><td class="px-2 py-1 text-right">100,000</td></tr>
+                                    <tr><td class="px-2 py-1">Beg / End WIP</td><td class="px-2 py-1 text-right">20,000 / 15,000</td></tr>
+                                    <tr><td class="px-2 py-1">Beg / End FG</td><td class="px-2 py-1 text-right">40,000 / 35,000</td></tr>
+                                </tbody></table></div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2 text-xs">
+                                <div class="overflow-x-auto"><table class="w-full text-left border border-slate-200 rounded"><thead class="bg-slate-100"><tr><th class="px-2 py-1" colspan="2">Mixed maintenance cost</th></tr></thead><tbody class="divide-y divide-slate-100 font-mono"><tr><td class="px-2 py-1">2,000 units</td><td class="px-2 py-1 text-right">RM14,000</td></tr><tr><td class="px-2 py-1">5,000 units</td><td class="px-2 py-1 text-right">RM20,000</td></tr></tbody></table></div>
+                                <div class="overflow-x-auto"><table class="w-full text-left border border-slate-200 rounded"><thead class="bg-slate-100"><tr><th class="px-2 py-1" colspan="2">CVP</th></tr></thead><tbody class="divide-y divide-slate-100 font-mono"><tr><td class="px-2 py-1">Selling price</td><td class="px-2 py-1 text-right">RM50</td></tr><tr><td class="px-2 py-1">Variable cost/unit</td><td class="px-2 py-1 text-right">RM30</td></tr><tr><td class="px-2 py-1">Fixed cost</td><td class="px-2 py-1 text-right">RM80,000</td></tr></tbody></table></div>
+                            </div>
+                            <p class="text-xs font-bold text-slate-600">Required: (a) classify each cost, (b) DM used, (c) total manufacturing cost, (d) COGM, (e) COGS, (f) high-low cost equation, (g) contribution margin, (h) breakeven units.</p>
+                        </div>
+                        <details class="group">
+                            <summary class="px-5 py-3 cursor-pointer text-sm font-bold text-amber-700 hover:bg-amber-50 transition-colors list-none flex items-center gap-2">⏱ Attempt on paper first — then reveal full worked solution <span class="transition-transform duration-300 group-open:rotate-180">▼</span></summary>
+                            <div class="p-6 overflow-x-auto">
+                                <table class="w-full text-xs text-left mb-4">
+                                    <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Cost</th><th class="px-3 py-2 border-b">Classification</th></tr></thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr><td class="px-3 py-2">Wood</td><td class="px-3 py-2">Direct material / product cost</td></tr>
+                                        <tr><td class="px-3 py-2">Assembly worker wages</td><td class="px-3 py-2">Direct labour / product cost</td></tr>
+                                        <tr><td class="px-3 py-2">Factory supervisor</td><td class="px-3 py-2">MOH / product cost</td></tr>
+                                        <tr><td class="px-3 py-2">Factory rent</td><td class="px-3 py-2">MOH / product cost</td></tr>
+                                        <tr><td class="px-3 py-2">Advertising</td><td class="px-3 py-2">Period cost</td></tr>
+                                        <tr><td class="px-3 py-2">Office salaries</td><td class="px-3 py-2">Period cost</td></tr>
+                                    </tbody>
+                                </table>
+                                <table class="w-full text-xs text-left mb-4">
+                                    <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Step</th><th class="px-3 py-2 border-b">Working</th><th class="px-3 py-2 border-b">Answer</th></tr></thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr><td class="px-3 py-2 font-medium">DM used</td><td class="px-3 py-2 font-mono">30,000+100,000−25,000</td><td class="px-3 py-2 font-bold">RM105,000</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">Total mfg costs</td><td class="px-3 py-2 font-mono">105,000+60,000+20,000+30,000</td><td class="px-3 py-2 font-bold">RM215,000</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">COGM</td><td class="px-3 py-2 font-mono">20,000+215,000−15,000</td><td class="px-3 py-2 font-bold">RM220,000</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">COGS</td><td class="px-3 py-2 font-mono">40,000+220,000−35,000</td><td class="px-3 py-2 font-bold">RM225,000</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">High-low VC/unit</td><td class="px-3 py-2 font-mono">(20,000−14,000)÷(5,000−2,000)</td><td class="px-3 py-2 font-bold">RM2</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">High-low fixed cost</td><td class="px-3 py-2 font-mono">20,000−(2×5,000)</td><td class="px-3 py-2 font-bold">RM10,000</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">Cost equation</td><td class="px-3 py-2 font-mono">—</td><td class="px-3 py-2 font-bold">Y = 10,000 + 2X</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">Contribution margin</td><td class="px-3 py-2 font-mono">50−30</td><td class="px-3 py-2 font-bold">RM20</td></tr>
+                                        <tr><td class="px-3 py-2 font-medium">Breakeven units</td><td class="px-3 py-2 font-mono">80,000÷20</td><td class="px-3 py-2 font-bold">4,000 units</td></tr>
+                                    </tbody>
+                                </table>
+                                <p class="text-xs text-slate-500 italic">This one question tests almost the entire Q5 scope: cost classification → the "same formula three times" COGM chain → high-low → contribution margin → breakeven.</p>
+                            </div>
+                        </details>
+                    </div>
+
                 </div>
             </section>
 
@@ -2586,6 +3113,7 @@
                             <div><p class="text-slate-500 mb-1">Accrued expense:</p><div class="flex justify-between"><span>Expense</span><span></span></div><div class="flex justify-between pl-6 text-slate-500"><span>Payable</span><span></span></div></div>
                             <div><p class="text-slate-500 mb-1">Accrued revenue:</p><div class="flex justify-between"><span>Accounts Receivable</span><span></span></div><div class="flex justify-between pl-6 text-slate-500"><span>Revenue</span><span></span></div></div>
                         </div>
+                        <div class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg text-amber-900 text-xs my-3">💡 If a question specifically names the account <strong>Accrued Revenue</strong>, use that name — do not silently change it to Accounts Receivable. Both are standard practice in general, but match the terminology the question itself uses. See Exam Prep → Lecturer Corrections.</div>
 
                         <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">11. Deferred expenses</h3>
                         <p class="mb-2">Occurs when cash is paid before the related expense is incurred. Also called a prepaid expense. Examples: Prepaid Rent, Prepaid Insurance, Office Supplies, Depreciation-related asset usage. Initially the payment is recorded as an asset; as the benefit is consumed, part of the asset becomes expense.</p>
@@ -9059,6 +9587,12 @@
                     <p class="text-xs text-rose-800">Breakeven sets Profit = 0 and solves for Q. Target profit sets Profit = a chosen number and solves for Q. Sensitivity analysis changes SP, VC or FC and re-solves. Margin of safety and operating leverage both describe how far from — and how sensitive profit is around — this same line. One equation, many questions.</p>
                 </div>
 
+                <div class="bg-slate-900 text-white rounded-2xl p-6 mb-8">
+                    <h3 class="font-bold text-rose-400 mb-3">🧭 The Quick-Attack Workflow for Any Subjective Question</h3>
+                    <p class="text-xs text-slate-300 mb-3">Before touching the calculator, write this mini-table and fill in whatever the question gives you: <span class="font-mono text-slate-400">SP/unit · VC/unit · CM/unit · Fixed costs · Units · Target profit · CM ratio</span>.</p>
+                    <div class="font-mono text-xs text-center leading-7 bg-black/30 rounded-lg p-4">1. Find CM/unit first.<br>↓<br>2. Find CMR if sales RM are involved.<br>↓<br>3. Identify whether the question wants: operating income / breakeven / target profit / MOS / DOL / sales mix.<br>↓<br>4. Use the appropriate relationship.<br>↓<br>5. Round units UP if needed.<br>↓<br>6. Prove using: Sales − Variable costs = CM − Fixed costs = OI</div>
+                </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                         <div class="space-y-4 text-sm">
@@ -9352,6 +9886,7 @@
 
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8 overflow-x-auto">
                     <h3 class="text-lg font-bold text-slate-800 mb-4">🔁 Sensitivity Analysis — "What If?"</h3>
+                    <div class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg text-amber-900 text-xs mb-3"><strong>Exam habit:</strong> predict the direction first, then calculate. That way, if your calculator says breakeven dropped after contribution margin dropped, you know something has gone wrong before you write down the wrong answer.</div>
                     <p class="text-xs text-slate-600 mb-3">Base case: SP RM500, VC RM275, FC RM13,500 → unit CM RM225 → breakeven 60 units.</p>
                     <table class="w-full text-xs text-left">
                         <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Scenario</th><th class="px-3 py-2 border-b">New CM/unit</th><th class="px-3 py-2 border-b">New breakeven</th></tr></thead>
@@ -9522,6 +10057,24 @@
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8 overflow-x-auto">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">✅ Second Worked Example — Same 7 Questions, Different Numbers</h3>
+                    <p class="text-xs text-slate-600 mb-3">Given: SP RM100/unit, VC RM60/unit, FC RM120,000, Expected sales 4,000 units. Solved as one continuous story — notice every answer still comes from the same underlying equation.</p>
+                    <table class="w-full text-xs text-left">
+                        <thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Step</th><th class="px-3 py-2 border-b">Working</th><th class="px-3 py-2 border-b">Answer</th></tr></thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="px-3 py-2 font-medium">1. CM per unit</td><td class="px-3 py-2 font-mono">RM100 − RM60</td><td class="px-3 py-2 font-bold">RM40</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">2. CM ratio</td><td class="px-3 py-2 font-mono">RM40 ÷ RM100</td><td class="px-3 py-2 font-bold">40%</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">3. Operating income @4,000</td><td class="px-3 py-2 font-mono">(4,000×RM40) − RM120,000</td><td class="px-3 py-2 font-bold">RM40,000</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">4. Breakeven units</td><td class="px-3 py-2 font-mono">RM120,000 ÷ RM40</td><td class="px-3 py-2 font-bold">3,000 units</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">5. Breakeven sales</td><td class="px-3 py-2 font-mono">RM120,000 ÷ 40%</td><td class="px-3 py-2 font-bold">RM300,000</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">6. Margin of safety</td><td class="px-3 py-2 font-mono">4,000−3,000=1,000u; ×RM100; ÷4,000</td><td class="px-3 py-2 font-bold">1,000u / RM100,000 / 25%</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">7. Operating leverage</td><td class="px-3 py-2 font-mono">RM160,000 ÷ RM40,000</td><td class="px-3 py-2 font-bold">4.0 (10% sales Δ ≈ 40% OI Δ)</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">8. Units for RM60,000 target profit</td><td class="px-3 py-2 font-mono">(RM120,000+RM60,000) ÷ RM40</td><td class="px-3 py-2 font-bold">4,500 units</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8 overflow-x-auto">
                     <h3 class="text-lg font-bold text-slate-800 mb-4">🔄 Reverse CVP Calculations — When Breakeven Is Given Instead of Asked</h3>
                     <p class="text-xs text-slate-600 mb-3">Exams don't always ask for breakeven directly — sometimes breakeven is <em>given</em> and one input (fixed cost, variable cost, or selling price) is missing instead.</p>
                     <table class="w-full text-xs text-left mb-3">
@@ -9530,9 +10083,10 @@
                             <tr><td class="px-3 py-2 font-medium">Fixed costs</td><td class="px-3 py-2">BE=500u, SP=RM40, VC=RM25</td><td class="px-3 py-2 font-mono">FC = BE units × Unit CM = 500×(40−25)</td><td class="px-3 py-2 font-bold">RM7,500</td></tr>
                             <tr><td class="px-3 py-2 font-medium">Variable cost/unit</td><td class="px-3 py-2">SP=RM80, FC=RM30,000, BE=1,000u</td><td class="px-3 py-2 font-mono">Req. CM=30,000÷1,000=30; VC=80−30</td><td class="px-3 py-2 font-bold">RM50</td></tr>
                             <tr><td class="px-3 py-2 font-medium">Selling price</td><td class="px-3 py-2">VC=RM35, FC=RM20,000, BE=1,000u</td><td class="px-3 py-2 font-mono">Req. CM=20,000÷1,000=20; SP=35+20</td><td class="px-3 py-2 font-bold">RM55</td></tr>
+                            <tr><td class="px-3 py-2 font-medium">Selling price (via target profit)</td><td class="px-3 py-2">VC=RM25, FC=RM30,000, TP=RM10,000, 2,000u</td><td class="px-3 py-2 font-mono">Req. CM=(30,000+10,000)÷2,000=20; SP=25+20</td><td class="px-3 py-2 font-bold">RM45</td></tr>
                         </tbody>
                     </table>
-                    <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg text-sky-900 text-xs">The trick is always the same: rearrange <strong>Fixed costs = Breakeven units × Unit CM</strong> for whichever piece is missing. Find the required unit CM first (from breakeven), then solve for the unknown price or cost.</div>
+                    <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg text-sky-900 text-xs">The trick is always the same: rearrange <strong>Fixed costs (+ Target Profit) = Required units × Unit CM</strong> for whichever piece is missing. Find the required unit CM first (from breakeven or target profit), then solve for the unknown price or cost.</div>
                 </div>
 
                 <div class="bg-slate-800 rounded-2xl p-6 text-white mb-8">
@@ -9574,6 +10128,256 @@
                         <div><p class="font-bold text-slate-800 mb-1">Q7. Explain sales mix and multiproduct breakeven.</p><p class="text-slate-600">Sales mix is the combination of products that makes up total sales. Because products may have different contribution margins, a weighted-average contribution margin is used to calculate multiproduct breakeven. The resulting total units are then allocated to each product according to the assumed sales mix.</p></div>
                     </div>
                 </div>
+            </section>
+
+            <section id="sec-cvp_calc" class="fade-in hidden">
+                <header class="mb-8 border-b border-slate-200 pb-4">
+                    <span class="text-rose-600 font-bold tracking-wider text-sm uppercase">Chapter 10</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1 mb-3">Calculation-Focused Explanation</h2>
+                </header>
+
+                <details class="group bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden [&::-webkit-details-marker]:hidden">
+                    <summary class="px-6 py-5 cursor-pointer flex items-start justify-between gap-4 outline-none list-none hover:bg-slate-50 transition-colors">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">🧮</span>
+                            <div>
+                                <p class="font-bold text-slate-900">Open the complete calculation-focused explanation</p>
+                                <p class="text-sm text-slate-500 mt-1">All content from the notes is preserved here, but collapsed so quick revision stays quick.</p>
+                            </div>
+                        </div>
+                        <span class="transition-transform duration-300 group-open:rotate-180 bg-white rounded-full p-1 border border-slate-300 shadow-sm text-sm mt-1 flex-shrink-0">▼</span>
+                    </summary>
+                    <div class="border-t border-slate-200 p-6 md:p-8 text-sm text-slate-700 leading-relaxed">
+
+                        <p class="mb-2">There is really <strong>one business equation</strong>. Almost everything else in this chapter is a shortcut or application of it.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">1. The entire chapter starts with one story</h3>
+                        <p class="mb-2">Imagine you sell tablets. For every tablet: customer pays you RM500; selling one tablet causes RM275 variable cost; regardless of how many tablets you sell, you must pay RM13,500 fixed costs per month.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Customer gives you&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RM500<br>You must spend variable cost&nbsp;&nbsp;&nbsp;(275)<br>────────<br>Left from that sale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225</div>
+                        <p class="mb-2">That RM225 is the <strong>contribution margin per unit</strong>. Why "contribution"? Because each unit contributes RM225 toward paying the RM13,500 fixed cost. Once fixed costs have been completely covered, every additional RM225 contribution becomes operating profit. That is the entire logic of CVP.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">2. The master equation</h3>
+                        <p class="mb-2">Start from ordinary profit: Revenue − Costs = Profit. Costs consist of Variable costs + Fixed costs. Therefore:</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Sales Revenue − Variable Costs − Fixed Costs = Operating Income</div>
+                        <p class="mb-2">In units, with SP = selling price/unit, VC = variable cost/unit, Q = units sold, FC = total fixed costs, OI = operating income: SP(Q) − VC(Q) − FC = OI. Because SP − VC = CM<sub>u</sub> (unit contribution margin), this simplifies to:</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">CM<sub>u</sub>(Q) − FC = OI</div>
+                        <p class="mb-2">That one equation powers operating income, breakeven, target profit, and sensitivity analysis. You do <strong>not</strong> need to treat those as unrelated topics.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part A: Cost Behaviour</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">3. Variable costs</h3>
+                        <p class="mb-2">A variable cost behaves like this: <strong>constant per unit, changing in total.</strong> The slides use RM55 battery cost per tablet.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Units</th><th class="px-3 py-2 border-b">VC/unit</th><th class="px-3 py-2 border-b">Total VC</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">25</td><td class="px-3 py-2">RM55</td><td class="px-3 py-2">RM1,375</td></tr><tr><td class="px-3 py-2">50</td><td class="px-3 py-2">RM55</td><td class="px-3 py-2">RM2,750</td></tr><tr><td class="px-3 py-2">75</td><td class="px-3 py-2">RM55</td><td class="px-3 py-2">RM4,125</td></tr><tr><td class="px-3 py-2">100</td><td class="px-3 py-2">RM55</td><td class="px-3 py-2">RM5,500</td></tr></tbody></table></div>
+                        <p class="mb-2">Formula: Total Variable Cost = Variable Cost per Unit × Q. Every additional product carries another RM55 of cost — if production doubles, total variable cost doubles, but variable cost per unit stays RM55.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Exam trap: do not say "variable cost changes per unit." Quite the opposite — within the relevant range, variable cost per unit stays constant.</blockquote>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">4. Fixed costs</h3>
+                        <p class="mb-2">Fixed costs behave in the reverse way: <strong>constant in total, changing per unit.</strong> The slides use total fixed costs of RM13,500.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Units</th><th class="px-3 py-2 border-b">Total FC</th><th class="px-3 py-2 border-b">FC/unit</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">25</td><td class="px-3 py-2">RM13,500</td><td class="px-3 py-2">RM540</td></tr><tr><td class="px-3 py-2">50</td><td class="px-3 py-2">RM13,500</td><td class="px-3 py-2">RM270</td></tr><tr><td class="px-3 py-2">75</td><td class="px-3 py-2">RM13,500</td><td class="px-3 py-2">RM180</td></tr><tr><td class="px-3 py-2">100</td><td class="px-3 py-2">RM13,500</td><td class="px-3 py-2">RM135</td></tr></tbody></table></div>
+                        <p class="mb-2">Formula: Fixed Cost per Unit = Total Fixed Cost ÷ Q. Imagine paying RM13,500 factory rent — one product carries all of it; 100 products spread the same rent over 100 products. Production ↑ → FC per unit ↓, but total FC stays unchanged.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">5. The easiest table to remember</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b"></th><th class="px-3 py-2 border-b">Total</th><th class="px-3 py-2 border-b">Per unit</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2 font-bold">Variable cost</td><td class="px-3 py-2">Changes</td><td class="px-3 py-2">Constant</td></tr><tr><td class="px-3 py-2 font-bold">Fixed cost</td><td class="px-3 py-2">Constant</td><td class="px-3 py-2">Changes</td></tr></tbody></table></div>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">"Variable is variable in total. Fixed is fixed in total."</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">6. Mixed costs</h3>
+                        <p class="mb-2">A mixed cost has a fixed component and a variable component. Example: fixed portion RM2,000, variable portion RM25 per tablet.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Y = a + bX, or: Total Mixed Cost = Fixed Cost + (Variable Cost per Unit × Q)<br>At 100 tablets: 2,000+(25×100)=RM4,500<br>At zero tablets: 2,000+(25×0)=RM2,000</div>
+                        <p class="mb-2">That is why a mixed-cost graph does <strong>not</strong> begin at zero.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">7. High-low method</h3>
+                        <p class="mb-2">The problem with mixed costs is that a question may only give you scattered data points, not Y = a + bX directly. The high-low method finds those two missing pieces.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Quarter</th><th class="px-3 py-2 border-b">Activity</th><th class="px-3 py-2 border-b">Total cost</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">1</td><td class="px-3 py-2">360</td><td class="px-3 py-2">RM1,630</td></tr><tr><td class="px-3 py-2">2</td><td class="px-3 py-2">415</td><td class="px-3 py-2">RM1,935</td></tr><tr><td class="px-3 py-2">3</td><td class="px-3 py-2">480</td><td class="px-3 py-2">RM1,960</td></tr><tr><td class="px-3 py-2">4</td><td class="px-3 py-2">240</td><td class="px-3 py-2">RM1,480</td></tr></tbody></table></div>
+                        <p class="mb-1"><strong>Step 1 — choose highest and lowest ACTIVITY:</strong> highest 480 units → RM1,960; lowest 240 units → RM1,480. Choose according to activity, not according to highest and lowest cost.</p>
+                        <p class="mb-1"><strong>Step 2 — variable cost per unit:</strong> (Change in Total Cost) ÷ (Change in Activity) = (1,960−1,480)÷(480−240) = 480÷240 = RM2 per tablet.</p>
+                        <p class="mb-1"><strong>Step 3 — fixed cost:</strong> Total Mixed Cost − (Variable Cost per Unit × Q), using high: 1,960−(2×480)=1,960−960=<strong>RM1,000</strong>.</p>
+                        <p class="mb-2"><strong>Step 4 — build the cost equation:</strong> Y=1,000+2X. At 400 tablets: Y=1,000+(2×400)=<strong>RM1,800</strong>.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Don't memorise three random formulas. Think: first find how much the cost increases for each additional unit (variable cost per unit); then remove that variable portion from total cost (fixed cost); then Fixed + Variable × Activity gives total mixed cost.</blockquote>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">9. Regression analysis</h3>
+                        <p class="mb-2">Regression is still Y=a+bX, but unlike high-low (which uses only two observations), regression uses the overall relationship across the data. Slide example, via Excel: slope/variable rate ≈ RM2.18, intercept/fixed cost ≈ RM936.76, giving Y≈936.76+2.18X.</p>
+                        <p class="mb-2 italic text-slate-500">For a calculation exam, know how to interpret slope and intercept, but don't waste revision time deriving regression manually unless your lecturer specifically says it will be tested.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">10. Relevant range</h3>
+                        <p class="mb-2">CVP assumes fixed costs and variable cost per unit behave consistently <strong>within a relevant range</strong>. E.g. 0–2,000 units: rent RM81,000; 2,001–4,000: RM162,000; 4,001–6,000: RM243,000 — fixed costs are fixed inside each range, not fixed forever.</p>
+                        <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg my-3 text-sky-900 text-xs">Never write "fixed costs never change." Write: fixed costs remain constant in total within the relevant range.</div>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part B: Contribution Margin</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">11. Why contribution margin matters</h3>
+                        <p class="mb-2">SP RM500, VC RM275 → 500−275=RM225 per sale. This RM225 is not automatically profit — it first pays fixed costs. Imagine RM13,500 fixed cost as a hole; every tablet throws RM225 into the hole. After 60 tablets, the hole is completely filled; tablet 61 onwards begins generating operating profit. This explains breakeven before we even touch its formula.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">12–14. Unit CM, total CM, CM ratio</h3>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">CM<sub>u</sub> = SP − VC<sub>u</sub> → 500−275=RM225<br>Total CM = Net Sales Revenue − Total Variable Costs, or CM<sub>u</sub> × Q → 225×200=RM45,000 at 200 tablets<br>CMR = CM ÷ Net Sales Revenue, or CM<sub>u</sub> ÷ SP → 225÷500=45%</div>
+                        <p class="mb-2">Meaning of 45%: for every RM1 of revenue, RM0.45 remains after paying variable cost (RM1 sales → RM0.55 variable cost → RM0.45 contribution).</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">15. Contribution margin income statement</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+                            <div class="bg-slate-800 rounded-xl p-4 text-white"><p class="font-bold text-slate-300 text-xs uppercase mb-2">Traditional</p><div class="font-mono text-xs">Sales<br>− COGS<br>= Gross Profit<br>− Operating Expenses<br>= Operating Income</div></div>
+                            <div class="bg-rose-600 rounded-xl p-4 text-white"><p class="font-bold text-rose-100 text-xs uppercase mb-2">Contribution format</p><div class="font-mono text-xs">Sales<br>− Variable Costs<br>= Contribution Margin<br>− Fixed Costs<br>= Operating Income</div></div>
+                        </div>
+                        <p class="mb-2">For CVP calculations, the contribution format is much more useful because it exposes cost behaviour.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part C: Breakeven</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">16–18. What breakeven actually means</h3>
+                        <p class="mb-2">Breakeven does <strong>not</strong> mean "revenue equals fixed costs." It means Revenue = Total Costs, therefore Operating Income = 0, or equivalently Total Contribution Margin = Fixed Costs. Using SP RM500, VC RM275, FC RM13,500: 500Q−275Q−13,500=0 → 225Q=13,500 → Q=<strong>60 units</strong>. Each unit gives RM225 contribution; fixed cost requires RM13,500; 13,500÷225=60 — literally "how many RM225 contributions do I need to accumulate RM13,500?"</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">19–21. Breakeven formulas</h3>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Breakeven Units = Fixed Costs ÷ Contribution Margin per Unit = 13,500÷225 = 60</div>
+                        <p class="mb-2">If the question asks for sales <strong>revenue</strong> instead, use the CM ratio:</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Breakeven Sales Revenue = Fixed Costs ÷ Contribution Margin Ratio = 13,500÷0.45 = RM30,000</div>
+                        <p class="mb-2">Check: 60 tablets × RM500 = RM30,000 — same breakeven, different unit of measurement. "How many units?" → FC÷CM<sub>u</sub>. "How many RM of sales?" → FC÷CMR. This distinction is extremely important.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">22. Always prove your breakeven answer</h3>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Sales: 60×RM500 = RM30,000<br>Variable costs: 60×RM275 = (16,500)<br>────────<br>Contribution margin = 13,500<br>Fixed costs = (13,500)<br>────────<br>Operating income = RM0</div>
+                        <p class="mb-2 italic text-slate-500">If you don't get zero, something went wrong. For a subjective exam, this check is worth doing whenever time allows.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part D: Target Profit</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">23–27. Breakeven and target profit are almost identical</h3>
+                        <p class="mb-2">At breakeven, contribution needed = fixed cost. For a target profit, contribution needed = fixed cost + desired profit. That's the only conceptual difference. With target profit RM4,500: Fixed costs 13,500 + Desired profit 4,500 = Total contribution needed 18,000. Each tablet provides RM225, so 18,000÷225=<strong>80 tablets</strong>.</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Required Sales in Units = (Fixed Costs + Target Profit) ÷ Contribution Margin per Unit</div>
+                        <p class="mb-2">If target profit = 0, it automatically becomes the breakeven formula — remember this one general formula rather than treating breakeven as completely separate. In revenue: Required Sales Revenue = (Fixed Costs + Target Profit) ÷ CMR = (13,500+4,500)÷0.45 = <strong>RM40,000</strong> (check: 80×500=RM40,000).</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">Sales: 80×RM500 = RM40,000<br>Variable costs: 80×RM275 = (22,000)<br>────────<br>Contribution margin = 18,000<br>Fixed costs = (13,500)<br>────────<br>Operating income = RM4,500 ✓</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">28. Rounding</h3>
+                        <p class="mb-2">Suppose your answer is 67.5 tablets — you cannot sell half a tablet. For breakeven or target profit, round to <strong>68</strong>. Always round <strong>up</strong>, not to the mathematically nearest whole number — rounding 67.2 down to 67 means you haven't actually reached the required profit.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part E: CVP Graph</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">29–30. Understand rather than memorise the graph</h3>
+                        <p class="mb-2"><strong>Revenue</strong> = SP×Q — at zero sales, revenue = 0, so it starts at the origin. <strong>Fixed cost</strong> is horizontal because total fixed cost remains constant. <strong>Total cost</strong> = VC(Q)+FC — at zero units, TC=FC, so the total-cost line begins <strong>above zero</strong>, at the fixed-cost amount.</p>
+                        <p class="mb-2">Breakeven is where Revenue line = Total cost line. Before the intersection: Total Cost &gt; Revenue → Loss. After: Revenue &gt; Total Cost → Profit.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part F: Sensitivity Analysis</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">31. What sensitivity analysis means</h3>
+                        <p class="mb-2">Sensitivity analysis simply asks "what if something changes?" — selling price falls, variable cost increases, rent increases, management changes production.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Best exam habit: predict the direction first, then calculate. That way, if your calculator says breakeven dropped after contribution margin dropped, you know something has gone wrong.</blockquote>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">32–34. Working through the changes</h3>
+                        <p class="mb-1"><strong>Selling price falls to RM475:</strong> new CM=475−275=RM200. Breakeven=13,500÷200=67.5 → round up to <strong>68 units</strong>. Price ↓ → contribution per unit ↓ → more units needed → breakeven ↑.</p>
+                        <p class="mb-1"><strong>Variable cost rises to RM285:</strong> new CM=500−285=RM215. Breakeven=13,500÷215=62.79 → round up to <strong>63</strong>. VC ↑ → CM ↓ → breakeven ↑.</p>
+                        <p class="mb-2"><strong>Fixed cost rises to RM16,500:</strong> unit CM stays RM225. New breakeven=16,500÷225=73.33 → round up to <strong>74</strong>. Fixed cost doesn't change how much each unit contributes — it changes how big the total fixed-cost "hole" is.</p>
+                        <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg my-3 text-sky-900 text-xs">Note on the source slide: it states fixed costs increase from RM13,500 to RM16,500 and gives the answer of 74 units, but the substituted numerator shown in the displayed working still appears as RM13,500. The result of 74 corresponds to using RM16,500, so the slide itself appears internally inconsistent at that line. For the exam, follow the stated changed fixed cost.</div>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">35. Sensitivity table worth memorising</h3>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">Change</th><th class="px-3 py-2 border-b">CM/unit</th><th class="px-3 py-2 border-b">Breakeven</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-3 py-2">Selling price ↑</td><td class="px-3 py-2">↑</td><td class="px-3 py-2">↓</td></tr><tr><td class="px-3 py-2">Selling price ↓</td><td class="px-3 py-2">↓</td><td class="px-3 py-2">↑</td></tr><tr><td class="px-3 py-2">Variable cost ↑</td><td class="px-3 py-2">↓</td><td class="px-3 py-2">↑</td></tr><tr><td class="px-3 py-2">Variable cost ↓</td><td class="px-3 py-2">↑</td><td class="px-3 py-2">↓</td></tr><tr><td class="px-3 py-2">Fixed cost ↑</td><td class="px-3 py-2">No effect</td><td class="px-3 py-2">↑</td></tr><tr><td class="px-3 py-2">Fixed cost ↓</td><td class="px-3 py-2">No effect</td><td class="px-3 py-2">↓</td></tr></tbody></table></div>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part G: Cost Stickiness</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">36. Why real life isn't perfectly CVP-shaped</h3>
+                        <p class="mb-2">CVP assumes costs react neatly to activity. But suppose sales rise and management hires workers, leases equipment, increases warehouse capacity — then sales fall. Management may not instantly fire everyone, cancel leases, or sell machinery. So costs may decrease more slowly than they increased. That is <strong>cost stickiness</strong>. There is no main exam formula for this in the chapter — it is primarily conceptual.</p>
+                        <div class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 text-xs">Strong subjective answer: cost stickiness occurs when costs increase more when activity rises than they decrease when activity falls, because management may retain resources when demand decreases.</div>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part H: Margin of Safety</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">37–41. What margin of safety asks</h3>
+                        <p class="mb-2">Breakeven asks "where does profit become zero?" Margin of safety asks "how far above zero am I currently?" Expected sales 100 tablets, breakeven 60 tablets → sales can fall by 100−60=40 tablets before the company reaches breakeven.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">MOS (units) = Expected Sales Units − Breakeven Sales Units = 100−60 = 40<br>MOS ($) = Expected Sales Revenue − Breakeven Sales Revenue, or 40×500 = RM20,000<br>MOS Ratio = MOS ÷ Expected Sales = 40÷100 = 40%</div>
+                        <p class="mb-2">Meaning: sales can fall by 40% from the expected level before the business reaches breakeven. <strong>High MOS</strong> → far from breakeven → safer. <strong>Low MOS</strong> → close to breakeven → riskier.</p>
+                        <blockquote class="border-l-4 border-amber-400 bg-amber-50 px-4 py-2 rounded-r-lg my-3 text-amber-900 italic">Excellent subjective-answer phrase: margin of safety measures the extent to which expected sales can decrease before the company incurs an operating loss.</blockquote>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part I: Operating Leverage</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">42. The easiest way to understand operating leverage</h3>
+                        <p class="mb-2">Imagine two businesses earn the same RM4,000 profit. Company A: low variable costs, high fixed costs. Company B: high variable costs, low fixed costs. If sales collapse, Company A is more exposed — its fixed costs refuse to disappear when customers disappear. That's the intuition behind operating leverage.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">43–44. Degree of operating leverage and predicting profit changes</h3>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">DOL = Contribution Margin ÷ Operating Income</div>
+                        <p class="mb-2">Company A: CM=RM10,000, OI=RM4,000 → DOL=10,000÷4,000=<strong>2.5</strong>. Company B: CM=RM5,000, OI=RM4,000 → DOL=5,000÷4,000=<strong>1.25</strong>. Company A has more operating leverage.</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3">%Δ Operating Income = DOL × %Δ Sales</div>
+                        <p class="mb-2">If sales decrease by 20%: Company A → 2.5×20%=50% profit decrease. Company B → 1.25×20%=25% profit decrease.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">45. Why high leverage is neither automatically good nor bad</h3>
+                        <p class="mb-2">High operating leverage means profit rises rapidly when sales rise, and falls rapidly when sales fall — higher upside <strong>and</strong> higher operating risk. Don't answer "high operating leverage is good" — it's only good when sales behave nicely, which customers have never signed a contract promising to do.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part J: Sales Mix</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">46–47. Why normal breakeven becomes harder with multiple products</h3>
+                        <p class="mb-2">Cat bed: SP RM44, VC RM24, CM RM20. Scratching post: SP RM100, VC RM30, CM RM70. One scratching post contributes much more than one cat bed, so you cannot simply calculate Fixed costs ÷ "one CM" unless you first account for how many of each product are normally sold. That's sales mix. Suppose the expected mix is 3 cat beds : 2 scratching posts — think of those five units as one recurring basket.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">48–51. Weighted-average CM and multiproduct breakeven</h3>
+                        <p class="mb-2"><strong>Step 1 — contribution from the package:</strong> Cat beds 3×RM20=RM60; Scratching posts 2×RM70=RM140; total RM200 over 5 units.</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Weighted-Average CM per unit = Total Contribution Margin of Sales Mix ÷ Total Units in Sales Mix = 200÷5 = RM40</div>
+                        <p class="mb-2"><strong>Step 2 — total breakeven units:</strong> Fixed costs RM40,000 ÷ Weighted-average CM RM40 = <strong>1,000</strong> total units.</p>
+                        <p class="mb-2"><strong>Step 3 — divide according to the mix (3:2):</strong> Cat beds 1,000×3/5=<strong>600</strong>; Scratching posts 1,000×2/5=<strong>400</strong>.</p>
+                        <p class="mb-2">Proof: Cat beds CM 600×20=RM12,000; Scratching posts CM 400×70=RM28,000; Total CM=RM40,000=Fixed costs → Profit RM0. ✓</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">52–53. Multiproduct target profit and the critical assumption</h3>
+                        <p class="mb-2">Target profit RM20,000: Fixed costs 40,000 + Target profit 20,000 = Required contribution RM60,000 ÷ Weighted CM RM40 = <strong>1,500</strong> total units. Allocate: Cat beds 1,500×3/5=900; Scratching posts 1,500×2/5=600.</p>
+                        <div class="border-l-4 border-sky-400 bg-sky-50 px-4 py-2 rounded-r-lg my-3 text-sky-900 text-xs">The 1,000-unit breakeven only works if the 3:2 mix remains approximately stable. If customers suddenly buy mainly the RM20-contribution cat beds and fewer RM70-contribution scratching posts, average CM ↓ → breakeven ↑. Multiproduct CVP depends heavily on the assumed sales mix.</div>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part K: How Questions Can Be Disguised</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">54. Do not expect the examiner to always say "calculate breakeven"</h3>
+                        <p class="mb-2">They may give you missing information — you need to recognise the underlying relationship.</p>
+                        <p class="mb-1"><strong>Example 1 — find operating income:</strong> SP RM60, VC RM35, Units 1,000, FC RM18,000. CM/unit=60−35=RM25. Total CM=25×1,000=RM25,000. OI=25,000−18,000=<strong>RM7,000</strong>.</p>
+                        <p class="mb-1"><strong>Example 2 — find fixed cost from breakeven:</strong> SP RM50, VC RM30, Breakeven 800 units. Unit CM=50−30=RM20. At breakeven, Total CM=Fixed costs, so 800×20=<strong>RM16,000</strong>. No new formula — just the existing breakeven relationship backwards.</p>
+                        <p class="mb-1"><strong>Example 3 — find variable cost:</strong> SP RM80, Breakeven 500 units, FC RM20,000. Required CM/unit=20,000÷500=RM40. Since SP−VC=CM: 80−VC=40 → VC=<strong>RM40</strong>.</p>
+                        <p class="mb-2"><strong>Example 4 — find selling price for a target profit:</strong> VC RM25, FC RM30,000, Target profit RM10,000, Expected units 2,000. Required total CM=30,000+10,000=RM40,000. Required CM/unit=40,000÷2,000=RM20. SP=Variable cost+Required CM=25+20=<strong>RM45</strong>. Understanding the equation is more powerful than trying to memorise every rearrangement.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">58. A harder integrated exam question</h3>
+                        <p class="mb-2">SP RM100/unit, VC RM60/unit, FC RM120,000, Expected sales 4,000 units. Find: CM/unit, CMR, operating income, breakeven units, breakeven sales, margin of safety, DOL, units for RM60,000 target profit — solved as one continuous story.</p>
+                        <div class="overflow-x-auto my-3"><table class="w-full text-xs text-left border border-slate-100 rounded"><thead class="bg-slate-50 text-slate-600 font-semibold"><tr><th class="px-3 py-2 border-b">#</th><th class="px-3 py-2 border-b">Question</th><th class="px-3 py-2 border-b">Working</th><th class="px-3 py-2 border-b">Answer</th></tr></thead><tbody class="divide-y divide-slate-100">
+                            <tr><td class="px-3 py-2">1</td><td class="px-3 py-2">CM per unit</td><td class="px-3 py-2 font-mono">100−60</td><td class="px-3 py-2 font-bold">RM40</td></tr>
+                            <tr><td class="px-3 py-2">2</td><td class="px-3 py-2">CM ratio</td><td class="px-3 py-2 font-mono">40÷100</td><td class="px-3 py-2 font-bold">40%</td></tr>
+                            <tr><td class="px-3 py-2">3</td><td class="px-3 py-2">Operating income @4,000</td><td class="px-3 py-2 font-mono">(4,000×40)−120,000</td><td class="px-3 py-2 font-bold">RM40,000</td></tr>
+                            <tr><td class="px-3 py-2">4</td><td class="px-3 py-2">Breakeven units</td><td class="px-3 py-2 font-mono">120,000÷40</td><td class="px-3 py-2 font-bold">3,000</td></tr>
+                            <tr><td class="px-3 py-2">5</td><td class="px-3 py-2">Breakeven sales</td><td class="px-3 py-2 font-mono">120,000÷0.40</td><td class="px-3 py-2 font-bold">RM300,000</td></tr>
+                            <tr><td class="px-3 py-2">6</td><td class="px-3 py-2">Margin of safety</td><td class="px-3 py-2 font-mono">4,000−3,000; ×100; ÷4,000</td><td class="px-3 py-2 font-bold">1,000u / RM100,000 / 25%</td></tr>
+                            <tr><td class="px-3 py-2">7</td><td class="px-3 py-2">DOL</td><td class="px-3 py-2 font-mono">160,000÷40,000</td><td class="px-3 py-2 font-bold">4 (10% sales Δ ≈ 40% OI Δ)</td></tr>
+                            <tr><td class="px-3 py-2">8</td><td class="px-3 py-2">Units for RM60,000 target</td><td class="px-3 py-2 font-mono">(120,000+60,000)÷40</td><td class="px-3 py-2 font-bold">4,500</td></tr>
+                        </tbody></table></div>
+                        <p class="mb-2 italic text-slate-500">Notice how every calculation comes from the same underlying logic.</p>
+
+                        <h3 class="text-xl font-bold text-rose-700 mt-10 mb-3 border-b-2 border-rose-200 pb-2">Part L: Complete Formula Sheet</h3>
+                        <p class="mb-2">All distinct formulas from the chapter, without filling the page with rearrangements:</p>
+                        <div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 font-mono text-xs my-3 leading-6">
+                            <strong>Cost behaviour</strong><br>
+                            TVC = VC<sub>u</sub> × Q<br>
+                            FC<sub>u</sub> = TFC ÷ Q<br>
+                            Y = a + bX, or Mixed Cost = FC + (VC<sub>u</sub> × Q)<br><br>
+                            <strong>High-low method</strong><br>
+                            VC<sub>u</sub> = (Cost<sub>High</sub> − Cost<sub>Low</sub>) ÷ (Q<sub>High</sub> − Q<sub>Low</sub>)<br>
+                            FC = Total Mixed Cost − (VC<sub>u</sub> × Q)<br><br>
+                            <strong>Contribution margin</strong><br>
+                            CM<sub>u</sub> = SP − VC<sub>u</sub><br>
+                            CM = Sales Revenue − Total Variable Costs, or CM<sub>u</sub> × Q<br>
+                            CMR = CM ÷ Sales, or CM<sub>u</sub> ÷ SP<br><br>
+                            <strong>Operating income</strong><br>
+                            OI = Sales − Variable Costs − Fixed Costs, or CM − FC, or (CM<sub>u</sub> × Q) − FC<br><br>
+                            <strong>Required sales</strong><br>
+                            Required Units = (FC + Target Profit) ÷ CM<sub>u</sub><br>
+                            Required Sales Revenue = (FC + Target Profit) ÷ CMR<br><br>
+                            <strong>Margin of safety</strong><br>
+                            MOS<sub>u</sub> = Expected Sales Units − Breakeven Units<br>
+                            MOS<sub>$</sub> = Expected Sales Revenue − Breakeven Sales Revenue<br>
+                            MOSR = MOS ÷ Expected Sales<br><br>
+                            <strong>Operating leverage</strong><br>
+                            DOL = Contribution Margin ÷ Operating Income<br>
+                            %Δ OI = DOL × %Δ Sales<br><br>
+                            <strong>Sales mix</strong><br>
+                            WACM<sub>u</sub> = Σ(CM<sub>u</sub> × Sales Mix Quantity) ÷ Total Units in Sales Mix<br>
+                            Required Total Units = (FC + Target Profit) ÷ WACM<sub>u</sub><br>
+                            Product Units = Required Total Units × Product Sales-Mix Proportion
+                        </div>
+                        <p class="mb-2 text-slate-500 italic">Required Units = (FC + Target Profit) ÷ CM<sub>u</sub> and Required Sales Revenue = (FC + Target Profit) ÷ CMR are the two most useful general formulas — with Target Profit = 0, each automatically becomes the corresponding breakeven formula.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">59. The formulas I would actually prioritise memorising</h3>
+                        <p class="mb-2">Under pressure, these are the core seven:</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-xs my-3 leading-6 text-rose-900 font-bold">
+                            CM<sub>u</sub> = SP − VC<sub>u</sub><br>
+                            CMR = CM<sub>u</sub> ÷ SP<br>
+                            OI = (CM<sub>u</sub> × Q) − FC<br>
+                            Required Units = (FC + Target Profit) ÷ CM<sub>u</sub><br>
+                            Required Sales = (FC + Target Profit) ÷ CMR<br>
+                            MOS = Expected Sales − Breakeven Sales<br>
+                            DOL = CM ÷ OI
+                        </div>
+                        <p class="mb-2">For mixed cost questions, add: Y = a + bX and b = ΔCost ÷ ΔActivity. Those cover the overwhelming majority of the calculation logic in the chapter.</p>
+
+                        <h3 class="text-lg font-bold text-slate-900 mt-8 mb-3">60. How I would attack any Chapter 10 subjective question</h3>
+                        <p class="mb-2">Before touching the calculator, write this mini-table: SP/unit, VC/unit, CM/unit, Fixed costs, Units, Target profit, CM ratio — fill in whatever is given.</p>
+                        <div class="bg-slate-900 text-white rounded-2xl p-6 my-3">
+                            <div class="font-mono text-xs text-center leading-7">1. Find CM/unit first.<br>↓<br>2. Find CMR if sales RM are involved.<br>↓<br>3. Identify whether the question wants: operating income / breakeven / target / MOS / DOL / sales mix.<br>↓<br>4. Use the appropriate relationship.<br>↓<br>5. Round units UP if needed.<br>↓<br>6. Prove using: Sales − Variable costs = CM − Fixed costs = OI</div>
+                        </div>
+                        <p class="mb-2">The most important exam habit is <strong>not formula memorisation</strong>. It is recognising this chain:</p>
+                        <div class="bg-rose-50 border-2 border-rose-300 rounded-lg px-4 py-3 font-mono text-center text-rose-900 font-bold my-3">Selling Price → minus Variable Cost → Contribution Margin → covers Fixed Cost → Breakeven → anything extra becomes Profit</div>
+                        <p class="mb-2">Once that is clear, even a question that hides an unknown selling price, variable cost, fixed cost, target profit or sales volume is still just the same equation wearing a different hat.</p>
+
+                    </div>
+                </details>
             </section>
 
             <section id="sec-cvp_intuitive" class="fade-in hidden">
@@ -9833,8 +10637,8 @@
                 else if (['cf_overview', 'cf_class', 'cf_indirect', 'cf_direct', 'cf_explanation', 'cf_intuitive'].includes(tabId)) colorClass = 'bg-fuchsia-600';
                 else if (['fw_overview', 'fw_intro', 'fw_quality', 'fw_elements', 'fw_recognition', 'fw_measurement', 'fw_presentation', 'fw_cases', 'fw_intuitive'].includes(tabId)) colorClass = 'bg-cyan-600';
                 else if (['man_intro', 'man_flow', 'man_org', 'man_types', 'man_trends', 'man_exam', 'man_intuitive'].includes(tabId)) colorClass = 'bg-blue-600';
-                else if (['cvp_master', 'cvp_behavior', 'cvp_highlow', 'cvp_contribution', 'cvp_breakeven', 'cvp_leverage', 'cvp_salesmix', 'cvp_exam', 'cvp_intuitive'].includes(tabId)) colorClass = 'bg-rose-600';
-                else if (['prep_cheat', 'prep_review', 'prep_resources'].includes(tabId)) colorClass = 'bg-amber-600';
+                else if (['cvp_master', 'cvp_behavior', 'cvp_highlow', 'cvp_contribution', 'cvp_breakeven', 'cvp_leverage', 'cvp_salesmix', 'cvp_exam', 'cvp_calc', 'cvp_intuitive'].includes(tabId)) colorClass = 'bg-rose-600';
+                else if (['prep_blueprint', 'prep_corrections', 'prep_cheat', 'prep_theory', 'prep_review', 'prep_drills', 'prep_resources'].includes(tabId)) colorClass = 'bg-amber-600';
                 
                 activeBtn.className = `w-full text-left px-4 py-2.5 rounded-lg ${colorClass} text-white transition-colors duration-200 flex items-center shadow-md text-sm font-medium`;
             }
