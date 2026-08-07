@@ -49,6 +49,41 @@
         .pdf-revision-list--numbered { counter-reset: revision-item; }
         .pdf-revision-list--numbered li { counter-increment: revision-item; padding-left: 2.25rem; }
         .pdf-revision-list--numbered li::before { content: counter(revision-item); display: grid; top: .65rem; width: 1.05rem; height: 1.05rem; place-items: center; border-radius: 999px; background: #fff7ed; color: #c2410c; font-size: .65rem; }
+        .pdf-revision-list--journal { grid-template-columns: repeat(auto-fit, minmax(min(100%, 31rem), 1fr)); align-items: start; }
+        .pdf-revision-list .pdf-revision-journal-item { padding: 0; overflow: hidden; border: 0; background: transparent; }
+        .pdf-revision-list .pdf-revision-journal-item::before { display: none; }
+        .pdf-revision-journal-card { overflow: hidden; border: 1px solid #cbd5e1; border-radius: .75rem; background: white; box-shadow: 0 8px 22px -20px rgba(15, 23, 42, .65); }
+        .pdf-revision-journal-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem .8rem; border-bottom: 1px solid #dbeafe; background: linear-gradient(135deg, #eff6ff, #f8fafc); }
+        .pdf-revision-journal-title { min-width: 0; color: #172554; font-size: .78rem; font-weight: 850; line-height: 1.4; }
+        .pdf-revision-journal-badge { flex: 0 0 auto; padding: .2rem .45rem; border-radius: 999px; background: #dcfce7; color: #166534; font-size: .58rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+        .pdf-revision-journal-table { min-width: 22rem; }
+        .pdf-revision-journal-row { display: grid; grid-template-columns: minmax(9rem, 1fr) minmax(5.2rem, auto) minmax(5.2rem, auto); align-items: center; }
+        .pdf-revision-journal-row > * { min-width: 0; padding: .55rem .7rem; border-right: 1px solid #f1f5f9; overflow-wrap: anywhere; }
+        .pdf-revision-journal-row > :last-child { border-right: 0; }
+        .pdf-revision-journal-head { border-bottom: 1px solid #e2e8f0; background: #f8fafc; color: #64748b; font-size: .58rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .pdf-revision-journal-account { color: #334155; font-size: .76rem; font-weight: 700; line-height: 1.4; }
+        .pdf-revision-journal-account--credit { padding-left: 1.35rem; color: #475569; }
+        .pdf-revision-journal-amount { color: #0f172a; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: .7rem; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+        .pdf-revision-journal-total { border-top: 2px solid #bfdbfe; background: #eff6ff; font-weight: 850; }
+        .pdf-revision-journal-total .pdf-revision-journal-account { color: #1e3a8a; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; }
+        .pdf-revision-statement { margin: .85rem 0 1rem; overflow: hidden; border: 1px solid #cbd5e1; border-radius: .85rem; background: white; box-shadow: 0 16px 35px -30px rgba(15, 23, 42, .75); }
+        .pdf-revision-statement-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: .85rem 1rem; border-bottom: 2px solid #1e3a8a; background: linear-gradient(135deg, #172554, #1e3a8a); color: white; }
+        .pdf-revision-statement-heading { min-width: 0; }
+        .pdf-revision-statement-company { display: block; color: #bfdbfe; font-size: .62rem; font-weight: 850; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+        .pdf-revision-statement-title { display: block; margin-top: .12rem; font-size: .88rem; font-weight: 850; line-height: 1.45; }
+        .pdf-revision-statement-badge { flex: 0 0 auto; padding: .25rem .5rem; border: 1px solid rgba(255, 255, 255, .25); border-radius: 999px; background: rgba(255, 255, 255, .12); color: white; font-size: .56rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
+        .pdf-revision-statement-body { padding: .45rem .9rem .75rem; }
+        .pdf-revision-statement-section { margin: .5rem 0 .15rem; padding: .35rem .45rem; border-radius: .4rem; background: #eff6ff; color: #1e3a8a; font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .pdf-revision-statement-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(7rem, auto); align-items: start; gap: 1rem; padding: .58rem .45rem; border-bottom: 1px solid #f1f5f9; color: #475569; }
+        .pdf-revision-statement-row:last-child { border-bottom: 0; }
+        .pdf-revision-statement-label { min-width: 0; font-size: .8rem; font-weight: 700; line-height: 1.45; overflow-wrap: anywhere; }
+        .pdf-revision-statement-note { display: block; margin-top: .16rem; color: #94a3b8; font-size: .67rem; font-weight: 500; line-height: 1.45; }
+        .pdf-revision-statement-amount { color: #0f172a; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: .76rem; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1.45; text-align: right; white-space: nowrap; }
+        .pdf-revision-statement-row--subtotal { margin-top: .15rem; border-top: 1px solid #94a3b8; background: #f8fafc; }
+        .pdf-revision-statement-row--subtotal .pdf-revision-statement-label, .pdf-revision-statement-row--subtotal .pdf-revision-statement-amount { color: #1e3a8a; font-weight: 850; }
+        .pdf-revision-statement-row--total { margin-top: .2rem; border-top: 3px double #1e3a8a; border-bottom: 3px double #1e3a8a; background: #eff6ff; }
+        .pdf-revision-statement-row--total .pdf-revision-statement-label, .pdf-revision-statement-row--total .pdf-revision-statement-amount { color: #172554; font-weight: 900; }
+        .pdf-revision-statement-check { display: flex; justify-content: space-between; gap: 1rem; margin: .65rem .45rem 0; padding: .5rem .65rem; border-radius: .5rem; background: #ecfdf5; color: #065f46; font-size: .68rem; font-weight: 800; }
         .pdf-revision-formula { display: grid; grid-template-columns: minmax(8rem, .7fr) minmax(0, 1.8fr); gap: .7rem; align-items: start; margin: .65rem 0; padding: .75rem .85rem; overflow-x: auto; border: 1px solid #bfdbfe; border-radius: .7rem; background: linear-gradient(135deg, #eff6ff, #f8fafc); color: #1e3a8a; font-size: .83rem; line-height: 1.55; }
         .pdf-revision-formula-label { color: #1e40af; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .7rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
         .pdf-revision-formula code { color: #172554; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -63,6 +98,13 @@
         .pdf-revision-flow { display: flex; gap: .55rem; margin: .75rem 0; padding: .75rem; overflow-x: auto; border: 1px solid #dbeafe; border-radius: .75rem; background: #eff6ff; scroll-snap-type: x proximity; }
         .pdf-revision-flow-step { position: relative; min-width: 10.5rem; padding: .7rem .75rem; border-radius: .6rem; background: white; color: #1e3a8a; font-size: .76rem; font-weight: 750; line-height: 1.45; box-shadow: 0 4px 15px -12px rgba(30, 58, 138, .8); scroll-snap-align: start; }
         .pdf-revision-flow-step + .pdf-revision-flow-step::before { content: '→'; position: absolute; left: -.45rem; color: #60a5fa; }
+        .revision-cycle-shell { position: relative; margin: .85rem 0; overflow: hidden; border: 1px solid #bfdbfe; border-radius: .85rem; background: linear-gradient(145deg, #eff6ff, #ffffff); }
+        .revision-mermaid { position: absolute; inset: 0; width: 100%; min-height: 22rem; padding: .8rem; overflow-x: auto; opacity: 0; pointer-events: none; }
+        .revision-cycle-shell.is-rendered .revision-mermaid { position: relative; inset: auto; min-height: 0; opacity: 1; pointer-events: auto; }
+        .revision-mermaid svg { display: block; width: 100%; min-width: 34rem; height: auto; margin: 0 auto; }
+        .revision-cycle-fallback { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .55rem; margin: 0; padding: .8rem; overflow: visible; border: 0; border-radius: 0; background: transparent; }
+        .revision-cycle-fallback .pdf-revision-flow-step { min-width: 0; }
+        .revision-cycle-shell.is-rendered .revision-cycle-fallback { display: none; }
         @media (max-width: 639px) {
             #pdf-revision-notebook-content > details > summary { align-items: flex-start; padding: .9rem; }
             #pdf-revision-notebook-content > details > summary::before { width: 1.9rem; height: 1.9rem; border-radius: .55rem; }
@@ -71,6 +113,15 @@
             .pdf-revision-compare-row { grid-template-columns: minmax(6.5rem, .65fr) repeat(2, minmax(10rem, 1fr)); }
             .pdf-revision-comparison { overflow-x: auto; }
             .pdf-revision-heading { font-size: .96rem; }
+            .pdf-revision-journal-card { overflow-x: auto; }
+            .pdf-revision-statement-header { gap: .6rem; padding: .75rem; }
+            .pdf-revision-statement-body { padding: .35rem .55rem .65rem; }
+            .pdf-revision-statement-row { grid-template-columns: minmax(0, 1fr) minmax(5.4rem, auto); gap: .55rem; padding: .52rem .35rem; }
+            .pdf-revision-statement-label { font-size: .72rem; }
+            .pdf-revision-statement-note { font-size: .62rem; }
+            .pdf-revision-statement-amount { font-size: .68rem; }
+            .revision-cycle-fallback { grid-template-columns: 1fr; }
+            .revision-mermaid svg { min-width: 38rem; }
         }
     </style>
 </head>
@@ -14266,6 +14317,9 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                 let listItems = [];
                 let listType = 'bullet';
                 let pageLabel = 'Source page';
+                let pendingStatementTitle = '';
+                let recentContext = '';
+                let recentQuestionSubject = '';
                 const skipLine = line => /^(?:Master Exam Revision Compilation: Business|Accounting \(GEB2013\/GFB2013\)|CONFIDENTIAL.*|ISSUED AUGUST.*|BA FE:.*|CHAPTERS 1–10 SYLLABUS|GENERATED BY GEMINI NOTEBOOK|Confidential — Revision Material|Horngren's Accounting \(14th Ed\.\)|Page \d+|NOTEBOOK|Core Concept \/ Metric|Mathematical Formula \/ Relationship|Syllabus Context \/ Application|Formula \/ Ratio Name|Mathematical Expression|Conceptual Explanation \/ Application|Account Group|Line Item Detail|Total Level Amount|Grouping Category|Account Line Items|Subtotals \/ Totals|Account Classification|Line Item \/ Group Details|Intermediate|Margins|Final Amount|COGM Schedule Step|Manufacturing Cost Line Items|Subtotal|Calculation|Final Segment|Inventory Status|Roll-Forward Calculations|Subtotal Level|COGS Segment|Total|Account Grouping|Line Items|Subtotals|Final Operating|Profit|Behavior Classification|Account & Formula Details|Sub-Segment|Level|Total Volume|Amount|Statement Type & Margin|Mathematical Layout Flow|Linking Relationships & Exam Notes|Type of Statement|Structural Equation \/ Layout Flow|Interconnection Link|Roll-forward Item|Calculation Flow|Component|Formula \/ Layout Flow|Classification|Assets, Liabilities & Equity Components|Mathematical Balance Rules|Structure \/ Components|Key Rules & Balance Checks|CF Activity Segment|Calculation & Reconciliation Layout|Cash Flow Segment|Formula \/ Cost Layer|Name|Formula \/ CVP Metric)$/i.test(line);
                 const isMajorHeading = line => /^(?:Topic\s+\d+|PART\s+[IVX]+|SECTION\s+\d+|FINAL EXAM)/i.test(line);
                 const isSubheading = line => /^(?:\d+\.\d+\s+|Chapters?\s+\d|Chapter\s+\d|[A-C]\.\s+(?:Supporting|Manufacturing)|\d+\.\s+(?:Service|Merchandising|Manufacturing|Contribution)|In class activities$|Traditional vs\.|Magic Methods)/i.test(line);
@@ -14306,10 +14360,240 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                         escapeRevisionHtml(expression) +
                         '</code></div>';
                 };
+                const statementTypeFromTitle = value => {
+                    if (/balance sheet|statement of financial position/i.test(value)) return 'balance';
+                    if (/income statement/i.test(value)) return 'income';
+                    if (/statement of owner(?:'|â€™)?s equity|statement of changes in equity/i.test(value)) return 'equity';
+                    if (/statement of cash flows|cash flow statement/i.test(value)) return 'cash';
+                    if (/cost of goods manufactured|\bCOGM\b.*schedule|cost of goods sold.*schedule/i.test(value)) return 'manufacturing';
+                    return '';
+                };
+                const isStatementTitle = value => {
+                    if (!statementTypeFromTitle(value) || value.length > 165) return false;
+                    return !/(?:architectures?|preparation\s*&|compiled question|closing entries\s*&|what is|measures operating|includes strictly|linking relationships)/i.test(value);
+                };
+                const splitStatementItems = items => items
+                    .flatMap(item => item.split(/\s*\|\s*/))
+                    .map(item => item.trim())
+                    .filter(Boolean);
+                const inferStatementType = items => {
+                    const text = splitStatementItems(items).join(' | ');
+                    const score = patterns => patterns.reduce((total, pattern) => total + (pattern.test(text) ? 1 : 0), 0);
+                    const cashScore = score([/operating cash flows?/i, /investing cash flows?/i, /financing cash flows?/i, /net (?:increase|decrease) in cash/i]);
+                    if (cashScore >= 2) return 'cash';
+                    const balanceScore = score([/current assets?/i, /non-current assets?/i, /total assets?/i, /current liabilities?/i, /owner(?:'|â€™)?s equity/i, /total liabilities/i]);
+                    if (balanceScore >= 3) return 'balance';
+                    const manufacturingScore = score([/direct materials?/i, /direct labo(?:u)?r/i, /manufacturing overhead|total manufacturing costs?/i, /cost of goods manufactured|\bCOGM\b/i, /cost of goods sold|\bCOGS\b/i]);
+                    if (manufacturingScore >= 3) return 'manufacturing';
+                    const incomeScore = score([/net sales/i, /cost of goods sold|\bCOGS\b/i, /gross profit/i, /operating expenses?/i, /operating income/i, /net income/i]);
+                    if (incomeScore >= 3) return 'income';
+                    return '';
+                };
+                const statementLabel = type => ({
+                    balance: 'Balance sheet',
+                    income: 'Income statement',
+                    equity: 'Owner\'s equity',
+                    cash: 'Cash flows',
+                    manufacturing: 'Cost schedule'
+                }[type] || 'Financial statement');
+                const statementBlock = (title, items, forcedType = '') => {
+                    const type = forcedType || statementTypeFromTitle(title) || inferStatementType(items);
+                    if (!type) return '';
+                    const amountPattern = /[+-]?\s*\(?\s*(?:RM|\$)\s*[\d,.]+(?:\s*[kK])?\s*\)?/g;
+                    let rows = splitStatementItems(items).map(item => {
+                        const colonAt = item.indexOf(':');
+                        const firstAmountAt = item.search(amountPattern);
+                        let label = colonAt > 0 ? item.slice(0, colonAt) : firstAmountAt > 0 ? item.slice(0, firstAmountAt) : item;
+                        let body = colonAt > 0 ? item.slice(colonAt + 1).trim() : firstAmountAt >= 0 ? item.slice(firstAmountAt).trim() : '';
+                        const amounts = [...body.matchAll(amountPattern)];
+                        if (!amounts.length) return null;
+                        const selectedAmount = body.includes('=') ? amounts[amounts.length - 1] : amounts[0];
+                        const amount = selectedAmount[0].replace(/\s+/g, '').replace(/^\+/, '+');
+                        let note = body.slice(0, selectedAmount.index) + body.slice(selectedAmount.index + selectedAmount[0].length);
+                        note = note.replace(/^\s*[-â€“â€”:=]+\s*|\s*[=;,.]+\s*$/g, '').trim();
+                        label = label.replace(/^\s*[-â€“â€”]+\s*|\s*[:;,.]+\s*$/g, '').trim();
+                        const numericAmount = Number(amount.replace(/[kK]/, '000').replace(/[^\d.-]/g, ''));
+                        return { label, amount, note, numericAmount };
+                    }).filter(Boolean);
+                    if (rows.length < 2) return '';
+
+                    if (type === 'balance') {
+                        const balanceRank = label => {
+                            if (/^current assets?/i.test(label)) return 10;
+                            if (/^non-current assets?/i.test(label)) return 20;
+                            if (/^total assets?/i.test(label)) return 29;
+                            if (/^current liabilities?/i.test(label)) return 40;
+                            if (/^non-current liabilities?/i.test(label)) return 50;
+                            if (/owner(?:'|â€™)?s equity|\bcapital\b/i.test(label)) return 60;
+                            if (/total liabilities.*equity/i.test(label)) return 90;
+                            return 70;
+                        };
+                        rows = rows.map((row, index) => ({ ...row, index })).sort((a, b) => balanceRank(a.label) - balanceRank(b.label) || a.index - b.index);
+                    }
+
+                    const groupForRow = row => {
+                        if (type === 'balance') {
+                            if (/assets?/i.test(row.label) && !/liabilities/i.test(row.label)) return 'Assets';
+                            if (/liabilit/i.test(row.label) && !/equity/i.test(row.label)) return 'Liabilities';
+                            if (/equity|capital/i.test(row.label) && !/total liabilities/i.test(row.label)) return 'Owner\'s equity';
+                            if (/total liabilities.*equity/i.test(row.label)) return 'Accounting equation';
+                        }
+                        if (type === 'cash') {
+                            if (/operating/i.test(row.label)) return 'Operating activities';
+                            if (/investing/i.test(row.label)) return 'Investing activities';
+                            if (/financing/i.test(row.label)) return 'Financing activities';
+                            return 'Net change in cash';
+                        }
+                        return '';
+                    };
+                    const rowClass = row => {
+                        const label = row.label;
+                        const isTotal = type === 'balance'
+                            ? /^(?:total assets|total liabilities.*equity)$/i.test(label)
+                            : type === 'income'
+                                ? /^(?:net income|net income after tax)$/i.test(label)
+                                : type === 'cash'
+                                    ? /^net (?:increase|decrease) in cash|^ending cash/i.test(label)
+                                    : type === 'manufacturing'
+                                        ? /cost of goods manufactured|cost of goods sold|\bCOGM\b|\bCOGS\b/i.test(label)
+                                        : /ending (?:capital|equity)/i.test(label);
+                        if (isTotal) return ' pdf-revision-statement-row--total';
+                        if (/gross profit|operating income|income before tax|total current|owner(?:'|â€™)?s equity|net cash provided/i.test(label)) return ' pdf-revision-statement-row--subtotal';
+                        return '';
+                    };
+                    let lastGroup = '';
+                    const rowsHtml = rows.map(row => {
+                        const group = groupForRow(row);
+                        const groupHtml = group && group !== lastGroup
+                            ? '<div class="pdf-revision-statement-section">' + escapeRevisionHtml(group) + '</div>'
+                            : '';
+                        if (group) lastGroup = group;
+                        return groupHtml + '<div class="pdf-revision-statement-row' + rowClass(row) + '">' +
+                            '<span class="pdf-revision-statement-label">' + escapeRevisionHtml(row.label) +
+                            (row.note ? '<small class="pdf-revision-statement-note">' + escapeRevisionHtml(row.note) + '</small>' : '') + '</span>' +
+                            '<span class="pdf-revision-statement-amount">' + escapeRevisionHtml(row.amount) + '</span></div>';
+                    }).join('');
+
+                    const titleParts = title.split(/\s+[â€“â€”]\s+/);
+                    const company = titleParts.length > 1 ? titleParts.shift() : '';
+                    const displayTitle = titleParts.length ? titleParts.join(' â€” ') : title;
+                    const totalAssets = rows.find(row => /^total assets$/i.test(row.label));
+                    const totalEquation = rows.find(row => /^total liabilities.*equity$/i.test(row.label));
+                    const equationCheck = type === 'balance' && totalAssets && totalEquation && Math.abs(totalAssets.numericAmount - totalEquation.numericAmount) < .005
+                        ? '<div class="pdf-revision-statement-check"><span>âœ“ Accounting equation balances</span><span>' + escapeRevisionHtml(totalAssets.amount) + '</span></div>'
+                        : '';
+                    return '<div class="pdf-revision-statement pdf-revision-statement--' + type + '">' +
+                        '<header class="pdf-revision-statement-header"><span class="pdf-revision-statement-heading">' +
+                        (company ? '<small class="pdf-revision-statement-company">' + escapeRevisionHtml(company) + '</small>' : '') +
+                        '<strong class="pdf-revision-statement-title">' + escapeRevisionHtml(displayTitle.replace(/:\s*$/, '')) + '</strong></span>' +
+                        '<span class="pdf-revision-statement-badge">' + statementLabel(type) + '</span></header>' +
+                        '<div class="pdf-revision-statement-body">' + rowsHtml + equationCheck + '</div></div>';
+                };
+                const emitPendingStatementTitle = () => {
+                    if (!pendingStatementTitle) return;
+                    blocks.push('<p class="pdf-revision-paragraph">' + escapeRevisionHtml(pendingStatementTitle) + '</p>');
+                    pendingStatementTitle = '';
+                };
+                const journalBlock = value => {
+                    if (!/(?:\bDebit\b|\bCredit\b|\bDr\.|\bCr\.)/i.test(value)) return '';
+
+                    const amountPattern = '((?:RM|\\$)\\s*\\(?-?[\\d,]+(?:\\.\\d{1,2})?\\)?)';
+                    const records = [];
+                    const addRecord = (index, direction, account, amount) => {
+                        const normalizedDirection = /^(?:debit|dr)/i.test(direction) ? 'debit' : 'credit';
+                        const cleanedAccount = account
+                            .replace(/^\s*[:,;.-]+|\s*[:,;.-]+$/g, '')
+                            .replace(/\s+/g, ' ')
+                            .trim();
+                        if (!cleanedAccount || !amount) return;
+                        const numericAmount = Number(amount.replace(/[^\d.]/g, ''));
+                        if (!Number.isFinite(numericAmount)) return;
+                        const key = [index, normalizedDirection, cleanedAccount, numericAmount].join('|');
+                        if (records.some(record => record.key === key)) return;
+                        records.push({ key, index, direction: normalizedDirection, account: cleanedAccount, amount, numericAmount });
+                    };
+
+                    const prefixPattern = new RegExp('\\b(Debit|Credit|Dr\\.?|Cr\\.?)\\s+(.+?)' + amountPattern + '(?=\\s*[,;]\\s*(?:Debit|Credit|Dr\\.?|Cr\\.?)\\s+|\\s*\\.?$)', 'gi');
+                    let match;
+                    while ((match = prefixPattern.exec(value)) !== null) {
+                        addRecord(match.index, match[1], match[2], match[3]);
+                    }
+
+                    const suffixPattern = new RegExp('(?:^|[,;]\\s*)(.+?)\\s+(Dr\\.?|Cr\\.?)\\s+' + amountPattern + '(?=\\s*[,;]|\\s*\\.?$)', 'gi');
+                    while ((match = suffixPattern.exec(value)) !== null) {
+                        let account = match[1].trim();
+                        let entryTitle = '';
+                        const colonAt = account.lastIndexOf(':');
+                        if (colonAt >= 0) {
+                            entryTitle = account.slice(0, colonAt).trim();
+                            account = account.slice(colonAt + 1).trim();
+                        }
+                        addRecord(match.index, match[2], account, match[3]);
+                        if (entryTitle && !records.entryTitle) records.entryTitle = entryTitle;
+                    }
+
+                    records.sort((a, b) => a.index - b.index);
+                    const debitRecords = records.filter(record => record.direction === 'debit');
+                    const creditRecords = records.filter(record => record.direction === 'credit');
+                    if (!debitRecords.length || !creditRecords.length || records.length < 2) return '';
+
+                    const firstDirectionAt = value.search(/\b(?:Debit|Credit|Dr\.?|Cr\.?)\b/i);
+                    let title = records.entryTitle || (firstDirectionAt > 0 ? value.slice(0, firstDirectionAt) : '');
+                    title = title.replace(/\s*[:;,.-]+\s*$/, '').trim();
+                    if (!title || title.length > 110) title = 'Journal entry';
+
+                    const debitTotal = debitRecords.reduce((total, record) => total + record.numericAmount, 0);
+                    const creditTotal = creditRecords.reduce((total, record) => total + record.numericAmount, 0);
+                    const balanced = Math.abs(debitTotal - creditTotal) < 0.005;
+                    const currency = records[0].amount.trim().startsWith('$') ? '$' : 'RM';
+                    const hasDecimals = records.some(record => !Number.isInteger(record.numericAmount));
+                    const formatAmount = amount => currency + amount.toLocaleString('en-MY', {
+                        minimumFractionDigits: hasDecimals ? 2 : 0,
+                        maximumFractionDigits: 2
+                    });
+                    const rowHtml = records.map(record => {
+                        const accountClass = 'pdf-revision-journal-account' + (record.direction === 'credit' ? ' pdf-revision-journal-account--credit' : '');
+                        return '<div class="pdf-revision-journal-row">' +
+                            '<span class="' + accountClass + '">' + escapeRevisionHtml(record.account) + '</span>' +
+                            (record.direction === 'debit'
+                                ? '<span class="pdf-revision-journal-amount">' + escapeRevisionHtml(record.amount) + '</span><span></span>'
+                                : '<span></span><span class="pdf-revision-journal-amount">' + escapeRevisionHtml(record.amount) + '</span>') +
+                            '</div>';
+                    }).join('');
+
+                    return '<div class="pdf-revision-journal-card">' +
+                        '<div class="pdf-revision-journal-header"><span class="pdf-revision-journal-title">' + escapeRevisionHtml(title) + '</span>' +
+                        '<span class="pdf-revision-journal-badge">' + (balanced ? 'Balanced' : 'Check totals') + '</span></div>' +
+                        '<div class="pdf-revision-journal-table">' +
+                        '<div class="pdf-revision-journal-row pdf-revision-journal-head"><span>Account</span><span>Debit</span><span>Credit</span></div>' +
+                        rowHtml +
+                        '<div class="pdf-revision-journal-row pdf-revision-journal-total"><span class="pdf-revision-journal-account">Total</span>' +
+                        '<span class="pdf-revision-journal-amount">' + formatAmount(debitTotal) + '</span>' +
+                        '<span class="pdf-revision-journal-amount">' + formatAmount(creditTotal) + '</span></div>' +
+                        '</div></div>';
+                };
                 const flushParagraph = () => {
                     if (!paragraph.length) return;
                     const value = smartJoin(paragraph);
-                    if (isFormula(value)) {
+                    if (isStatementTitle(value)) {
+                        emitPendingStatementTitle();
+                        pendingStatementTitle = value;
+                        paragraph = [];
+                        return;
+                    }
+                    emitPendingStatementTitle();
+                    if (value.length < 120 && !/[.!?]$/.test(value)) {
+                        if (recentQuestionSubject && /^(?:Company|Enterprise|Trading|Berhad|Group(?: of Companies)?)$/i.test(value)) {
+                            recentContext = recentQuestionSubject + ' ' + value;
+                            recentQuestionSubject = '';
+                        } else {
+                            recentContext = value;
+                        }
+                    }
+                    const journal = journalBlock(value);
+                    if (journal) {
+                        blocks.push(journal);
+                    } else if (isFormula(value)) {
                         blocks.push(formulaBlock(value));
                     } else if (/^(?:Assessment|Exam Preparation Notice|Remember|Always check|Key insight|Vertical Analysis Insights)/i.test(value)) {
                         const splitAt = value.indexOf(':');
@@ -14327,15 +14611,47 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                     paragraph = [];
                 };
                 const flushList = () => {
-                    if (!listItems.length) return;
-                    const modifier = listType === 'numbered'
+                    if (!listItems.length) {
+                        emitPendingStatementTitle();
+                        return;
+                    }
+                    if (listItems.length === 1 && isStatementTitle(listItems[0])) {
+                        emitPendingStatementTitle();
+                        pendingStatementTitle = listItems[0];
+                        listItems = [];
+                        return;
+                    }
+                    const inferredStatementType = inferStatementType(listItems);
+                    const explicitStatementType = statementTypeFromTitle(pendingStatementTitle);
+                    const activeStatementType = explicitStatementType || inferredStatementType;
+                    if (activeStatementType) {
+                        const inferredTitle = (recentContext && recentContext.length < 80 ? recentContext + ' â€” ' : '') + statementLabel(activeStatementType);
+                        const statement = statementBlock(pendingStatementTitle || inferredTitle, listItems, activeStatementType);
+                        if (statement) {
+                            blocks.push(statement);
+                            pendingStatementTitle = '';
+                            listItems = [];
+                            return;
+                        }
+                    }
+                    emitPendingStatementTitle();
+                    const renderedItems = listItems.map(item => {
+                        const journal = journalBlock(item);
+                        return journal
+                            ? '<li class="pdf-revision-journal-item">' + journal + '</li>'
+                            : '<li>' + escapeRevisionHtml(item) + '</li>';
+                    });
+                    const hasJournalEntries = renderedItems.some(item => item.includes('pdf-revision-journal-item'));
+                    const modifier = hasJournalEntries
+                        ? ' pdf-revision-list--journal'
+                        : listType === 'numbered'
                         ? ' pdf-revision-list--numbered'
                         : listType === 'nested'
                             ? ' pdf-revision-list--nested'
                             : '';
                     const tag = listType === 'numbered' ? 'ol' : 'ul';
                     blocks.push('<' + tag + ' class="pdf-revision-list' + modifier + '">' +
-                        listItems.map(item => '<li>' + escapeRevisionHtml(item) + '</li>').join('') +
+                        renderedItems.join('') +
                         '</' + tag + '>');
                     listItems = [];
                 };
@@ -14374,9 +14690,20 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                             lines[continuationIndex] = '';
                         }
                     }
+                    if (/^1\.3 The Accounting Cycle & Trial Balance Error$/i.test(line) && /^Methods$/i.test(nextMeaningfulLine(index))) {
+                        const continuationIndex = lines.findIndex((candidate, candidateIndex) => candidateIndex > index && /^Methods$/i.test(candidate));
+                        if (continuationIndex > index) {
+                            line += ' ' + lines[continuationIndex];
+                            lines[continuationIndex] = '';
+                        }
+                    }
                     if (isHeading(line)) {
                         flushParagraph();
                         flushList();
+                        if (isQuestion(line)) {
+                            const subjectMatch = line.match(/\):\s*(.+)$/);
+                            recentQuestionSubject = subjectMatch ? subjectMatch[1].trim() : '';
+                        }
                         const headingClass = isMajorHeading(line)
                             ? 'pdf-revision-heading'
                             : isQuestion(line)
@@ -14397,6 +14724,8 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                                 index = continuationIndex;
                             }
                         }
+                        const subjectMatch = line.match(/\):\s*(.+)$/);
+                        recentQuestionSubject = subjectMatch ? subjectMatch[1].trim() : '';
                         blocks.push('<h4 class="pdf-revision-question">' + escapeRevisionHtml(line) + '</h4>');
                         continue;
                     }
@@ -14425,7 +14754,28 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
                         }
                         const steps = [...flowLines.join(' ').matchAll(/\[([^\]]+)\]/g)].map(match => match[1].replace(/\s+/g, ' ').trim());
                         if (steps.length) {
-                            blocks.push('<div class="pdf-revision-flow" aria-label="Accounting cycle">' + steps.map(step => '<div class="pdf-revision-flow-step">' + escapeRevisionHtml(step) + '</div>').join('') + '</div>');
+                            const orderedSteps = [...steps].sort((first, second) => parseInt(first, 10) - parseInt(second, 10));
+                            const cycleDefinition = [
+                                'flowchart TB',
+                                'subgraph upper[" "]',
+                                'direction LR',
+                                'S1(["1. Identify & Analyze<br/>Transactions"]) --> S2(["2. Journalize<br/>Entries"]) --> S3(["3. Post to the<br/>General Ledger"]) --> S4(["4. Unadjusted<br/>Trial Balance"])',
+                                'end',
+                                'subgraph lower[" "]',
+                                'direction RL',
+                                'S5(["5. Adjusted<br/>Trial Balance"]) --> S6(["6. Prepare Financial<br/>Statements"]) --> S7(["7. Journalize & Post<br/>Closing Entries"]) --> S8(["8. Post-Closing<br/>Trial Balance"])',
+                                'end',
+                                'S4 --> S5',
+                                'S8 -. New accounting period .-> S1',
+                                'classDef cycle fill:#ffffff,stroke:#2563eb,stroke-width:2px,color:#172554,font-weight:700',
+                                'class S1,S2,S3,S4,S5,S6,S7,S8 cycle',
+                                'style upper fill:transparent,stroke:transparent',
+                                'style lower fill:transparent,stroke:transparent'
+                            ].join('\n');
+                            blocks.push('<div class="revision-cycle-shell" aria-label="Circular accounting cycle">' +
+                                '<div class="revision-mermaid">' + escapeRevisionHtml(cycleDefinition) + '</div>' +
+                                '<div class="pdf-revision-flow revision-cycle-fallback">' + orderedSteps.map(step => '<div class="pdf-revision-flow-step">' + escapeRevisionHtml(step) + '</div>').join('') + '</div>' +
+                                '</div>');
                         }
                         index = cursor - 1;
                         continue;
@@ -14525,6 +14875,9 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
             }
 
             if (tabId === 'financials') setTimeout(renderChart, 100);
+            if (tabId === 'prep_pdf_revision_notebook') {
+                requestAnimationFrame(() => window.renderRevisionMermaid?.());
+            }
         }
 
         function showWorkflow(wfId, btnElement) {
@@ -15419,6 +15772,47 @@ reports are for internal managers (no GAAP, future-focused, divisional).</pre>
             calcFreeCashFlow();
             calcUnitCost();
         };
+    </script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+            startOnLoad: false,
+            securityLevel: 'strict',
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#ffffff',
+                primaryTextColor: '#172554',
+                primaryBorderColor: '#2563eb',
+                lineColor: '#60a5fa',
+                secondaryColor: '#eff6ff',
+                tertiaryColor: '#fffbeb',
+                fontFamily: 'ui-sans-serif, system-ui, sans-serif'
+            },
+            flowchart: {
+                curve: 'basis',
+                htmlLabels: true,
+                useMaxWidth: true,
+                nodeSpacing: 28,
+                rankSpacing: 38
+            }
+        });
+
+        window.renderRevisionMermaid = async () => {
+            const nodes = [...document.querySelectorAll('.revision-mermaid:not([data-processed="true"])')];
+            if (!nodes.length) return;
+            try {
+                await mermaid.run({ nodes });
+                nodes.forEach(node => node.closest('.revision-cycle-shell')?.classList.add('is-rendered'));
+            } catch (error) {
+                console.warn('Accounting cycle diagram could not render; showing the accessible fallback.', error);
+            }
+        };
+
+        const revisionSection = document.getElementById('sec-prep_pdf_revision_notebook');
+        if (revisionSection && !revisionSection.classList.contains('hidden')) {
+            requestAnimationFrame(() => window.renderRevisionMermaid());
+        }
     </script>
 </body>
 </html>
